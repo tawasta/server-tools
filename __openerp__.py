@@ -22,7 +22,7 @@
         'mail'
     ],
     'description': """
-IR Attachment Extension
+Mail Blacklist
 ===================================
 * Allows blacklisting outgoing mail addresses
 * TODO: outgoing mail domains
