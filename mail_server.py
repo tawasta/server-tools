@@ -1,5 +1,6 @@
 from openerp.osv import osv
 from openerp import tools
+from openerp import SUPERUSER_ID
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -14,8 +15,8 @@ class ir_mail_server(osv.Model):
         
         ''' Get the blacklist '''
         blacklist_obj = self.pool.get('mail.blacklist')
-        blacklist_ids = blacklist_obj.search(cr, uid, [('type','=','outgoing')])
-        blacklist_items = blacklist_obj.browse(cr, uid, blacklist_ids)
+        blacklist_ids = blacklist_obj.search(cr, SUPERUSER_ID, [('type','=','outgoing')])
+        blacklist_items = blacklist_obj.browse(cr, SUPERUSER_ID, blacklist_ids)
         
         blacklist = []
         for blacklist_item in blacklist_items:
