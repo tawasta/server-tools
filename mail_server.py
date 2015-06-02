@@ -32,8 +32,13 @@ class ir_mail_server(osv.Model):
             email_list += message['Bcc'].split(",")
         
         for email in email_list:
-            address = tools.email_split(email)[0]
-            if any(address in s for s in blacklist):
+            try:
+                address = tools.email_split(email)[0]
+            except IndexError:
+                address = False
+                _logger.warn('Invalid email: "%s"', email)
+                
+            if address and any(address in s for s in blacklist):
                 _logger.warning("'%s' is blacklisted! Did not send mail", email)
                 return False
         
