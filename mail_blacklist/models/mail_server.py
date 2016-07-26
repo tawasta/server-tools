@@ -7,6 +7,7 @@
 # 3. Odoo imports (openerp):
 from openerp import api, fields, models
 from openerp import tools
+from openerp import _
 
 # 4. Imports from Odoo modules:
 
@@ -40,15 +41,31 @@ class IrMailserver(models.Model):
 
         # Block outgoing mails if they have blacklisted addresses
 
+        MailBlacklist = self.env['mail.blacklist']
+
+        # Get the whitelist
+        whitelist = list()
+        whitelist_items = MailBlacklist.sudo().search([('type', '=', 'whitelist')])
+
+        for whitelist_item in whitelist_items:
+            whitelist.append(whitelist_item.name)
+
+        if whitelist:
+            _logger.debug("Whitelist: %s", (', '.join(whitelist)))
+
         # Get the blacklist
-        blacklist_obj = self.env['mail.blacklist']
-        blacklist_items = blacklist_obj.sudo().search([])
+        blacklist = list()
 
-        blacklist = []
-        for blacklist_item in blacklist_items:
-            blacklist.append(blacklist_item.name)
+        if not whitelist:
+            # Don't get blacklist items if there are whitelist items
+            blacklist_items = MailBlacklist.sudo().search([('type', '=', 'blacklist')])
+            for blacklist_item in blacklist_items:
+                blacklist.append(blacklist_item.name)
 
-        email_list = []
+        if blacklist:
+            _logger.debug("Blacklist: %s", (', '.join(blacklist)))
+
+        email_list = list()
 
         if message['To']:
             email_list += message['To'].split(",")
@@ -57,15 +74,37 @@ class IrMailserver(models.Model):
         if message['Bcc']:
             email_list += message['Bcc'].split(",")
 
+        if email_list:
+            _logger.debug("Emails: %s", (', '.join(email_list)))
+
         for email in email_list:
             try:
                 address = tools.email_split(email)[0]
+                domain = "@" + address.split("@")[1]
+
             except IndexError:
                 address = False
                 _logger.warn('Invalid email: "%s"', email)
 
-            if address and any(address in s for s in blacklist):
-                _logger.warning("'%s' is blacklisted! Did not send mail", email)
+            errors = list()
+
+            if not address:
+                continue
+
+            if whitelist:
+                if not any(domain in s for s in whitelist) and not any(address in s for s in whitelist):
+                    msg = _("'%s' is not whitelisted! Did not send mail") % email
+                    errors.append(msg)
+
+            elif blacklist:
+                if address and any(address in s for s in blacklist):
+                    msg = _("'%s' is blacklisted! Did not send mail") % email
+                    errors.append(msg)
+
+            for error in errors:
+                _logger.warning(error)
+
+            if errors:
                 return False
 
         return super(IrMailserver, self).send_email(

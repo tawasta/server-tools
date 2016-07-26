@@ -6,6 +6,8 @@
 Mail Blacklist
 ==============
 
+WARNING! Experiemental module. Do not use in production!
+
 * Only allow sending or receiving mail from whitelisted addresses or domains.
 * Block sending or receiving mail from blacklisted addresses or domains
 
@@ -27,6 +29,8 @@ Known issues / Roadmap
 * TODO: outgoing mail domains
 * TODO: incoming mail addresses
 * TODO: incoming mail domains
+* TODO: handle unsent mails (logging)
+* TODO: improve the whole logic (it was designed to support outgoing spesific addresses only)
 
 Credits
 =======
