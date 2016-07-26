@@ -31,6 +31,6 @@ Mail Blacklist
 
 """,
     'data': [
-        'view/mail_blacklist_menu.xml',
+        'views/mail_blacklist_menu.xml',
     ],
 }
