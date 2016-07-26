@@ -1,5 +1,5 @@
-Sales management
-================
+Server Tools
+============
 
 [//]: # (addons)
 

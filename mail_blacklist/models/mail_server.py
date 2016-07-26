@@ -40,7 +40,7 @@ class IrMailserver(models.Model):
 
         # Block outgoing mails if they have blacklisted addresses
 
-        # Get the blacklist '''
+        # Get the blacklist
         blacklist_obj = self.env['mail.blacklist']
         blacklist_items = blacklist_obj.sudo().search([])
 

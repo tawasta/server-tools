@@ -7,7 +7,6 @@
 # 3. Odoo imports (openerp):
 from openerp import api, fields, models
 
-
 # 4. Imports from Odoo modules:
 
 # 5. Local imports in the relative form:
@@ -23,7 +22,10 @@ class MailBlacklist(models.Model):
     name = fields.Char('Email address or domain')
     description = fields.Text('Description (e.g. reason this address is on the list')
     type = fields.Selection(
-        [('outgoing', 'Outgoing'), ('incoming', 'Incoming')],
+        [('blacklist', 'Blacklist'), ('whitelist', 'Whitelist')]
+    )
+    direction = fields.Selection(
+        [('outgoing', 'Outgoing'), ('incoming', 'Incoming'), ('both', 'Both')],
         'Blacklist type', required=True)
 
     # 3. Default methods

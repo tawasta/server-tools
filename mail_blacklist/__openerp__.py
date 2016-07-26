@@ -20,9 +20,9 @@
 ##############################################################################
 
 {
-    'name': 'Module name',
-    'summary': 'Module summary',
-    'version': '8.0.0.2.2',
+    'name': 'Mail Blacklist',
+    'summary': 'Filter incoming and outgoing mail by address or domain',
+    'version': '8.0.0.2.3',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
