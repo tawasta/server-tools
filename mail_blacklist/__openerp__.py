@@ -1,36 +1,44 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#   Copyright (c) 2015- Vizucom Oy (http://www.vizucom.com)
+#    Author: Oy Tawasta OS Technologies Ltd.
+#    Copyright 2016 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
 #
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#    GNU Affero General Public License for more details.
+#
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-{
-    'name': 'Mail blacklist',
-    'category': 'Tools',
-    'version': '0.1',
-    'author': 'Vizucom Oy',
-    'website': 'http://www.vizucom.com',
-    'depends': [
-        'mail'
-    ],
-    'description': """
-Mail Blacklist
-===================================
-* Allows blacklisting outgoing mail addresses
-* TODO: outgoing mail domains
-* TODO: incoming mail addresses
-* TODO: incoming mail domains
 
-""",
+{
+    'name': 'Module name',
+    'summary': 'Module summary',
+    'version': '8.0.0.2.0',
+    'category': 'Tools',
+    'website': 'http://www.tawasta.fi',
+    'author': 'Oy Tawasta Technologies Ltd.',
+    'license': 'AGPL-3',
+    'application': False,
+    'installable': True,
+    'external_dependencies': {
+        'python': [],
+        'bin': [],
+    },
+    'depends': [
+        'mail',
+    ],
     'data': [
         'views/mail_blacklist_menu.xml',
+    ],
+    'demo': [
     ],
 }
