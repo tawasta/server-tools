@@ -22,7 +22,7 @@
 {
     'name': 'Mail BCC',
     'summary': 'Send all outgoing mail to a BCC address',
-    'version': '8.0.0.1.0',
+    'version': '8.0.0.1.1',
     'category': 'Tools',
     'website': 'http://Tools.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
