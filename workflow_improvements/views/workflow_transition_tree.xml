@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="view_workflow_transition_tree" model="ir.ui.view">
+			<field name="name">view.workflow.transition.tree.improved</field>
+			<field name="model">workflow.transition</field>
+			<field name="inherit_id" ref="base.view_workflow_transition_tree" />
+			<field name="arch" type="xml">
+
+				<field name="sequence" position="after">
+					<field name="act_from_wkf" />
+				</field>
+
+			</field>
+		</record> 
+
+	</data>
+</openerp>

@@ -14,16 +14,15 @@ from openerp import api, fields, models
 # 6. Unknown third party imports:
 
 
-class WorkflowWorkitem(models.Model):
+class WorkflowTransition(models.Model):
     
     # 1. Private attributes
-    _inherit = 'workflow.workitem'
-    _order='id DESC'
+    _inherit = 'workflow.transition'
 
     # 2. Fields declaration
-    instance_resource_id = fields.Integer(
-        "Resource id",
-        compute='compute_instance_resource_id',
+    act_from_wkf = fields.Char(
+        "Workflow",
+        compute='compute_act_from_wkf',
         store=False,
     )
 
@@ -31,9 +30,9 @@ class WorkflowWorkitem(models.Model):
 
     # 4. Compute and search fields, in the same order that fields declaration
     @api.multi
-    def compute_instance_resource_id(self):
+    def compute_act_from_wkf(self):
         for record in self:
-            record.instance_resource_id = record.inst_id.res_id
+            record.act_from_wkf = record.act_from.wkf_id.name
 
     # 5. Constraints and onchanges
 

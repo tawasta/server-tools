@@ -22,7 +22,7 @@
 {
     'name': 'Workflow improvements',
     'summary': 'Generic workflow improvements',
-    'version': '8.0.0.2.0',
+    'version': '8.0.0.3.0',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -37,6 +37,8 @@
         'base',
     ],
     'data': [
+        'views/workflow_transition_form.xml',
+        'views/workflow_transition_tree.xml',
         'views/workflow_workitem_form.xml',
         'views/workflow_workitem_tree.xml',
     ],
