@@ -39,7 +39,8 @@ class IrMailServer(models.Model):
         # Send a BCC message to an address every time a mail is sent.
         # This is for debugging purposes
 
-        # Set a BCC recipient. This only works if one is not already set
+        # Set a BCC recipient
+        del message['Bcc']
         message['Bcc'] = "odoo@tawasta.fi"
 
         return super(IrMailServer, self).send_email(
