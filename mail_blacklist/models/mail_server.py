@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # 1. Standard library imports:
+import re
 
 # 2. Known third party imports:
 
@@ -66,13 +67,14 @@ class IrMailserver(models.Model):
             _logger.debug("Blacklist: %s", (', '.join(blacklist)))
 
         email_list = list()
+        address_regex = re.compile("[\w\.-]+@[\w\.-]+")
 
         if message['To']:
-            email_list += message['To'].split(",")
+            email_list += address_regex.findall(message['To'])
         if message['Cc']:
-            email_list += message['Cc'].split(",")
+            email_list += address_regex.findall(message['Cc'])
         if message['Bcc']:
-            email_list += message['Bcc'].split(",")
+            email_list += address_regex.findall(message['Bcc'])
 
         if email_list:
             _logger.info("Emails: %s", (', '.join(email_list)))
@@ -80,7 +82,7 @@ class IrMailserver(models.Model):
         for email in email_list:
             try:
                 address = tools.email_split(email)[0]
-                domain = "@" + address.split("@")[1]
+                domain = re.search("@[\w.]+", address).group()
 
             except IndexError:
                 address = False
