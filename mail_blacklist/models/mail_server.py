@@ -75,7 +75,7 @@ class IrMailserver(models.Model):
             email_list += message['Bcc'].split(",")
 
         if email_list:
-            _logger.debug("Emails: %s", (', '.join(email_list)))
+            _logger.info("Emails: %s", (', '.join(email_list)))
 
         for email in email_list:
             try:

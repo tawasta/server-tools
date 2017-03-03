@@ -22,7 +22,7 @@
 {
     'name': 'Mail Blacklist',
     'summary': 'Filter incoming and outgoing mail by address or domain',
-    'version': '8.0.0.3.0',
+    'version': '8.0.0.3.1',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
