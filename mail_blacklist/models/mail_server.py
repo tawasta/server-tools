@@ -79,9 +79,6 @@ class IrMailserver(models.Model):
         # Remove duplicates
         email_list = list(set(email_list))
 
-        if email_list:
-            _logger.info("Emails: %s", (', '.join(email_list)))
-
         for email in email_list:
             try:
                 address = tools.email_split(email)[0]
