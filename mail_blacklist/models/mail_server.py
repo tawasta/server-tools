@@ -76,6 +76,9 @@ class IrMailserver(models.Model):
         if message['Bcc']:
             email_list += address_regex.findall(message['Bcc'])
 
+        # Remove duplicates
+        email_list = list(set(email_list))
+
         if email_list:
             _logger.info("Emails: %s", (', '.join(email_list)))
 
