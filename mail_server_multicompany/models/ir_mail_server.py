@@ -71,6 +71,7 @@ class IrMailserver(models.Model):
                     model = self.env[model_name]
                     model_instance = model.browse([int(model_instance_id)])
 
+                    # Try different field names
                     if hasattr(model_instance, 'company_id'):
                         company_id = company = getattr(model_instance, 'company_id').id
                     elif hasattr(model_instance, 'company'):
@@ -82,6 +83,7 @@ class IrMailserver(models.Model):
                     _logger.warning(e)
                     company_id = False
 
+            # Get a company-spesifitc mail server if one exists
             mail_server = self.env['ir.mail_server'].search([
                 ('company', '=', company_id)
             ], limit=1, order='sequence DESC')

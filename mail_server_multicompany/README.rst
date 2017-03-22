@@ -15,7 +15,8 @@ Install the module form Settings->Local Modules
 
 Configuration
 =============
-\-
+You should have a company-spesific outgoing email server for each company you have in your system.
+If one is not found, outgoing mail servers will be used in a normal priority order.
 
 Usage
 =====
