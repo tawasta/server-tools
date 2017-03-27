@@ -42,7 +42,7 @@ class IrMailserver(models.Model):
         if not mail_server_id:
             # Use mail message id meta information for getting the sending company
             # TODO: could this be done with more reliable way?
-            references = message['references']
+            references = message['Message-Id']
 
             # Remove the hostname part
             try:
