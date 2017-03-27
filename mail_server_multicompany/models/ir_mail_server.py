@@ -83,13 +83,13 @@ class IrMailserver(models.Model):
                     _logger.warning(e)
                     company_id = False
 
-            # Get a company-spesifitc mail server if one exists
-            mail_server = self.env['ir.mail_server'].search([
-                ('company', '=', company_id)
-            ], limit=1, order='sequence DESC')
+                # Get a company-spesifitc mail server if one exists
+                mail_server = self.env['ir.mail_server'].search([
+                    ('company', '=', company_id)
+                ], limit=1, order='sequence DESC')
 
-            if mail_server:
-                mail_server_id = mail_server.id
+                if mail_server:
+                    mail_server_id = mail_server.id
 
         return super(IrMailserver, self).send_email(
             message, mail_server_id, smtp_server, smtp_port,
