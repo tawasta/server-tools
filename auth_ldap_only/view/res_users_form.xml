@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_users_form_ldap_bypass">
+			<field name="name">Users LDAP Bypass</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form"/>
+			
+			<field name="arch" type="xml">
+			
+				<field name="in_group_1" position="after">
+					<field name="ldap_bypass" />
+				</field>
+
+			</field>
+		</record>
+	</data>
+</openerp>
