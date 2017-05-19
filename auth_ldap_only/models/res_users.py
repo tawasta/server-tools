@@ -47,6 +47,7 @@ class ResUsers(models.Model):
             cr = registry().cursor()
             cr.execute('SELECT login FROM res_users WHERE id=%s AND active=TRUE', (int(self._uid),))
             res = cr.fetchone()
+            cr.close()
 
             if res:
                 Ldap = self.env['res.company.ldap']

@@ -22,7 +22,7 @@
 {
     'name': 'Auth LDAP only',
     'summary': 'Authentication via LDAP Only',
-    'version': '8.0.1.1.0',
+    'version': '8.0.1.1.1',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',
