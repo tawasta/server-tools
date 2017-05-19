@@ -37,7 +37,7 @@
         'auth_ldap',
     ],
     'data': [
-        'views/res_users_form.xml',
+        'security/res_users.xml',
     ],
     'demo': [
     ],
