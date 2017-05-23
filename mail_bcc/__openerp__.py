@@ -22,13 +22,13 @@
 {
     'name': 'Mail BCC',
     'summary': 'Send all outgoing mail to a BCC address',
-    'version': '8.0.0.2.0',
+    'version': '9.0.0.2.0',
     'category': 'Tools',
     'website': 'http://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
-    'installable': True,
+    'installable': False,
     'external_dependencies': {
         'python': [],
         'bin': [],

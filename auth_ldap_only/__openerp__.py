@@ -22,13 +22,13 @@
 {
     'name': 'Auth LDAP only',
     'summary': 'Authentication via LDAP Only',
-    'version': '8.0.1.1.1',
+    'version': '9.0.1.1.1',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',
     'license': 'AGPL-3',
     'application': False,
-    'installable': True,
+    'installable': False,
     'external_dependencies': {
         'python': [],
         'bin': [],

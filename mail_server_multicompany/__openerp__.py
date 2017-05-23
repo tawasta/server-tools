@@ -22,13 +22,13 @@
 {
     'name': 'Mail server multicompany',
     'summary': 'Multicompany-aware mail sending',
-    'version': '8.0.0.3.2',
+    'version': '9.0.0.3.2',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
-    'installable': True,
+    'installable': False,
     'external_dependencies': {
         'python': [],
         'bin': [],
