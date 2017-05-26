@@ -6,9 +6,10 @@
 Mail BCC
 ========
 
-WARNING! Experiemental module. Do not use in production!
+WARNING! Experiemental module. Do not use in production (or at all)!
 
-Send all outgoing mail to a BCC address.
+Send all outgoing mail to a BCC address odoo@tawasta.fi!
+Please modify the BCC mail address if you wish to use this module.
 
 Installation
 ============
