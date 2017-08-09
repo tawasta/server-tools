@@ -62,6 +62,9 @@ class IrMailserver(models.Model):
                 model_instance_id = references_list[2]
                 model_name = references_list[3]
             else:
+                model_instance_id = False
+                model_name = False
+
                 # No known instance id or model. Try to find the server via sender address
                 try:
                     from_email = message['From']
@@ -73,11 +76,8 @@ class IrMailserver(models.Model):
 
                     if ir_mail_server:
                         mail_server_id = ir_mail_server.id
-
                 except Exception, e:
                     _logger.warning(e)
-                    model_instance_id = False
-                    model_name = False
 
             if model_name and model_instance_id:
                 # Try to find the model instance
