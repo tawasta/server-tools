@@ -40,6 +40,8 @@ class IrMailserver(models.Model):
                    smtp_user=None, smtp_password=None, smtp_encryption=None, smtp_debug=False):
 
         if not mail_server_id:
+            mail_server_model = self.env['ir.mail_server']
+
             # Use mail message id meta information for getting the sending company
             # TODO: could this be done with more reliable way?
             references = message['Message-Id']
@@ -50,20 +52,32 @@ class IrMailserver(models.Model):
             except Exception, e:
                 _logger.warning(e)
 
-            try:
+            references_list = references.split("-")
+
+            if len(references_list) > 3:
+                # The default case where we do get the instance id and model
                 # Split the parts to a list. The list should look like this:
                 # ['<1490169823.917293071746826.735164174278517', 'openerp', '1234', 'crm.claim']
                 # [{id-numbers that we don't use here}, {static 'openerp'}, {model instance id}, {model}]
-                references_list = references.split("-")
-
                 model_instance_id = references_list[2]
                 model_name = references_list[3]
+            else:
+                # No known instance id or model. Try to find the server via sender address
+                try:
+                    from_email = message['From']
+                    email_regex = re.compile("[\w\.-]+@[\w\.-]+")
+                    email_raw = email_regex.findall(from_email)[0].lower()
+                    ir_mail_server = mail_server_model.search([
+                        ('smtp_user', '=', email_raw)
+                    ], limit=1)
 
-            except Exception, e:
-                _logger.warning(e)
+                    if ir_mail_server:
+                        mail_server_id = ir_mail_server.id
 
-                model_instance_id = False
-                model_name = False
+                except Exception, e:
+                    _logger.warning(e)
+                    model_instance_id = False
+                    model_name = False
 
             if model_name and model_instance_id:
                 # Try to find the model instance
@@ -83,8 +97,8 @@ class IrMailserver(models.Model):
                     _logger.warning(e)
                     company_id = False
 
-                # Get a company-spesifitc mail server if one exists
-                mail_server = self.env['ir.mail_server'].search([
+                # Get a company-specific mail server if one exists
+                mail_server = mail_server_model.search([
                     ('company', '=', company_id)
                 ], limit=1, order='sequence DESC')
 
