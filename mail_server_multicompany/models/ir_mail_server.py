@@ -74,6 +74,7 @@ class IrMailserver(models.Model):
                     from_email = message['From']
                     email_regex = re.compile("[\w\.-]+@[\w\.-]+")
                     email_raw = email_regex.findall(from_email)[0].lower()
+                    _logger.info('Trying to find a server for "%s"' % email_raw)
                     ir_mail_server = mail_server_model.search([
                         ('smtp_user', '=', email_raw)
                     ], limit=1)
@@ -81,6 +82,8 @@ class IrMailserver(models.Model):
                     if ir_mail_server:
                         _logger.info('Found server. Using %s' % ir_mail_server.name)
                         mail_server_id = ir_mail_server.id
+                    else:
+                        _logger.info('No server found. Using the default outgoing server if one is set.')
                 except Exception, e:
                     _logger.warning(e)
 
