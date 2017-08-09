@@ -22,7 +22,7 @@
 {
     'name': 'Mail server multicompany',
     'summary': 'Multicompany-aware mail sending',
-    'version': '8.0.0.4.1',
+    'version': '8.0.0.4.2',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

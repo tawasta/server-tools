@@ -40,6 +40,7 @@ class IrMailserver(models.Model):
                    smtp_user=None, smtp_password=None, smtp_encryption=None, smtp_debug=False):
 
         if not mail_server_id:
+            _logger.info('No mail_server_id. Trying to guess one')
             mail_server_model = self.env['ir.mail_server']
 
             # Use mail message id meta information for getting the sending company
@@ -55,6 +56,8 @@ class IrMailserver(models.Model):
             references_list = references.split("-")
 
             if len(references_list) > 3:
+                _logger.info('Using Message-Id for matching')
+
                 # The default case where we do get the instance id and model
                 # Split the parts to a list. The list should look like this:
                 # ['<1490169823.917293071746826.735164174278517', 'openerp', '1234', 'crm.claim']
@@ -62,6 +65,7 @@ class IrMailserver(models.Model):
                 model_instance_id = references_list[2]
                 model_name = references_list[3]
             else:
+                _logger.info('Using sender for matching')
                 model_instance_id = False
                 model_name = False
 
@@ -75,6 +79,7 @@ class IrMailserver(models.Model):
                     ], limit=1)
 
                     if ir_mail_server:
+                        _logger.info('Found server. Using %s' % ir_mail_server.name)
                         mail_server_id = ir_mail_server.id
                 except Exception, e:
                     _logger.warning(e)
