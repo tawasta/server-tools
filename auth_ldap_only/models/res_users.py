@@ -5,10 +5,10 @@
 # 2. Known third party imports:
 
 # 3. Odoo imports (openerp):
-from openerp import api, fields, models
-from openerp import registry
-from openerp import SUPERUSER_ID
-from openerp.exceptions import AccessDenied
+from odoo import api, fields, models
+from odoo import registry
+from odoo import SUPERUSER_ID
+from odoo.exceptions import AccessDenied
 
 
 # 4. Imports from Odoo modules:
