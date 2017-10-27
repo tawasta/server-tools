@@ -20,11 +20,11 @@
 ##############################################################################
 
 {
-    'name': 'Mail server multicompany',
-    'summary': 'Multicompany-aware mail sending',
-    'version': '9.0.0.3.2',
+    'name': 'Mail BCC',
+    'summary': 'Send all outgoing mail to a BCC address',
+    'version': '10.0.0.2.0',
     'category': 'Tools',
-    'website': 'http://www.tawasta.fi',
+    'website': 'http://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
@@ -34,10 +34,9 @@
         'bin': [],
     },
     'depends': [
-        'mail',
+        'fetchmail',
     ],
     'data': [
-        'views/ir_mail_server.xml'
     ],
     'demo': [
     ],

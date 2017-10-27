@@ -20,11 +20,11 @@
 ##############################################################################
 
 {
-    'name': 'Mail BCC',
-    'summary': 'Send all outgoing mail to a BCC address',
-    'version': '9.0.0.2.0',
+    'name': 'Mail Blacklist',
+    'summary': 'Filter incoming and outgoing mail by address or domain',
+    'version': '10.0.0.3.3',
     'category': 'Tools',
-    'website': 'http://tawasta.fi',
+    'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
@@ -34,9 +34,10 @@
         'bin': [],
     },
     'depends': [
-        'fetchmail',
+        'mail',
     ],
     'data': [
+        'views/mail_blacklist_menu.xml',
     ],
     'demo': [
     ],

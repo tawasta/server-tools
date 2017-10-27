@@ -20,9 +20,9 @@
 ##############################################################################
 
 {
-    'name': 'Mail Blacklist',
-    'summary': 'Filter incoming and outgoing mail by address or domain',
-    'version': '9.0.0.3.3',
+    'name': 'Mail server multicompany',
+    'summary': 'Multicompany-aware mail sending',
+    'version': '10.0.0.3.2',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -37,7 +37,7 @@
         'mail',
     ],
     'data': [
-        'views/mail_blacklist_menu.xml',
+        'views/ir_mail_server.xml'
     ],
     'demo': [
     ],
