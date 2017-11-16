@@ -26,11 +26,12 @@ Usage
 
 Known issues / Roadmap
 ======================
+* TODO: whitelist and blacklist won't work together
 * TODO: outgoing mail domains
 * TODO: incoming mail addresses
 * TODO: incoming mail domains
 * TODO: handle unsent mails (logging)
-* TODO: improve the whole logic (it was designed to support outgoing spesific addresses only)
+* TODO: improve the whole logic (the module was initially designed to support outgoing specific addresses only)
 
 Credits
 =======
