@@ -6,7 +6,7 @@
 Board auto refresh
 ==================
 
-Refreshes the board every 5 minutes.
+Refreshes the board every 30 seconds.
 
 
 Configuration
@@ -19,7 +19,7 @@ Usage
 
 Known issues / Roadmap
 ======================
-\-
+- Configurable refresh time
 
 Credits
 =======

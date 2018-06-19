@@ -16,7 +16,7 @@ odoo.define('web_auto_refresh.board', function (require) {
                     alert(e);
                 }
             }
-        }, 300000);
+        }, 30000);
     }
 
     openerp.web.WebClient.include({
