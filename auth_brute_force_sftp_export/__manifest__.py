@@ -22,7 +22,7 @@
 {
     'name': 'Export auth attempt logs to SFTP server',
     'summary': 'Export auth attempt logs to SFTP server',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',

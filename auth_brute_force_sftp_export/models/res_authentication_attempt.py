@@ -39,7 +39,7 @@ class ResAuthenticationAttempt(models.Model):
                 tmp_file = '/tmp/%s' % file_name
 
                 fh = open(tmp_file, 'w')
-                fh.write(output.getvalue())
+                fh.write(output.getvalue().encode('utf-8'))
                 fh.close()
                 output.close()
 
@@ -66,6 +66,8 @@ class ResAuthenticationAttempt(models.Model):
                    )
             contents.append(line)
 
+        # Reverse the list
+        contents = contents[::-1]
         contents.append('')  # Generate an extra line break when joining
 
         return '\n'.join(contents)
