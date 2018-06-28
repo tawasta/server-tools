@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
-		
-		<!-- Mails blacklist action -->
-        <record model="ir.actions.act_window" id="email_blacklist_action">
-            <field name="name">Mail blacklist</field>
-            <field name="res_model">mail.blacklist</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                    Add blacklisted addresses or domains
-                </p>
-            </field>
-        </record>
-		
-		<menuitem name="Blacklist" id="menu_email_blacklist" parent="base.menu_email" action="email_blacklist_action" sequence="50"/> 
-        
-	</data>
-</openerp>
+<odoo>
+    <!-- Mails blacklist action -->
+    <record model="ir.actions.act_window" id="email_blacklist_action">
+        <field name="name">Mail blacklist</field>
+        <field name="res_model">mail.blacklist</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Add blacklisted addresses or domains
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Blacklist" id="menu_email_blacklist"
+              parent="base.menu_email" action="email_blacklist_action"
+              sequence="50"/>
+</odoo>
