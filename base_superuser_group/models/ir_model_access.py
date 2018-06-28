@@ -7,7 +7,9 @@ class IrModelAccess(models.Model):
     _inherit = 'ir.model.access'
 
     @api.model
-    @tools.ormcache_context('self._uid', 'model', 'mode', 'raise_exception', keys=('lang',))
+    @tools.ormcache_context(
+        'self._uid', 'model', 'mode', 'raise_exception', keys=('lang',)
+    )
     def check(self, model, mode='read', raise_exception=True):
 
         if self.env.user.has_group('base_superuser_group.superuser'):

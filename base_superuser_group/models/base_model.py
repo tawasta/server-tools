@@ -22,7 +22,11 @@ class BaseModelSuperuserGroup(models.AbstractModel):
                 ** kw
             )
 
-        models.BaseModel._patch_method('check_field_access_rights', do_check_field_access_rights)
+        models.BaseModel._patch_method(
+            'check_field_access_rights',
+            do_check_field_access_rights
+        )
 
-        models.BaseModel.check_field_access_rights = do_check_field_access_rights
+        models.BaseModel.check_field_access_rights = \
+            do_check_field_access_rights
         return super(BaseModelSuperuserGroup, self)._register_hook()
