@@ -6,7 +6,7 @@ import logging
 # 2. Known third party imports:
 
 # 3. Odoo imports (openerp):
-from odoo import api, fields, models, _
+from odoo import api, models, _
 from odoo.exceptions import AccessDenied
 
 
