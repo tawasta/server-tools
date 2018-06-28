@@ -5,7 +5,7 @@
 # 2. Known third party imports:
 
 # 3. Odoo imports (openerp):
-from odoo import api, fields, models
+from odoo import api, models
 from odoo import registry
 from odoo import SUPERUSER_ID
 from odoo.exceptions import AccessDenied
@@ -38,7 +38,8 @@ class ResUsers(models.Model):
     @api.model
     def check_credentials(self, password):
         try:
-            if self._uid == SUPERUSER_ID or self.has_group('auth_ldap_only.ldap_bypass'):
+            if self._uid == SUPERUSER_ID or \
+                    self.has_group('auth_ldap_only.ldap_bypass'):
                 '''
                 Use normal login process for
                 - Admin to prevent locking everyone out
@@ -49,7 +50,10 @@ class ResUsers(models.Model):
                 raise AccessDenied()
         except AccessDenied:
             cr = registry().cursor()
-            cr.execute('SELECT login FROM res_users WHERE id=%s AND active=TRUE', (int(self._uid),))
+            cr.execute(
+                'SELECT login FROM res_users WHERE id=%s AND active=TRUE',
+                (int(self._uid),)
+            )
             res = cr.fetchone()
             cr.close()
 
