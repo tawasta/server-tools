@@ -6,9 +6,9 @@ import re
 # 2. Known third party imports:
 
 # 3. Odoo imports (openerp):
-from openerp import api, fields, models
-from openerp import tools
-from openerp import _
+from odoo import api, models
+from odoo import tools
+from odoo import _
 
 # 4. Imports from Odoo modules:
 
@@ -27,7 +27,7 @@ class IrMailserver(models.Model):
 
     # 3. Default methods
 
-    # 4. Compute and search fields, in the same order that fields declaration
+    # 4. Compute and search fields
 
     # 5. Constraints and onchanges
 
@@ -37,8 +37,10 @@ class IrMailserver(models.Model):
 
     # 8. Business methods
     @api.model
-    def send_email(self, message, mail_server_id=None, smtp_server=None, smtp_port=None,
-                   smtp_user=None, smtp_password=None, smtp_encryption=None, smtp_debug=False):
+    def send_email(
+            self, message, mail_server_id=None, smtp_server=None,
+            smtp_port=None, smtp_user=None, smtp_password=None,
+            smtp_encryption=None, smtp_debug=False):
 
         # Block outgoing mails if they have blacklisted addresses
 
@@ -46,7 +48,9 @@ class IrMailserver(models.Model):
 
         # Get the whitelist
         whitelist = list()
-        whitelist_items = MailBlacklist.sudo().search([('type', '=', 'whitelist')])
+        whitelist_items = MailBlacklist.sudo().search([
+            ('type', '=', 'whitelist'),
+        ])
 
         for whitelist_item in whitelist_items:
             whitelist.append(whitelist_item.name)
@@ -59,7 +63,9 @@ class IrMailserver(models.Model):
 
         if not whitelist:
             # Don't get blacklist items if there are whitelist items
-            blacklist_items = MailBlacklist.sudo().search([('type', '=', 'blacklist')])
+            blacklist_items = MailBlacklist.sudo().search([
+                ('type', '=', 'blacklist'),
+            ])
             for blacklist_item in blacklist_items:
                 blacklist.append(blacklist_item.name)
 
@@ -94,8 +100,10 @@ class IrMailserver(models.Model):
                 continue
 
             if whitelist:
-                if not any(domain in s for s in whitelist) and not any(address in s for s in whitelist):
-                    msg = _("'%s' is not whitelisted! Did not send mail") % email
+                if not any(domain in s for s in whitelist) \
+                        and not any(address in s for s in whitelist):
+                    msg = _(
+                        "'%s' is not whitelisted! Did not send mail" % email)
                     errors.append(msg)
 
             elif blacklist:
