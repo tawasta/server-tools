@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import models
 import ldap
+
 
 class ResCompanyLdap(models.Model):
 
