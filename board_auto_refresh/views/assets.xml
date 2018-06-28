@@ -5,5 +5,4 @@
             <script type="text/javascript" src="/board_auto_refresh/static/src/js/auto_refresh.js"></script>
         </xpath>
     </template>
-
 </odoo>

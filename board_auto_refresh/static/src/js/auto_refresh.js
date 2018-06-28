@@ -4,7 +4,7 @@ odoo.define('web_auto_refresh.board', function (require) {
     var refresh_page = function(view) {
         setInterval(function() {
             var active_view = view.action_manager.inner_widget.active_view;
-            if (typeof(active_view) != 'undefined'){
+            if (typeof(active_view) !== 'undefined'){
                 try {
                     var controller = view.action_manager.inner_widget.active_view.controller;
                     var action = view.action_manager.inner_widget.action;
@@ -17,7 +17,7 @@ odoo.define('web_auto_refresh.board', function (require) {
                 }
             }
         }, 30000);
-    }
+    };
 
     openerp.web.WebClient.include({
         start: function() {
