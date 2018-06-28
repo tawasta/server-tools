@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import pysftp
-import StringIO
+import logging
+_logger = logging.getLogger(__name__)
+
+try:
+    import pysftp
+    import StringIO
+except (ImportError, IOError) as err:
+    _logger.debug(err)
+
 from odoo import models
 
 
@@ -43,7 +50,7 @@ class ResAuthenticationAttempt(models.Model):
                 fh.close()
                 output.close()
 
-                res = sftp.put(tmp_file, file_name)
+                sftp.put(tmp_file, file_name)
 
     def get_log_contents(self, date_from=False, date_to=False):
         domain = list()
