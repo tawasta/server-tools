@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from datetime import date, timedelta
 _logger = logging.getLogger(__name__)
 
 try:
@@ -36,13 +37,21 @@ class ResAuthenticationAttempt(models.Model):
                 username=username,
                 password=password,
         ) as sftp:
+                yesterday_date = date.today() - timedelta(1)
+                yesterday = yesterday_date.strftime('%Y-%m-%d')
+                yesterday_start = '{0} 00:00:00'.format(yesterday)
+                yesterday_end = '{0} 23:59:59'.format(yesterday)
 
                 output = StringIO.StringIO()
 
-                output.write(self.get_log_contents())
+                log_contents = self.get_log_contents(
+                    yesterday_start,
+                    yesterday_end,
+                )
+                output.write(log_contents)
 
                 # putfo() seems to upload an empty file
-                file_name = 'auth_attempts.log'
+                file_name = 'auth_attempts_{0}.log'.format(yesterday)
                 tmp_file = '/tmp/%s' % file_name
 
                 fh = open(tmp_file, 'w')
@@ -56,17 +65,17 @@ class ResAuthenticationAttempt(models.Model):
         domain = list()
 
         if date_from:
-            domain.append(('create_date', '>=', date_from))
+            domain.append(('attempt_date', '>=', date_from))
 
         if date_to:
-            domain.append(('create_date', '<=', date_to))
+            domain.append(('attempt_date', '<=', date_to))
 
         contents = list()
 
         for attempt in self.search(domain):
             line = '%s login from %s as %s: %s' % \
                    (
-                       attempt.create_date,
+                       attempt.attempt_date,
                        attempt.remote,
                        attempt.login,
                        attempt.result,
