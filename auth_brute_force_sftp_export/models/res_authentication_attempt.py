@@ -65,17 +65,17 @@ class ResAuthenticationAttempt(models.Model):
         domain = list()
 
         if date_from:
-            domain.append(('attempt_date', '>=', date_from))
+            domain.append(('create_date', '>=', date_from))
 
         if date_to:
-            domain.append(('attempt_date', '<=', date_to))
+            domain.append(('create_date', '<=', date_to))
 
         contents = list()
 
         for attempt in self.search(domain):
             line = '%s login from %s as %s: %s' % \
                    (
-                       attempt.attempt_date,
+                       attempt.create_date,
                        attempt.remote,
                        attempt.login,
                        attempt.result,
