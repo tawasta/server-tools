@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Show the action button that links to current vendor's orders -->
+    <record model="ir.ui.view" id="purchase.res_partner_view_purchase_buttons">
+        <field name="groups_id" eval="[(4, ref('base_read_access_purchase.group_readonly'))]"/>
+    </record>
+</odoo>
