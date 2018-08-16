@@ -22,7 +22,7 @@
 {
     'name': 'Read Access Group for Manufacturing',
     'summary': 'Adds a new group that can read mrp-related model data',
-    'version': '10.0.1.0.2',
+    'version': '10.0.1.0.3',
     'category': 'Extra Rights',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -34,7 +34,7 @@
         'bin': [],
     },
     'depends': [
-        'stock',
+        'mrp',
     ],
     'data': [
         'data/res_groups.xml',
