@@ -40,6 +40,7 @@
         'data/res_groups.xml',
         'data/ir_ui_menu.xml',
         'security/ir.model.access.csv',
+        'views/product_template.xml',
     ],
     'demo': [
     ],
