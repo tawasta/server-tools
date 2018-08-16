@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_read_mrp_production,access_read_mrp_production,mrp.model_mrp_production,base_read_access_mrp.group_readonly,1,0,0,0
+access_read_mrp_bom,access_read_mrp_bom,mrp.model_mrp_bom,base_read_access_mrp.group_readonly,1,0,0,0
+access_read_mrp_bom_line,access_read_mrp_bom_line,mrp.model_mrp_bom_line,base_read_access_mrp.group_readonly,1,0,0,0
+access_read_mrp_routing,access_read_mrp_routing,mrp.model_mrp_routing,base_read_access_mrp.group_readonly,1,0,0,0
+access_read_mrp_workcenter,access_read_mrp_workcenter,mrp.model_mrp_workcenter,base_read_access_mrp.group_readonly,1,0,0,0
+access_read_mrp_wc_prod,access_read_mrp_wc_prod,mrp.model_mrp_workcenter_productivity,base_read_access_mrp.group_readonly,1,0,0,0
+access_read_mrp_routing_wc,access_read_mrp_routing_wc,mrp.model_mrp_routing_workcenter,base_read_access_mrp.group_readonly,1,0,0,0
+access_read_mrp_workorder,access_read_mrp_workorder,mrp.model_mrp_workorder,base_read_access_mrp.group_readonly,1,0,0,0
