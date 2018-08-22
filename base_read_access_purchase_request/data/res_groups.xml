@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base_read_access_purchase_request.group_readonly" model="res.groups">
+        <field name="name">Read access to purchase requests</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Gives the user read access to basic purchase request functionalities</field>
+    </record>
+</odoo>

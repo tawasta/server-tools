@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_read_stock_move,access_read_stock_move,stock.model_stock_move,base_read_access_stock.group_readonly,1,0,0,0
+access_read_stock_picking,access_read_stock_picking,stock.model_stock_picking,base_read_access_stock.group_readonly,1,0,0,0
+access_read_stock_wh_op,access_read_stock_wh_op,stock.model_stock_warehouse_orderpoint,base_read_access_stock.group_readonly,1,0,0,0
