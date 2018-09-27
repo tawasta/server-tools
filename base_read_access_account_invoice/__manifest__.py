@@ -22,7 +22,7 @@
 {
     'name': 'Read Access Group for Invoicing',
     'summary': 'Adds a new group that can read invoicing model data',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.1.',
     'category': 'Extra Rights',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
