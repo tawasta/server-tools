@@ -14,7 +14,9 @@ addon | version | summary
 [auth_oauth_clean](auth_oauth_clean/) | 10.0.1.0.0 | Cleans the login screen when oAuth is present
 [auth_oauth_gsuite](auth_oauth_gsuite/) | 10.0.1.0.0 | Adds Google G Suite spesific options
 [auth_oauth_hidden](auth_oauth_hidden/) | 10.0.1.0.0 | Adds a parameter for OAuth providers to allow hiding them
-[base_read_access_account_invoice](base_read_access_account_invoice/) | 10.0.1.1. | Adds a new group that can read invoicing model data
+[auth_signup_disable_autoinvite](auth_signup_disable_autoinvite/) | 10.0.1.0.0 | Disable signup auto invite
+[auth_signup_mass_reset_password](auth_signup_mass_reset_password/) | 10.0.1.0.0 | Allow sending password reset instructions for multiple users
+[base_read_access_account_invoice](base_read_access_account_invoice/) | 10.0.1.1.0 | Adds a new group that can read invoicing model data
 [base_read_access_mrp](base_read_access_mrp/) | 10.0.1.0.4 | Adds a new group that can read mrp-related model data
 [base_read_access_purchase](base_read_access_purchase/) | 10.0.1.0.0 | Adds a new group that can read purchase-related model data
 [base_read_access_purchase_request](base_read_access_purchase_request/) | 10.0.1.0.0 | Adds a new group that can read PR-related model data
