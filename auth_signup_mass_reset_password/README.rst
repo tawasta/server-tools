@@ -2,11 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=============================
-Mass reset password for users
-=============================
+=========================
+Mass reset user passwords
+=========================
 
-Allow resetting password for multiple users
+Allow sending password reset instructions for multiple users
 
 Configuration
 =============

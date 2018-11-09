@@ -20,8 +20,8 @@
 ##############################################################################
 
 {
-    'name': 'Mass reset password for users',
-    'summary': 'Allow resetting password for multiple users',
+    'name': 'Mass reset user passwords',
+    'summary': 'Allow sending password reset instructions for multiple users',
     'version': '10.0.1.0.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
@@ -37,7 +37,7 @@
         'auth_signup',
     ],
     'data': [
-        'views/res_users',
+        'wizards/auth_signup_mass_reset_password_wizard.xml',
     ],
     'demo': [
     ],
