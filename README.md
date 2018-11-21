@@ -27,6 +27,7 @@ addon | version | summary
 [board_auto_refresh](board_auto_refresh/) | 10.0.1.0.2 | Refreshes the board every 5 minutes
 [mail_blacklist](mail_blacklist/) | 10.0.0.3.3 | Filter incoming and outgoing mail by address or domain
 [mail_remove_sent_by_footer](mail_remove_sent_by_footer/) | 10.0.1.0.0 | Removes the Odoo footer
+[res_partner_multicompany_read](res_partner_multicompany_read/) | 10.0.1.0.0 | Remove partner multicompany read restriction
 
 
 Unported addons
