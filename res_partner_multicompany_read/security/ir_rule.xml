@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.rule" id="base.res_partner_rule">
+        <field name="perm_read" eval="False"/>
+    </record>
+</odoo>
