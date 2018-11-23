@@ -35,6 +35,7 @@
     },
     'depends': [
         'board',
+        'base',
     ],
     'data': [
         'views/views.xml',
