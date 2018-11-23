@@ -7,7 +7,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-
+[board_duplicate](board_duplicate/) | 12.0.1.0.0 | -
 
 
 Unported addons
