@@ -7,6 +7,13 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+
+
+
+Unported addons
+---------------
+addon | version | summary
+--- | --- | ---
 [auth_brute_force_sftp_export](auth_brute_force_sftp_export/) | 10.0.1.1.1 | Export auth attempt logs to SFTP server
 [auth_ldap_ldaps](auth_ldap_ldaps/) | 10.0.1.0.0 | Authentication using url ldaps:// instead of ldap://
 [auth_ldap_no_cert](auth_ldap_no_cert/) | 10.0.1.1.0 | Authentication without authenticating the cert. TESTING ONLY!
@@ -28,12 +35,6 @@ addon | version | summary
 [mail_blacklist](mail_blacklist/) | 10.0.0.3.3 | Filter incoming and outgoing mail by address or domain
 [mail_remove_sent_by_footer](mail_remove_sent_by_footer/) | 10.0.1.0.0 | Removes the Odoo footer
 [res_partner_multicompany_read](res_partner_multicompany_read/) | 10.0.1.0.0 | Remove partner multicompany read restriction
-
-
-Unported addons
----------------
-addon | version | summary
---- | --- | ---
 [mail_server_multicompany](mail_server_multicompany/) | 10.0.0.3.2 (unported) | Multicompany-aware mail sending
 [workflow_improvements](workflow_improvements/) | 10.0.0.3.0 (unported) | Generic workflow improvements
 
