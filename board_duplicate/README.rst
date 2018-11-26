@@ -6,7 +6,7 @@
 Board duplicate
 ===============
 
-\-
+Copy to the new user for admin's dashboard view on customized views
 
 Configuration
 =============
@@ -18,7 +18,8 @@ Usage
 
 Known issues / Roadmap
 ======================
-\-
+* Copy only from admin user
+* The Admin user must have a customized view
 
 Credits
 =======

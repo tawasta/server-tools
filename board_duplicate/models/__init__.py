@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import ir_ui_view_custom
+from . import dashboard

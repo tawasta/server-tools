@@ -14,16 +14,28 @@ from odoo import api, fields, models, tools
 # 6. Unknown third party imports:
 
 
-class ViewCustom(models.Model):
+class ResUsers(models.Model):
 
     # 1. Private attributes
     # This defines what model you are adding the new fields to
-    _name = 'ir.ui.view.custom'
-    _inherit = 'ir.ui.view.custom' 
+    _inherit = 'res.users' 
+
+    @api.model
+    def create(self, values):
+        user = super(ResUsers, self).create(values)
+
+        dashboard_template_user_id = 2 
+
+        args = [('user_id', '=', dashboard_template_user_id)]
+        dashboard_ids = self.env['ir.ui.view.custom'].search(args)
+
+        for dashboard in dashboard_ids:
+            dashboard_copy = dashboard.copy()
+            dashboard_copy.user_id = user.id
+
+        return user
 
     # 2. Fields declaration
-
-    jotain = fields.Text(string='jotain', required=True)
 
     # 3. Default methods
 
