@@ -38,7 +38,7 @@
         'base',
     ],
     'data': [
-        #'views/views.xml',
+
     ],
     'demo': [
     ],
