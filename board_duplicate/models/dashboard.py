@@ -5,7 +5,7 @@
 # 2. Known third party imports:
 
 # 3. Odoo imports (openerp):
-from odoo import api, fields, models, tools
+from odoo import api, models
 
 # 4. Imports from Odoo modules:
 
@@ -18,13 +18,13 @@ class ResUsers(models.Model):
 
     # 1. Private attributes
     # This defines what model you are adding the new fields to
-    _inherit = 'res.users' 
+    _inherit = 'res.users'
 
     @api.model
     def create(self, values):
         user = super(ResUsers, self).create(values)
 
-        dashboard_template_user_id = 2 
+        dashboard_template_user_id = 2
 
         args = [('user_id', '=', dashboard_template_user_id)]
         dashboard_ids = self.env['ir.ui.view.custom'].search(args)
