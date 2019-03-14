@@ -88,7 +88,7 @@ class IrMailserver(models.Model):
         for email in email_list:
             try:
                 address = tools.email_split(email)[0]
-                domain = re.search("@[\w.]+", address).group()
+                domain = re.search(r"@[\w.]+", address).group()
 
             except IndexError:
                 address = False

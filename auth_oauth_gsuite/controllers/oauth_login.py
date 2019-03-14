@@ -14,6 +14,7 @@ class OAuthLoginGsuite(OAuthLogin):
                     hd=provider.get('hd'),
                 )
 
-                provider['auth_link'] = '%s&%s' % (provider['auth_link'], werkzeug.url_encode(params))
+                provider['auth_link'] = '%s&%s' % (
+                    provider['auth_link'], werkzeug.url_encode(params))
 
         return res

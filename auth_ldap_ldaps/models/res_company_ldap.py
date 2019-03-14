@@ -24,4 +24,3 @@ class ResCompanyLdap(models.Model):
         if conf['ldap_tls']:
             connection.start_tls_s()
         return connection
-
