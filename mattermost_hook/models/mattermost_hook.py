@@ -35,7 +35,6 @@ class MattermostHook(models.Model):
         'res.company',
         string='Company',
         help='Company who owns the hook',
-        required=True,
     )
     res_model = fields.Many2one(
         'ir.model',
@@ -51,7 +50,6 @@ class MattermostHook(models.Model):
     hook = fields.Char(
         string='Hook key',
         help='The hook generated key',
-        required=True,
     )
     channel = fields.Char(
         string='Channel',
@@ -79,10 +77,17 @@ class MattermostHook(models.Model):
         return '{}/hooks/{}'.format(self.mattermost_url, self.hook)
 
     @api.multi
-    def post_mattermost(self, message, channel=None, username=None, icon_url=None):
+    def post_mattermost(self, message, channel=None, username=None, icon_url=None, verify=True):
         """
         Method to post a message to the hook
-        @param message: Translated message
+
+        @param message: translated message
+        @param channel: channel name
+        @param username: username to be posted as
+        @param icon_url: URL of an icon to be used
+        @param verify: Boolean, is the certificate verified
+        @return: None
+        @raise ValidationError: Raises exception if no message
         """
         self.ensure_one()
         hook_url = self._get_hook_url()
@@ -97,9 +102,7 @@ class MattermostHook(models.Model):
             payload['username'] = username or self.username
         if icon_url or self.icon_url:
             payload['icon_url'] = icon_url or self.icon_url
-        print hook_url
-        print payload
-        res = requests.post(hook_url, json=payload, verify=False)
+        res = requests.post(hook_url, json=payload, verify=verify)
         if res.status_code != 200:
             raise HTTPError(res.text)
 

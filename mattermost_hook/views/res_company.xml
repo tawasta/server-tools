@@ -8,8 +8,8 @@
 			<field name="arch" type="xml">
 				<notebook position="inside">
                     <page string="Mattermost">
-                        <group string="Settings">
-                            <field name="mattermost_hook_ids" domain="[('company_id', '=', self.company_id)]">
+                        <group string="Hooks">
+                            <field name="mattermost_hook_ids" nolabel="1">
                                 <tree>
                                     <field name="name" />
                                     <field name='hook' password="True"/>
