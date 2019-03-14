@@ -40,11 +40,10 @@ class ResUsers(models.Model):
         try:
             if self._uid == SUPERUSER_ID or \
                     self.has_group('auth_ldap_only.ldap_bypass'):
-                '''
-                Use normal login process for
-                - Admin to prevent locking everyone out
-                - Users that belongs to "Bypass LDAP"-group
-                '''
+
+                # Use normal login process for
+                # - Admin to prevent locking everyone out
+                # - Users that belongs to "Bypass LDAP"-group
                 super(ResUsers, self).check_credentials(password=password)
             else:
                 raise AccessDenied()

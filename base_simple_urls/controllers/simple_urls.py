@@ -39,8 +39,8 @@ class SimpleUrlController(http.Controller):
             )
             return werkzeug.utils.redirect('/web')
 
-        ''' Do a case insensitive search to the model and field defined in the
-        redirect rule, e.g. product.product's default_code field '''
+        # Do a case insensitive search to the model and field defined in the
+        # redirect rule, e.g. product.product's default_code field
         target_model = request.env[matching_rule[0].model_id.model]
         if matching_rule[0].field_id.ttype == 'integer':
             matching_ids = target_model.search(
@@ -57,7 +57,7 @@ class SimpleUrlController(http.Controller):
             )
             return werkzeug.utils.redirect('/web')
 
-        ''' Form the URL and redirect the user '''
+        # Form the URL and redirect the user
         url_params = {
             'view_type': 'form',
             'model': matching_rule[0].model_id.model,
