@@ -22,7 +22,7 @@
     'name': 'Mattermost hooks',
     'summary': 'Adds possible to use Mattermost hooks',
     'category': 'Tools',
-    'version': '10.0.0.1.4',
+    'version': '10.0.0.1.5',
     'author': 'Oy Tawasta Technologies Ltd.',
     'website': 'http://www.tawasta.fi',
     'license': 'AGPL-3',
