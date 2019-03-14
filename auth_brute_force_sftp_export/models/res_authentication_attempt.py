@@ -13,7 +13,6 @@ except (ImportError, IOError) as err:
     _logger.debug(err)
 
 
-
 class ResAuthenticationAttempt(models.Model):
     _inherit = 'res.authentication.attempt'
 
