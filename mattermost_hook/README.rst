@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-======================
-Mattermost integration
-======================
+================
+Mattermost hooks
+================
 
 Adds possibility to add Mattermost hooks to be used from Odoo.
 Currently supports only Mattermost incoming hooks.
