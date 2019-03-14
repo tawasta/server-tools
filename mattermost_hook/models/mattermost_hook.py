@@ -28,7 +28,7 @@ class MattermostHook(models.Model):
     )
     mattermost_url = fields.Char(
         string="Mattermost URL",
-        help="Mattermost URL which the hook is used in (without trailing backlash)",
+        help="Mattermost URL (without trailing backlash)",
         required=True,
     )
     company_id = fields.Many2one(
@@ -77,7 +77,7 @@ class MattermostHook(models.Model):
         return '{}/hooks/{}'.format(self.mattermost_url, self.hook)
 
     @api.multi
-    def post_mattermost(self, message, channel=None, username=None, icon_url=None, verify=True):
+    def post_mattermost(self, message, verify=True):
         """
         Method to post a message to the hook
 
@@ -96,12 +96,12 @@ class MattermostHook(models.Model):
         payload = {
             'text': message,
         }
-        if channel or self.channel:
-            payload['channel'] = channel or self.channel
-        if username or self.username:
-            payload['username'] = username or self.username
-        if icon_url or self.icon_url:
-            payload['icon_url'] = icon_url or self.icon_url
+        if self.channel:
+            payload['channel'] = self.channel
+        if self.username:
+            payload['username'] = self.username
+        if self.icon_url:
+            payload['icon_url'] = self.icon_url
         res = requests.post(hook_url, json=payload, verify=verify)
         if res.status_code != 200:
             raise HTTPError(res.text)
