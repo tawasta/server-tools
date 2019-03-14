@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_read_mail_blacklist,access_read_mail_blacklist,model_mail_blacklist,base.group_erp_manager,1,0,0,0

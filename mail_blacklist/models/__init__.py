@@ -1,2 +1,2 @@
-import mail_blacklist
-import mail_server
+from . import mail_blacklist
+from . import mail_server

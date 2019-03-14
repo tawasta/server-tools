@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Define a new group -->
-    <record id="base_read_access_sale.group_readonly" model="res.groups">
+    <record id="group_readonly" model="res.groups">
         <field name="name">Read access to sale</field>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         <field name="comment">Gives the user read access to basic sales functionalities</field>

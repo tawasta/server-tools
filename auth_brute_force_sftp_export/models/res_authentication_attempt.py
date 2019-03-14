@@ -2,6 +2,8 @@
 
 import logging
 from datetime import date, timedelta
+from odoo import models
+
 _logger = logging.getLogger(__name__)
 
 try:
@@ -9,8 +11,6 @@ try:
     import StringIO
 except (ImportError, IOError) as err:
     _logger.debug(err)
-
-from odoo import models
 
 
 class ResAuthenticationAttempt(models.Model):
