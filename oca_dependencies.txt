@@ -1,1 +1,2 @@
+purchase-workflow https://github.com/OCA/purchase-workflow
 server-tools https://github.com/OCA/server-tools

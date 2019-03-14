@@ -1,4 +1,4 @@
-odoo.define('web_auto_refresh.board', function (require) {
+odoo.define('web_auto_refresh.board', function () {
     "use strict";
 
     var refresh_page = function (view) {
@@ -6,14 +6,15 @@ odoo.define('web_auto_refresh.board', function (require) {
             var active_view = view.action_manager.inner_widget.active_view;
             if (typeof active_view !== 'undefined') {
                 try {
-                    var controller = view.action_manager.inner_widget.active_view.controller;
+                    var controller =
+                        view.action_manager.inner_widget.active_view.controller;
                     var action = view.action_manager.inner_widget.action;
 
                     if (String(action.view_id).match('My Dashboard')) {
                         controller.reload();
                     }
                 } catch (e) {
-                    console.log(e);
+                    // Nothing to do here
                 }
             }
         }, 300000);
