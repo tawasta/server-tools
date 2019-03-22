@@ -1,4 +1,6 @@
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Build Status](https://travis-ci.org/Tawasta/server-tools.svg?branch=10.0)](https://travis-ci.org/Tawasta/server-tools)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ae5a676e1cf4bc298e26240c1df430f)](https://www.codacy.com/app/Tawasta/server-tools?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tawasta/server-tools&amp;utm_campaign=Badge_Grade)
 
 Server Tools
 ============
@@ -27,7 +29,7 @@ addon | version | summary
 [base_simple_urls](base_simple_urls/) | 10.0.1.0.0 | Redirect rules for access to Odoo pages with simpler URLs
 [base_superuser_group](base_superuser_group/) | 10.0.1.0.0 | Adds a superuser-like group
 [board_auto_refresh](board_auto_refresh/) | 10.0.1.0.2 | Refreshes the board every 5 minutes
-[mail_blacklist](mail_blacklist/) | 10.0.0.3.3 | Filter incoming and outgoing mail by address or domain
+[mail_blacklist](mail_blacklist/) | 10.0.0.3.4 | Filter incoming and outgoing mail by address or domain
 [mail_remove_sent_by_footer](mail_remove_sent_by_footer/) | 10.0.1.0.0 | Removes the Odoo footer
 [res_partner_multicompany_read](res_partner_multicompany_read/) | 10.0.1.0.0 | Remove partner multicompany read restriction
 
