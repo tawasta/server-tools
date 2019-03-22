@@ -1,4 +1,6 @@
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Build Status](https://travis-ci.org/Tawasta/server-tools.svg?branch=10.0)](https://travis-ci.org/Tawasta/server-tools)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ae5a676e1cf4bc298e26240c1df430f)](https://www.codacy.com/app/Tawasta/server-tools?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tawasta/server-tools&amp;utm_campaign=Badge_Grade)
 
 Server Tools
 ============
