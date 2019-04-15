@@ -22,7 +22,7 @@
 {
     'name': 'Oauth hidden',
     'summary': 'Adds a parameter for OAuth providers to allow hiding them',
-    'version': '10.0.1.0.0',
+    'version': '1.0.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',

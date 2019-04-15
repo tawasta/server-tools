@@ -22,7 +22,7 @@
 {
     'name': 'Auth LDAP without cert (TESTING ONLY!)',
     'summary': 'Authentication without authenticating the cert. TESTING ONLY!',
-    'version': '10.0.1.1.0',
+    'version': '1.1.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',

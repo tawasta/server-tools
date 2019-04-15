@@ -22,7 +22,7 @@
 {
     'name': 'Mass reset user passwords',
     'summary': 'Allow sending password reset instructions for multiple users',
-    'version': '10.0.1.0.0',
+    'version': '1.0.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',

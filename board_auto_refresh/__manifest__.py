@@ -22,7 +22,7 @@
 {
     'name': 'Board auto refresh',
     'summary': 'Refreshes the board every 5 minutes',
-    'version': '10.0.1.0.2',
+    'version': '1.0.2',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',
