@@ -22,7 +22,7 @@
 {
     'name': 'Superuser group',
     'summary': 'Adds a superuser-like group',
-    'version': '1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',

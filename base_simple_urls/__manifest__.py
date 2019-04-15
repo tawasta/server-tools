@@ -22,7 +22,7 @@
 {
     'name': 'Simple URLs',
     'summary': 'Redirect rules for access to Odoo pages with simpler URLs',
-    'version': '1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

@@ -22,7 +22,7 @@
 {
     'name': 'Workflow improvements',
     'summary': 'Generic workflow improvements',
-    'version': '0.3.0',
+    'version': '10.0.0.3.0',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

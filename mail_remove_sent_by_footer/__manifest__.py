@@ -22,7 +22,7 @@
 {
     'name': 'Remove "Sent using Odoo" from mail notification',
     'summary': 'Removes the Odoo footer',
-    'version': '1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Mail',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
