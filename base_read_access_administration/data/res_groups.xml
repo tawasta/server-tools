@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Define a new group -->
+    <record id="group_system_readonly" model="res.groups">
+        <field name="name">Read access</field>
+        <field name="category_id" ref="base.module_category_administration"/>
+        <field name="comment">Gives the user read access to administration</field>
+    </record>
+</odoo>
