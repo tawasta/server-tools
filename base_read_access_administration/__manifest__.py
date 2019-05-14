@@ -22,7 +22,7 @@
 {
     'name': 'Read Access Group for Administration',
     'summary': 'Adds a new group that can read administration data',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Extra Rights',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
