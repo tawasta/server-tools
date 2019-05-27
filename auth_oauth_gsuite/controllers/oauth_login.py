@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import werkzeug
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin
 
