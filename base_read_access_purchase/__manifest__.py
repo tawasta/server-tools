@@ -21,7 +21,7 @@
 {
     'name': 'Read Access Group for Purchases',
     'summary': 'Adds a new group that can read purchase-related model data',
-    'version': '1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Extra Rights',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
