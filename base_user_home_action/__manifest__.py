@@ -22,7 +22,7 @@
 {
     'name': 'User preferences home action',
     'summary': 'Allow user to change their home action',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.1.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',
