@@ -7,7 +7,9 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[auth_oauth_portal_register](auth_oauth_portal_register/) | 12.0.1.0.0 | Enable registering through OAuth2 without opening signup
 [board_duplicate](board_duplicate/) | 12.0.1.0.0 | -
+
 
 
 Unported addons
