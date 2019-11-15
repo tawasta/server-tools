@@ -55,7 +55,8 @@ class ResUsers(models.Model):
     @api.model
     def _signup_create_user(self, values):
         """
-        Overwrite method to allow registering through OAuth2 without opening signup form.
+        Overwrite method to allow registering through OAuth2
+        without opening signup form.
 
         :param values: dict
         :return: method call
