@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2016 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2019- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,25 +19,16 @@
 ##############################################################################
 
 {
-    'name': 'Mail server multicompany',
-    'summary': 'Multicompany-aware mail sending',
+    'name': 'OAuth2 Portal Register',
+    'summary': 'Enables registering with OAuth without opening signup',
     'version': '12.0.1.0.0',
     'category': 'Tools',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
-    'application': False,
-    'installable': False,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
     'depends': [
-        'mail',
+        'auth_oauth',
     ],
-    'data': [
-        'views/ir_mail_server.xml'
-    ],
-    'demo': [
-    ],
+    'application': False,
+    'installable': True,
 }
