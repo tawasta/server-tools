@@ -12,8 +12,11 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [auth_oauth_clean](auth_oauth_clean/) | 12.0.1.0.0 | Cleans the login screen when oAuth is present
+[auth_oauth_gsuite](auth_oauth_gsuite/) | 12.0.1.0.0 | Adds Google G Suite specific options
+[auth_oauth_hidden](auth_oauth_hidden/) | 12.0.1.0.0 | Adds a parameter for OAuth providers to allow hiding them
 [auth_oauth_portal_register](auth_oauth_portal_register/) | 12.0.1.0.0 | Enables registering with OAuth without opening signup
 [auth_signup_disable_autoinvite](auth_signup_disable_autoinvite/) | 12.0.1.0.0 | Disable signup auto invite
+[auth_signup_mass_reset_password](auth_signup_mass_reset_password/) | 12.0.1.0.0 | Allow sending password reset instructions for multiple users
 [board_duplicate](board_duplicate/) | 12.0.1.0.0 | Board duplicate
 
 
@@ -22,12 +25,7 @@ Unported addons
 addon | version | summary
 --- | --- | ---
 [auth_brute_force_sftp_export](auth_brute_force_sftp_export/) | 12.0.1.1.1 (unported) | Export auth attempt logs to SFTP server
-[auth_ldap_ldaps](auth_ldap_ldaps/) | 12.0.1.0.0 (unported) | Authentication using url ldaps:// instead of ldap://
-[auth_ldap_no_cert](auth_ldap_no_cert/) | 12.0.1.1.0 (unported) | Authentication without authenticating the cert. TESTING ONLY!
 [auth_ldap_only](auth_ldap_only/) | 12.0.1.0.0 (unported) | Authentication via LDAP Only
-[auth_oauth_gsuite](auth_oauth_gsuite/) | 12.0.1.0.0 (unported) | Adds Google G Suite spesific options
-[auth_oauth_hidden](auth_oauth_hidden/) | 12.0.1.0.0 (unported) | Adds a parameter for OAuth providers to allow hiding them
-[auth_signup_mass_reset_password](auth_signup_mass_reset_password/) | 12.0.1.0.0 (unported) | Allow sending password reset instructions for multiple users
 [base_read_access_account_invoice](base_read_access_account_invoice/) | 12.0.1.1.0 (unported) | Adds a new group that can read invoicing model data
 [base_read_access_mrp](base_read_access_mrp/) | 1.0.4 (unported) | Adds a new group that can read mrp-related model data
 [base_read_access_purchase](base_read_access_purchase/) | 12.0.1.0.0 (unported) | Adds a new group that can read purchase-related model data

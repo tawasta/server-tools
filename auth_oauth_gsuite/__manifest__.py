@@ -20,14 +20,14 @@
 
 {
     'name': 'Oauth G Suite',
-    'summary': 'Adds Google G Suite spesific options',
+    'summary': 'Adds Google G Suite specific options',
     'version': '12.0.1.0.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',
     'license': 'AGPL-3',
     'application': False,
-    'installable': False,
+    'installable': True,
     'external_dependencies': {
         'python': [],
         'bin': [],

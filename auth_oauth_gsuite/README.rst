@@ -6,7 +6,7 @@
 Oauth G Suite
 =============
 
-Adds Google G Suite spesific options
+Adds Google G Suite specific options
 
 Features
 --------

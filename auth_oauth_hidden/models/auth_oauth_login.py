@@ -1,17 +1,5 @@
-
-# 1. Standard library imports:
-
-# 2. Known third party imports:
-
-# 3. Odoo imports (openerp):
-
-# 4. Imports from Odoo modules:
 from odoo import http
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin
-
-# 5. Local imports in the relative form:
-
-# 6. Unknown third party imports:
 
 
 class OAuthLoginHidden(OAuthLogin):
