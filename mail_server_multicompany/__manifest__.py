@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2016 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2016 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,7 @@
     'summary': 'Multicompany-aware mail sending',
     'version': '12.0.1.0.0',
     'category': 'Tools',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
