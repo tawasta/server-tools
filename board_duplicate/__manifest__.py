@@ -21,7 +21,7 @@
 {
     'name': 'Board duplicate',
     'summary': 'Board duplicate',
-    'version': '12.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Oy Tawasta Technologies Ltd',
