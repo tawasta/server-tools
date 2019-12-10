@@ -6,7 +6,7 @@
 Oauth G Suite
 =============
 
-Adds Google G Suite spesific options
+Adds Google G Suite specific options
 
 Features
 --------
@@ -36,8 +36,8 @@ Contributors
 Maintainer
 ----------
 
-.. image:: http://tawasta.fi/templates/tawastrap/images/logo.png
+.. image:: https://tawasta.fi/templates/tawastrap/images/logo.png
    :alt: Oy Tawasta OS Technologies Ltd.
-   :target: http://tawasta.fi/
+   :target: https://tawasta.fi/
 
 This module is maintained by Oy Tawasta OS Technologies Ltd.
