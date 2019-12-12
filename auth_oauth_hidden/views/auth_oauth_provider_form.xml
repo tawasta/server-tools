@@ -6,9 +6,9 @@
         <field name="inherit_id" ref="auth_oauth.view_oauth_provider_form" />
         <field name="arch" type="xml">
 
-            <field name="data_endpoint" position="after">
+            <field name="enabled" position="after">
                 <field name="hidden" />
-                <field name="hidden_key" attrs="{'required': [('hidden', '=', True)]}" />
+                <field name="hidden_key" attrs="{'required': [('hidden', '=', True)], 'invisible': [('hidden', '=', False)]}" />
             </field>
 
         </field>

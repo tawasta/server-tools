@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class AuthOAuthProvider(models.Model):
@@ -12,5 +12,5 @@ class AuthOAuthProvider(models.Model):
     hidden_key = fields.Char(
         string='Hidden key',
         help='If the OAuth provider is hidden, providing this in url will show'
-        + 'the login button. E.g. "..web/login?key=mykey"',
+             ' ' + 'the login button. E.g. "..web/login?key=mykey".'
     )
