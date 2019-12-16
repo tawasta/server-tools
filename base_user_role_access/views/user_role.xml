@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_res_users_role_form" model="ir.ui.view">
+        <field name="name">Role access rights</field>
+        <field name="model">res.users.role</field>
+        <field eval="20" name="priority"/>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+
+                    <button name="action_access_right_tree"
+                            class="oe_stat_button"
+                            icon="fa-lock"
+                            type="object"
+                            help="List access rights"
+                            groups="base.group_no_one">
+
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_text">Access rights</span>
+                        </div>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+
+
