@@ -1,0 +1,5 @@
+<odoo>
+    <data noupdate="0">
+        <function model="ir.module.module" name="boot_upgrade"/>
+    </data>
+</odoo>
