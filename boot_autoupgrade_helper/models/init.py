@@ -13,6 +13,6 @@ class Module(models.Model):
 
     @api.model
     def boot_upgrade(self):
-        if self.env.user.company_id.last_boot_upgrade < datetime.datetime.now() - datetime.timedelta(seconds=60):
+        if self.env.user.company_id.last_boot_upgrade < datetime.datetime.now() - datetime.timedelta(minutes=5):
             self.env.user.company_id.last_boot_upgrade = datetime.datetime.now()
             return super(Module, self).upgrade_changed_checksum(self)
