@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2017 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,12 +19,12 @@
 ##############################################################################
 
 {
-    'name': 'Auth oAuth clean',
-    'summary': 'Cleans the login screen when oAuth is present',
+    'name': 'Fetchmail server company',
+    'summary': 'Company for fetchmail server. This does nothing by itself',
     'version': '12.0.1.0.0',
     'category': 'Tools',
     'website': 'https://github.com/Tawasta/server-tools',
-    'author': 'Oy Tawasta Technologies Ltd.',
+    'author': 'Tawasta',
     'license': 'AGPL-3',
     'application': False,
     'installable': True,
@@ -33,11 +33,10 @@
         'bin': [],
     },
     'depends': [
-        'auth_oauth',
+        'fetchmail',
     ],
     'data': [
-        'data/ir_ui_view.xml',
-        'views/website_login.xml',
+        'views/fetchmail_server.xml',
     ],
     'demo': [
     ],

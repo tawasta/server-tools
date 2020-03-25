@@ -2,12 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-================
-Auth oAuth clean
-================
+========================
+Fetchmail server company
+========================
 
-Cleans the login screen when oAuth is present
-
+Company for fetchmail server. This does nothing by itself
 
 Configuration
 =============
@@ -15,10 +14,6 @@ Configuration
 
 Usage
 =====
-\-
-
-Known issues / Roadmap
-======================
 \-
 
 Credits

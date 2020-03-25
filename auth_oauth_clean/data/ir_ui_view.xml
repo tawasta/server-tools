@@ -1,5 +1,0 @@
-<odoo>
-    <record id="auth_signup.login" model="ir.ui.view">
-        <field name="active" eval="0" />
-    </record>
-</odoo>
