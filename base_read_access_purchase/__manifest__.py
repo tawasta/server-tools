@@ -27,13 +27,14 @@
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
-    'installable': False,
+    'installable': True,
     'external_dependencies': {
         'python': [],
         'bin': [],
     },
     'depends': [
         'purchase',
+        'stock',
     ],
     'data': [
         'data/res_groups.xml',
