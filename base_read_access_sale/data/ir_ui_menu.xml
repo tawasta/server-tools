@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Give the new group access to the core sale menu -->
-    <record model="ir.ui.menu" id="sale.sales_team_config">
+    <record model="ir.ui.menu" id="sale.sale_menu_root">
         <field name="groups_id" eval="[(4, ref('base_read_access_sale.group_readonly'))]"/>
     </record>
 </odoo>
