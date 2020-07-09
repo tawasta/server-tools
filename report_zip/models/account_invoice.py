@@ -1,6 +1,6 @@
 import base64
-import os
 import zipfile
+import io
 
 from odoo import api, models
 
@@ -12,39 +12,34 @@ class AccountInvoice(models.Model):
     @api.multi
     def to_zip(self, records, archive_name):
         model_name = "account.account_invoices"
-        archive_path = "/tmp/{}.{}".format(archive_name, "zip",)
+        in_memory_zip = io.BytesIO()
+        pdf_list = []
+        for record in records:
+            file_name = "{} - {} - {}.{}".format(
+                record._get_report_base_filename(), record.id, record.name, "pdf"
+            )
 
-        with zipfile.ZipFile(archive_path, "w") as zip_archive:
-            for record in records:
-                pdf_file = self.env.ref(model_name).sudo().render_qweb_pdf([record.id])
+            pdf_list.append({
+                "name": file_name,
+                "data": self.env.ref(model_name).sudo().render_qweb_pdf([record.id])[0]
+            })
 
-                file_name = "{} - {} - {}.{}".format(
-                    record._get_report_base_filename(), record.id, record.name, "pdf"
-                )
+        with zipfile.ZipFile(in_memory_zip, "a") as zip_archive:
+            for pdf in pdf_list:
+                zip_archive.writestr(pdf['name'], data=pdf['data'])
 
-                zip_archive.writestr(
-                    file_name, data=pdf_file[0],
-                )
-
-        archive_filename = "{}.{}".format(archive_name, "zip",)
-
-        f = open(archive_path, "rb")
         archive_attachment = (
             self.env["ir.attachment"]
             .sudo()
             .create(
                 {
-                    "name": "{}-{}".format("temporary", archive_filename),
+                    "name": "{}-{}.{}".format("temporary", archive_name, "zip"),
                     "public": False,
-                    "datas": base64.b64encode(f.read()),
+                    "datas": base64.b64encode(in_memory_zip.getvalue()),
                     "type": "binary",
                 }
             )
         )
-        f.close()
-
-        if os.path.isfile(archive_path):
-            os.remove(archive_path)
 
         return {
             "type": "ir.actions.act_url",

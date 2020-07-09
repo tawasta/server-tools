@@ -18,7 +18,8 @@ Usage
 
 Known issues / Roadmap
 ======================
-\-
+* TODO Make cron action that removes the file after some time
+* TODO Add support for sale orders
 
 Credits
 =======
