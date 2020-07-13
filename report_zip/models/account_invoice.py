@@ -13,16 +13,19 @@ class AccountInvoice(models.Model):
     def to_zip(self, records, archive_name):
         model_name = "account.account_invoices"
         in_memory_zip = io.BytesIO()
-        pdf_list = []
-        for record in records:
-            file_name = "{} - {} - {}.{}".format(
-                record._get_report_base_filename(), record.id, record.name, "pdf"
-            )
+        pdf_report_func = self.env.ref(model_name).sudo().render_qweb_pdf
 
-            pdf_list.append({
+        def pdf_map(record):
+            file_name = "{}.{}".format(
+                record.number,
+                "pdf",
+            )
+            return {
                 "name": file_name,
-                "data": self.env.ref(model_name).sudo().render_qweb_pdf([record.id])[0]
-            })
+                "data": pdf_report_func([record.id])[0]
+            }
+
+        pdf_list = map(pdf_map, records)
 
         with zipfile.ZipFile(in_memory_zip, "a") as zip_archive:
             for pdf in pdf_list:
