@@ -17,7 +17,7 @@ class AccountInvoice(models.Model):
 
         def pdf_map(record):
             file_name = "{}.{}".format(
-                record.name,
+                record.number,
                 "pdf",
             )
             return {
