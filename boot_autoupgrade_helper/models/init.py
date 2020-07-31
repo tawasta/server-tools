@@ -7,7 +7,8 @@ class LastBootUpgradeTimeCompany(models.Model):
     last_boot_upgrade = fields.Datetime(
         string='Last time all module upgrade happened on boot',
         default=datetime.datetime.now() - datetime.timedelta(hours=1),
-        readonly=False)
+        readonly=False
+    )
 
 
 class Module(models.Model):
@@ -16,6 +17,6 @@ class Module(models.Model):
     @api.model
     def boot_upgrade(self):
         if self.env.user.company_id.last_boot_upgrade < datetime.datetime.now()\
-                - datetime.timedelta(minutes=15):
+                - datetime.timedelta(minutes=10):
             self.env.user.company_id.last_boot_upgrade = datetime.datetime.now()
             return super(Module, self).upgrade_changed_checksum(self)
