@@ -9,13 +9,28 @@ class Module(models.Model):
     @api.model
     def boot_upgrade(self):
         modules_to_upgrade = self._get_modules_with_changed_checksum()
-        if len(modules_to_upgrade) > 1:
+        if len(modules_to_upgrade) > 0:
             super(Module, self).upgrade_changed_checksum(self)
-
-            if 'GITLAB_WEBHOOK_PASSWORD' in os.environ:
-                mattermost_access_token = os.environ['GITLAB_WEBHOOK_PASSWORD']
-                url = "https://matters.intra.fi/hooks/{}"\
-                    .format(mattermost_access_token)
-                data = {'text': 'Modules udpated: {}'
-                        .format(str(modules_to_upgrade))}
-                requests.post(url, data=data)
+            if (
+                'MATTERMOST_ACCES_TOKEN' in os.environ
+                and 'MATTERMOST_URL' in os.environ
+            ):
+                mattermost_access_token = os.environ['MATTERMOST_ACCESS_TOKEN']
+                mattermost_url = os.environ['MATTERMOST_URL']
+                url = "{}/{}".format(
+                    mattermost_url,
+                    mattermost_access_token
+                )
+                data = "{}{}{}{}".format(
+                    '{"text":',
+                    '"Modules updated: ',
+                    str(modules_to_upgrade),
+                    '"}',
+                )
+                requests.post(
+                    url,
+                    data=data,
+                    headers={
+                        "content-type": "applicaton/json"
+                    }
+                )
