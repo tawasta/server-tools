@@ -1,14 +1,6 @@
-from odoo import models, api, fields
-import datetime
-
-
-class LastBootUpgradeTimeCompany(models.Model):
-    _inherit = 'res.company'
-    last_boot_upgrade = fields.Datetime(
-        string='Last time all module upgrade happened on boot',
-        default=datetime.datetime.now() - datetime.timedelta(hours=1),
-        readonly=False
-    )
+import os
+import requests
+from odoo import models, api
 
 
 class Module(models.Model):
@@ -16,7 +8,14 @@ class Module(models.Model):
 
     @api.model
     def boot_upgrade(self):
-        if self.env.user.company_id.last_boot_upgrade < datetime.datetime.now()\
-                - datetime.timedelta(minutes=10):
-            self.env.user.company_id.last_boot_upgrade = datetime.datetime.now()
-            return super(Module, self).upgrade_changed_checksum(self)
+        modules_to_upgrade = self._get_modules_with_changed_checksum()
+        if len(modules_to_upgrade) > 1:
+            super(Module, self).upgrade_changed_checksum(self)
+
+            if 'GITLAB_WEBHOOK_PASSWORD' in os.environ:
+                mattermost_access_token = os.environ['GITLAB_WEBHOOK_PASSWORD']
+                url = "https://matters.intra.fi/hooks/{}"\
+                    .format(mattermost_access_token)
+                data = {'text': 'Modules udpated: {}'
+                        .format(str(modules_to_upgrade))}
+                requests.post(url, data=data)
