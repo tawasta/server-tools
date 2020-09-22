@@ -19,28 +19,21 @@
 ##############################################################################
 
 {
-    'name': 'Read Access Group for Sales',
-    'summary': 'Adds a new group that can read sales model data',
-    'version': '12.0.1.0.0',
-    'category': 'Extra Rights',
-    'website': 'https://github.com/Tawasta/server-tools',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'sale',
-        'sales_team',
+    "name": "Read Access Group for Sales",
+    "summary": "Adds a new group that can read sales model data",
+    "version": "12.0.1.0.0",
+    "category": "Extra Rights",
+    "website": "https://github.com/Tawasta/server-tools",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["sale", "sales_team"],
+    "data": [
+        "data/res_groups.xml",
+        "data/ir_ui_menu.xml",
+        "security/ir.model.access.csv",
     ],
-    'data': [
-        'data/res_groups.xml',
-        'data/ir_ui_menu.xml',
-        'security/ir.model.access.csv',
-    ],
-    'demo': [
-    ],
+    "demo": [],
 }

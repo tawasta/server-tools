@@ -1,13 +1,6 @@
-from odoo import models, api, fields
-import datetime
-
-
-class LastBootUpgradeTimeCompany(models.Model):
-    _inherit = 'res.company'
-    last_boot_upgrade = fields.Datetime(
-        string='Last time all module upgrade happened on boot',
-        default=datetime.datetime.now() - datetime.timedelta(hours=1),
-        readonly=False)
+import os
+import requests
+from odoo import models, api
 
 
 class Module(models.Model):
@@ -15,7 +8,29 @@ class Module(models.Model):
 
     @api.model
     def boot_upgrade(self):
-        if self.env.user.company_id.last_boot_upgrade < datetime.datetime.now()\
-                - datetime.timedelta(minutes=15):
-            self.env.user.company_id.last_boot_upgrade = datetime.datetime.now()
-            return super(Module, self).upgrade_changed_checksum(self)
+        modules_to_upgrade = self._get_modules_with_changed_checksum()
+        if len(modules_to_upgrade) > 0:
+            super(Module, self).upgrade_changed_checksum(self)
+            if (
+                'MATTERMOST_ACCES_TOKEN' in os.environ
+                and 'MATTERMOST_URL' in os.environ
+            ):
+                mattermost_access_token = os.environ['MATTERMOST_ACCESS_TOKEN']
+                mattermost_url = os.environ['MATTERMOST_URL']
+                url = "{}/{}".format(
+                    mattermost_url,
+                    mattermost_access_token
+                )
+                data = "{}{}{}{}".format(
+                    '{"text":',
+                    '"Modules updated: ',
+                    str(modules_to_upgrade),
+                    '"}',
+                )
+                requests.post(
+                    url,
+                    data=data,
+                    headers={
+                        "content-type": "applicaton/json"
+                    }
+                )

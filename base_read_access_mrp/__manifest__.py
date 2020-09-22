@@ -19,28 +19,22 @@
 ##############################################################################
 
 {
-    'name': 'Read Access Group for Manufacturing',
-    'summary': 'Adds a new group that can read mrp-related model data',
-    'version': '1.0.4',
-    'category': 'Extra Rights',
-    'website': 'https://github.com/Tawasta/server-tools',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': False,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
+    "name": "Read Access Group for Manufacturing",
+    "summary": "Adds a new group that can read mrp-related model data",
+    "version": "12.0.1.0.4",
+    "category": "Extra Rights",
+    "website": "https://github.com/Tawasta/server-tools",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp"],
+    "data": [
+        "data/res_groups.xml",
+        "data/ir_ui_menu.xml",
+        "security/ir.model.access.csv",
+        "views/product_template.xml",
     ],
-    'data': [
-        'data/res_groups.xml',
-        'data/ir_ui_menu.xml',
-        'security/ir.model.access.csv',
-        'views/product_template.xml',
-    ],
-    'demo': [
-    ],
+    "demo": [],
 }
