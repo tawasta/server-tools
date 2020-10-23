@@ -19,25 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Auth LDAP only',
-    'summary': 'Authentication via LDAP Only',
-    'version': '12.0.1.0.0',
-    'category': 'Tools',
-    'website': 'https://github.com/Tawasta/server-tools',
-    'author': 'Oy Tawasta Technologies Ltd',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': False,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'auth_ldap',
-    ],
-    'data': [
-        'security/res_users.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Auth LDAP only",
+    "summary": "Authentication via LDAP Only",
+    "version": "12.0.1.0.0",
+    "category": "Tools",
+    "website": "https://github.com/Tawasta/server-tools",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["auth_ldap"],
+    "data": ["security/res_users.xml"],
+    "demo": [],
 }
