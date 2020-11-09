@@ -12,7 +12,7 @@ odoo.define('board_auto_refresh.auto_refresh', function (require) {
             if (typeof(action) !== 'undefined'){
                 try {
                     // TODO: This is very inefficient way to do the refresh
-                    if (String(action.view_id[1]).match('My Dashboard')) {
+                    if (action.view_id && String(action.view_id[1]).match('My Dashboard')) {
                         controller.widget.reload();
                     }
                 } catch (e) {
