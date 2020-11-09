@@ -6,7 +6,7 @@
 Board auto refresh
 ==================
 
-Refreshes the board every 5 minutes.
+Refreshes the board every 5 minutes
 
 
 Configuration
