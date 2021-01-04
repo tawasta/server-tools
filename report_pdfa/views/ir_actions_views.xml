@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="act_report_xml_view" inherit_id="base.act_report_xml_view">
+        <xpath expr="//button[@name='associated_view']" position="attributes">
+            <attribute name="attrs">{'invisible':[('report_type', 'not in', ['qweb-pdf', 'qweb-pdfa', 'qweb-html', 'qweb-text'])]}</attribute>
+        </xpath>
+    </template>
+</odoo>

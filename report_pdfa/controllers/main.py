@@ -10,9 +10,17 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class ReportController(report.ReportController):
     @route()
     def report_routes(self, reportname, docids=None, converter=None, **data):
+        if converter != 'qweb-pdfa':
+            return super(ReportController, self).report_routes(
+                reportname=reportname, docids=docids, converter=converter,
+                **data)
+
+        context = dict(request.env.context)
+
 
         _logger.warning('test')
 
