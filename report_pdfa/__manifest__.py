@@ -20,10 +20,10 @@
 
 {
     'name': 'Report - PDF-A',
-    'summary': 'Converts QWeb PDF into PDF-A',
+    'summary': 'Converts QWeb PDF into PDF-A using ghostscript',
     'version': '12.0.1.0.0',
     'category': 'Reporting',
-    'website':'https://tawasta.fi',
+    'website': 'https://github.com/Tawasta/server-tools',
     'author': 'Tawasta',
     'license': 'AGPL-3',
     'application': False,
@@ -35,8 +35,8 @@
     },
     'depends': [
         'base',
-        'web',
     ],
     'data': [
+        'views/ir_actions_views.xml',
     ],
 }
