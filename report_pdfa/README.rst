@@ -6,16 +6,16 @@
 Report - PDF-A
 ==============
 
-* Allows conversion from QWeb PDF to PDF/A-2b
+* Allows conversion from QWeb PDF to PDF/A-1B
 
 
 Features
 ========
-* Adds an option to print a PDF as PDF/A-2b
+* Adds an option to print a PDF as PDF/A-1B
 
 Configuration
 =============
-\-
+* Ghostscript(9.50) needs to be installed
 
 Usage
 =====
@@ -23,7 +23,8 @@ Usage
 
 Known issues / Roadmap
 ======================
-\-
+* Filesize becomes large (~500kb)
+* Only supports PDF/A-1B (not PDF/A-2B)
 
 Credits
 =======
