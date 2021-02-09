@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2017 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2021 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,17 +19,24 @@
 ##############################################################################
 
 {
-    "name": "Auth LDAP only",
-    "summary": "Authentication via LDAP Only",
-    "version": "12.0.1.1.1",
-    "category": "Tools",
-    "website": "https://github.com/Tawasta/server-tools",
-    "author": "Tawasta",
-    "license": "AGPL-3",
-    "application": False,
-    "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["auth_ldap"],
-    "data": ["security/res_users.xml"],
-    "demo": [],
+    'name': 'Report - PDF-A',
+    'summary': 'Converts QWeb PDF into PDF-A using ghostscript',
+    'version': '12.0.1.0.0',
+    'category': 'Reporting',
+    'website': 'https://github.com/Tawasta/server-tools',
+    'author': 'Tawasta',
+    'license': 'AGPL-3',
+    'application': False,
+    'installable': True,
+    'external_dependencies': {
+        'bin': [
+            'ghostscript',
+        ],
+    },
+    'depends': [
+        'base',
+    ],
+    'data': [
+        'views/ir_actions_views.xml',
+    ],
 }

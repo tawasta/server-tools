@@ -1,5 +1,4 @@
 from odoo import models
-from odoo import SUPERUSER_ID
 from odoo.exceptions import AccessDenied
 
 
@@ -8,7 +7,7 @@ class Users(models.Model):
 
     def _check_credentials(self, password):
         try:
-            if self._uid == SUPERUSER_ID or self.has_group(
+            if self._uid in [1, 2] or self.has_group(
                 "auth_ldap_only.ldap_bypass"
             ):
                 """
