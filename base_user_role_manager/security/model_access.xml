@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record  id="role_manager_user"
+            model="ir.model.access" >
+        <field name="name">role_manager_user</field>
+        <field
+                name="model_id"
+                ref="base.model_res_users"
+        />
+        <field name="group_id" ref="group_role_manager"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record  id="role_manager_partner"
+            model="ir.model.access" >
+        <field name="name">role_manager_partner</field>
+        <field
+                name="model_id"
+                ref="base.model_res_partner"
+        />
+        <field name="group_id" ref="group_role_manager"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record  id="role_manager_role"
+            model="ir.model.access" >
+        <field name="name">role_manager_role</field>
+        <field
+                name="model_id"
+                ref="base_user_role.model_res_users_role"
+        />
+        <field name="group_id" ref="group_role_manager"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record  id="role_manager_role_line"
+            model="ir.model.access" >
+        <field name="name">role_manager_role_line</field>
+        <field
+                name="model_id"
+                ref="base_user_role.model_res_users_role_line"
+        />
+        <field name="group_id" ref="group_role_manager"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+</odoo>
