@@ -29,8 +29,5 @@
     "application": False,
     "installable": True,
     "depends": ["auditlog"],
-    "data": [
-        "security/user_groups.xml",
-        "security/ir.model.access.csv",
-    ],
+    "data": ["security/user_groups.xml", "security/ir.model.access.csv",],
 }
