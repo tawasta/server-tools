@@ -19,24 +19,16 @@
 ##############################################################################
 
 {
-    'name': 'Report - PDF-A',
-    'summary': 'Converts QWeb PDF into PDF-A using ghostscript',
-    'version': '12.0.1.0.0',
-    'category': 'Reporting',
-    'website': 'https://github.com/Tawasta/server-tools',
-    'author': 'Tawasta',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'bin': [
-            'ghostscript',
-        ],
-    },
-    'depends': [
-        'base',
-    ],
-    'data': [
-        'views/ir_actions_views.xml',
-    ],
+    "name": "Report - PDF-A",
+    "summary": "Converts QWeb PDF into PDF-A using ghostscript",
+    "version": "12.0.1.0.0",
+    "category": "Reporting",
+    "website": "https://github.com/Tawasta/server-tools",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"bin": ["ghostscript",],},
+    "depends": ["base",],
+    "data": ["views/ir_actions_views.xml",],
 }
