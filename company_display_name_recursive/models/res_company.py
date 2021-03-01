@@ -45,7 +45,7 @@ class Company(models.Model):
     def _get_recursive_name(self, record):
         # Returns a recursive company name
 
-        if record.parent_id:
+        if record.parent_id and record.parent_id.id != 1:
             display_name = "{} / {}".format(
                 self._get_recursive_name(record.parent_id), record.name,
             )
