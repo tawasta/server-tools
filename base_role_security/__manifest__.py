@@ -21,7 +21,7 @@
 {
     "name": "Base role security",
     "summary": "Base role security",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Tools",
     "website": "https://github.com/Tawasta/server-tools",
     "author": "Tawasta",
@@ -30,8 +30,6 @@
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": ["base_user_role"],
-    "data": [
-        "views/res_users_role.xml",
-    ],
+    "data": ["views/res_users_role.xml"],
     "demo": [],
 }
