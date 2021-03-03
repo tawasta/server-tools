@@ -10,7 +10,7 @@
                     <group>
                         <field name="access_rights_ids" nolabel="1">
                             <tree string="Access Rights">
-                                <field name="name"/>
+                                <field name="model_id"/>
                                 <field name="perm_read" />
                                 <field name="perm_write" />
                                 <field name="perm_create"/>
@@ -23,6 +23,7 @@
                     <group>
                         <field name="record_rules_ids" nolabel="1">
                             <tree string="Record rules">
+                                <field name="model_id"/>
                                 <field name="name"/>
                                 <field name="domain_force"/>
                                 <field name="perm_read" />
