@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    "name": "User role security",
-    "summary": "User role security",
+    "name": "Base role security",
+    "summary": "Base role security",
     "version": "12.0.1.0.0",
     "category": "Tools",
     "website": "https://github.com/Tawasta/server-tools",

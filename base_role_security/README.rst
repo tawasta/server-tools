@@ -3,10 +3,10 @@
    :alt: License: AGPL-3
 
 ==================
-User role security
+Base role security
 ==================
 
-User role security
+Base role security
 
 Configuration
 =============
