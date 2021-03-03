@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_users_role_form" model="ir.ui.view">
+        <field name="name">res.users.role.security.form</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_form"/>
+        <field name="arch" type="xml">
+            <page name="role_inernal_notes" position="after">
+                <page name="access_rights" string="Access Rights">
+                    <group>
+                        <field name="access_rights_ids" nolabel="1">
+                            <tree string="Access Rights">
+                                <field name="name"/>
+                                <field name="perm_read" />
+                                <field name="perm_write" />
+                                <field name="perm_create"/>
+                                <field name="perm_unlink" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page name="record_rules" string="Record rules">
+                    <group>
+                        <field name="record_rules_ids" nolabel="1">
+                            <tree string="Record rules">
+                                <field name="name"/>
+                                <field name="domain_force"/>
+                                <field name="perm_read" />
+                                <field name="perm_write" />
+                                <field name="perm_create"/>
+                                <field name="perm_unlink" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </page>
+
+        </field>
+    </record>
+</odoo>
