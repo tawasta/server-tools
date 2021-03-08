@@ -73,9 +73,7 @@ class ResUsersLog(models.Model):
         logs = self.sudo().search(log_domain)
 
         if group_ids:
-            groups = self.env["res.groups"].sudo().search([
-                ("id", "in", group_ids),
-            ])
+            groups = self.env["res.groups"].sudo().browse(group_ids)
             for group in groups:
                 users = logs.filtered(
                     lambda r: r.create_uid.id in group.users.ids
