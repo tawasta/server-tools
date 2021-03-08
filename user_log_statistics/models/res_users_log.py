@@ -53,7 +53,7 @@ class ResUsersLog(models.Model):
     # 6. CRUD methods
 
     # 7. Action methods
-    def login_statistics(self, start_date, end_date, group_ids=[]):
+    def login_statistics(self, start_date, end_date, group_ids=None):
         """
         Method to retrieve user login statistics
 
