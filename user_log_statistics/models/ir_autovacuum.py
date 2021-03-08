@@ -54,6 +54,6 @@ class AutoVacuum(models.AbstractModel):
     # 7. Action methods
     @api.model
     def _gc_user_logs(self):
-        _logger.info("Prevented auto-vacuum cron from clearing user logs...")
+        _logger.warning("Prevented auto-vacuum cron from clearing user logs...")
 
     # 8. Business methods
