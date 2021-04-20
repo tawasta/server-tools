@@ -17,7 +17,7 @@ class ResUsers(models.Model):
         oauth_provider = self.env["auth.oauth.provider"].browse(provider)
 
         if oauth_provider.hd and not res.get("hd") == oauth_provider.hd:
-            msg = _(""%s" tried to login from outside of the domain"
+            msg = _("'%s' tried to login from outside of the domain"
                     % res.get("email"))
             _logger.warning(msg)
             raise AccessDenied()
