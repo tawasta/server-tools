@@ -8,12 +8,12 @@ class OAuthLoginGsuite(OAuthLogin):
         res = super(OAuthLoginGsuite, self).list_providers()
 
         for provider in res:
-            if provider.get('hd'):
+            if provider.get("hd"):
                 params = dict(
-                    hd=provider.get('hd'),
+                    hd=provider.get("hd"),
                 )
 
-                provider['auth_link'] = '%s&%s' % (
-                    provider['auth_link'], url_encode(params))
+                provider["auth_link"] = "%s&%s" % (
+                    provider["auth_link"], url_encode(params))
 
         return res

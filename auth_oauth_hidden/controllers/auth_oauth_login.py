@@ -9,19 +9,19 @@ class OAuthLoginHidden(OAuthLogin):
         res = super(OAuthLoginHidden, self).web_login(*args, **kw)
 
         # Remove hidden providers, unless a GET parameter is given
-        if res.qcontext.get('providers'):
-            key = kw.get('key', False)
+        if res.qcontext.get("providers"):
+            key = kw.get("key", False)
             providers = []
 
-            for provider in res.qcontext['providers']:
-                hidden = provider.get('hidden', False)
+            for provider in res.qcontext["providers"]:
+                hidden = provider.get("hidden", False)
 
-                if hidden and key != provider.get('hidden_key'):
+                if hidden and key != provider.get("hidden_key"):
                     continue
 
                 providers.append(provider)
 
-            res.qcontext['providers'] = providers
+            res.qcontext["providers"] = providers
 
         return res
 
@@ -29,13 +29,13 @@ class OAuthLoginHidden(OAuthLogin):
         res = super(OAuthLoginHidden, self).get_auth_signup_qcontext()
         providers = []
 
-        # Don't show hidden providers in signup
-        for provider in res.get('providers'):
-            if provider.get('hidden'):
+        # Don"t show hidden providers in signup
+        for provider in res.get("providers"):
+            if provider.get("hidden"):
                 continue
 
             providers.append(provider)
 
-        res['providers'] = providers
+        res["providers"] = providers
 
         return res
