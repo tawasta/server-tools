@@ -30,7 +30,7 @@ class ResUsersLog(models.Model):
 
             log_contents = self.get_log_contents(yesterday_start, yesterday_end)
 
-            file_name = "upload/auth_attempts_{0}.log".format(yesterday)
+            file_name = "auth_attempts_{0}.log".format(yesterday)
             _logger.debug("Auth log contents: {}".format(log_contents))
             _logger.debug("Moving auth log {} to {}".format(file_name, host))
 
