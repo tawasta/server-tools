@@ -26,11 +26,8 @@
     "website": "http://www.tawasta.fi",
     "author": "Tawasta",
     "license": "AGPL-3",
-    "data": [
-    ],
-    "depends": [
-        "user_log_view",
-    ],
+    "data": [],
+    "depends": ["user_log_view",],
     "application": False,
     "installable": True,
 }

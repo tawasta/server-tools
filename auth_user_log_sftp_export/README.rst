@@ -14,7 +14,7 @@ Features
 
 Configuration
 =============
-* Go to system parameters and set the correct attributes for auth_brute_force_ftp_export parameters
+* Go to system parameters and set the correct attributes for auth_user_log_sftp_export parameters
 * Add a hostkey to ``~/.ssh/known_hosts``
 
 Usage

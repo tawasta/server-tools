@@ -19,31 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Export auth attempt logs to SFTP server',
-    'summary': 'Export auth attempt logs to SFTP server',
-    'version': '12.0.1.1.1',
-    'category': 'Tools',
-    'website': 'https://github.com/Tawasta/server-tools',
-    'author': 'Tawasta',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': False,
-    'external_dependencies': {
-        'python': [
-            'os',
-            'paramiko',
-            'pysftp',
-            'StringIO',
-        ],
-        'bin': [],
-    },
-    'depends': [
-        'auth_brute_force',
-    ],
-    'data': [
-        'data/ir_config_parameter.xml',
-        'data/ir_cron.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Export auth attempt logs to SFTP server",
+    "summary": "Export auth attempt logs to SFTP server",
+    "version": "12.0.1.1.1",
+    "category": "Tools",
+    "website": "https://github.com/Tawasta/server-tools",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": ["os", "pysftp", "paramiko"], "bin": []},
+    "depends": ["user_log_view"],
+    "data": ["data/ir_config_parameter.xml", "data/ir_cron.xml"],
+    "demo": [],
 }
