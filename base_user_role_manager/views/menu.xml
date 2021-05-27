@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <menuitem
-            id="user_management"
-            name="Users"
-            groups="group_role_manager"
-            web_icon="base,static/description/settings.png"
-            sequence="400"
-    />
+    id="user_management"
+    name="Users"
+    groups="group_role_manager"
+    web_icon="base,static/description/settings.png"
+    sequence="400"
+  />
 
     <menuitem
     id="user_management_user"

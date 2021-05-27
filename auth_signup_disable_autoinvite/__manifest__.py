@@ -23,7 +23,7 @@
     "summary": "Disable signup auto invite",
     "version": "14.0.1.0.0",
     "category": "Tools",
-    "website": "https://github.com/Tawasta/server-tools",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

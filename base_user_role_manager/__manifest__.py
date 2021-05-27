@@ -21,9 +21,9 @@
 {
     "name": "An user group for managing users and roles",
     "summary": "Allow user to manage users and their roles",
-    "version": "12.0.1.1.0",
+    "version": "14.0.1.1.0",
     "category": "Tools",
-    "website": "https://github.com/Tawasta/server-tools",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
