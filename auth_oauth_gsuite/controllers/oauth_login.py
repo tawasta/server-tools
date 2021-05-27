@@ -1,9 +1,9 @@
 from werkzeug.urls import url_encode
+
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin
 
 
 class OAuthLoginGsuite(OAuthLogin):
-
     def list_providers(self):
         res = super(OAuthLoginGsuite, self).list_providers()
 
@@ -14,6 +14,8 @@ class OAuthLoginGsuite(OAuthLogin):
                 )
 
                 provider["auth_link"] = "%s&%s" % (
-                    provider["auth_link"], url_encode(params))
+                    provider["auth_link"],
+                    url_encode(params),
+                )
 
         return res
