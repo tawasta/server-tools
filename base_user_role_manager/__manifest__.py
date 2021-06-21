@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2021 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,17 +19,22 @@
 ##############################################################################
 
 {
-    "name": "Disable signup auto invite",
-    "summary": "Disable signup auto invite",
-    "version": "14.0.1.0.0",
+    "name": "An user group for managing users and roles",
+    "summary": "Allow user to manage users and their roles",
+    "version": "14.0.1.1.0",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        "auth_signup",
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["auth_signup", "base_user_role"],
+    "data": [
+        "security/base_groups.xml",
+        "security/model_access.xml",
+        "views/menu.xml",
+        "views/res_users.xml",
     ],
-    "data": [],
+    "demo": [],
 }

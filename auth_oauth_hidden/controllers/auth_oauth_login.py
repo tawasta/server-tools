@@ -1,9 +1,9 @@
 from odoo import http
+
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin
 
 
 class OAuthLoginHidden(OAuthLogin):
-
     @http.route()
     def web_login(self, *args, **kw):
         res = super(OAuthLoginHidden, self).web_login(*args, **kw)
