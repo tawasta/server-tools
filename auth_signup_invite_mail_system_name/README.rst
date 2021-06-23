@@ -9,7 +9,7 @@ Auth Signup Invite Mail System Name
 
 Configuration
 =============
-\-
+- If translations don't automatically install, import fi.po file manually.
 
 Usage
 =====
