@@ -24,15 +24,9 @@ class ResUsers(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         login_key = "login"
-        lastname_key = "lastname"
-        firstname_key = "firstname"
         login_of_key = [a_dict[login_key] for a_dict in vals_list]
-        lastname_of_key = [a_dict[lastname_key] for a_dict in vals_list]
-        firstname_of_key = [a_dict[firstname_key] for a_dict in vals_list]
         already_user_by_email = self.env["res.users"].sudo().search([
             ('login', '=ilike', login_of_key[0]),
-            ('lastname', '=ilike', lastname_of_key[0]),
-            ('firstname', '=ilike', firstname_of_key[0]),
             ('active', '=', False),
         ])
         if already_user_by_email and already_user_by_email.active == False:
