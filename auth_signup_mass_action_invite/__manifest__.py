@@ -21,13 +21,13 @@
 {
     "name": "Auth Signup Mass Action Invite",
     "summary": "Send invite mail with mass action",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["auth_signup"],
+    "depends": ["auth_signup", "base_user_role_manager"],
     "data": ["views/res_users_views.xml"],
 }

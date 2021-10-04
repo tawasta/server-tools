@@ -14,5 +14,6 @@ addon | version | summary
 [auth_oauth_gsuite](auth_oauth_gsuite/) | 14.0.1.0.0 | Adds Google G Suite specific options
 [auth_oauth_hidden](auth_oauth_hidden/) | 14.0.1.0.0 | Adds a parameter for OAuth providers to allow hiding them
 [auth_signup_disable_autoinvite](auth_signup_disable_autoinvite/) | 14.0.1.0.0 | Disable signup auto invite
+[auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 14.0.1.0.1 | Mass action to send invite mail
 
 [//]: # (end addons)
