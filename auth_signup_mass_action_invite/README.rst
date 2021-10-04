@@ -6,6 +6,7 @@
 Auth Signup Mass Action Invite
 ==============================
 * Send system invite with mass action
+* Security group from base_user_role_manager
 
 Configuration
 =============
