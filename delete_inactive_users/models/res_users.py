@@ -19,18 +19,7 @@ class ResUsers(models.Model):
             for user in inactive_users:
                 days_in_system = date_now.date() - user.create_date.date()
                 if int(days_in_system.days) > int(inactive_users_val):
-                    user.sudo().write({"active": False})
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        login_key = "login"
-        login_of_key = [a_dict[login_key] for a_dict in vals_list]
-        already_user_by_email = self.env["res.users"].sudo().search([
-            ('login', '=ilike', login_of_key[0]),
-            ('active', '=', False),
-        ])
-        if already_user_by_email and already_user_by_email.active == False:
-            already_user_by_email.sudo().write({"active": True})
-            return already_user_by_email
-        else:
-            return super(ResUsers, self).create(vals_list)
+                    if '@' in user.login:
+                        print(user)
+                        user.sudo().write({"active": False})
+                        user.unlink()
