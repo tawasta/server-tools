@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* auth_odoo_idp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-16 08:58+0000\n"
+"PO-Revision-Date: 2021-11-16 11:00+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fi\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: auth_odoo_idp
+#: model:ir.model.fields,field_description:auth_odoo_idp.field_res_config_settings__idp_allowed_ips
+msgid "Allowed IPs"
+msgstr "Sallitut IP-osoitteet"
+
+#. module: auth_odoo_idp
+#: model:ir.model.fields,help:auth_odoo_idp.field_res_config_settings__idp_allowed_ips
+msgid "Comma separated list of allowed IPs to use Odoo as IdP"
+msgstr "Pilkulla erotettu lista sallituista IP-osoitteesta, jotka voivat käyttää Odoota identiteetinhallintajärjestelmänä"
+
+#. module: auth_odoo_idp
+#: model_terms:ir.ui.view,arch_db:auth_odoo_idp.res_config_settings_view_form
+msgid "Comma separated list of allowed IPs. Empty means none allowed."
+msgstr "Pilkulla erotettu lista sallituista IP-osoitteista. Tyhjä kenttä tarkoittaa, että mistään ei ole sallittu."
+
+#. module: auth_odoo_idp
+#: model:ir.model,name:auth_odoo_idp.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfiguraatioasetukset"
+
+#. module: auth_odoo_idp
+#: model:ir.model.fields,field_description:auth_odoo_idp.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:auth_odoo_idp.field_res_users__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: auth_odoo_idp
+#: model:ir.model.fields,field_description:auth_odoo_idp.field_res_config_settings__id
+#: model:ir.model.fields,field_description:auth_odoo_idp.field_res_users__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: auth_odoo_idp
+#: model:ir.model.fields,field_description:auth_odoo_idp.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:auth_odoo_idp.field_res_users____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
+
+#. module: auth_odoo_idp
+#: model_terms:ir.ui.view,arch_db:auth_odoo_idp.res_config_settings_view_form
+msgid "Odoo IdP"
+msgstr "Odoo Identititeetinhallintajärjestelmä"
+
+#. module: auth_odoo_idp
+#: model:ir.model,name:auth_odoo_idp.model_res_users
+msgid "Users"
+msgstr "Käyttäjät"

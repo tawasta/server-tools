@@ -23,6 +23,8 @@ import json
 
 # 3. Odoo imports (openerp):
 from odoo import models
+from odoo.exceptions import AccessDenied
+from odoo.http import request
 
 # 2. Known third party imports:
 
@@ -64,6 +66,13 @@ class ResUsers(models.Model):
 
     def user_info_json(self):
         """ Return user data in JSON-format """
+        remote_ip = request.httprequest.remote_addr
+        allowed_ips = (
+            self.env["ir.config_parameter"].sudo().get_param("idp_allowed_ips", "")
+        ).split(",")
+        if remote_ip not in allowed_ips:
+            raise AccessDenied
+
         return json.dumps(self.user_info(), ensure_ascii=False)
 
     # 8. Business methods
