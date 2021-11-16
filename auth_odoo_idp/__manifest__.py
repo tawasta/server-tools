@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,17 @@
 ##############################################################################
 
 {
-    "name": "Auditlog Security Group",
-    "summary": "Add a new security group that allows users to read auditlogs",
+    "name": "Auth Odoo IdP",
+    "summary": "Return user related data using XML-RPC",
     "version": "14.0.1.0.0",
-    "category": "Website",
+    "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["auditlog"],
-    "data": ["security/user_groups.xml", "security/ir.model.access.csv"],
+    "depends": [
+        "membership",
+    ],
+    "data": [],
 }
