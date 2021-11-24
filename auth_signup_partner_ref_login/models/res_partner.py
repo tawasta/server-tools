@@ -15,8 +15,8 @@ class ResPartner(models.Model):
             res['name'] = partner.name
         if partner.user_ids:
             res['login'] = partner.user_ids[0].login
-            res['email'] = res['email'] = partner.email
+            res['email'] = partner.email
         else:
-            res['email'] = res['email'] = partner.email
-            res['login'] = res['login'] = partner.ref or ''
+            res['email'] = partner.email
+            res['login'] = partner.ref or ''
         return res
