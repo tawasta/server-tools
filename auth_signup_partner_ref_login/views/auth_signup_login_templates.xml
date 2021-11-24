@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <template id="fields" inherit_id="auth_signup.fields">
+        <xpath expr='//div[@class="form-group field-login"]/label' position="replace">
+            <label for="login">Your Login</label>
+        </xpath>
+        <xpath expr='//div[@class="form-group field-login"]/input' position="replace">
+            <t t-if="readonly">
+                <input type="text" name="login" t-att-value="login" id="login" class="form-control form-control-sm" autofocus="autofocus"
+                    autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
+            </t>
+            <t t-else="">
+                <t t-set="next_partner_code" t-value="request.env['ir.sequence'].sudo().get('res.partner')" />
+                <input type="text" name="login" t-att-value="next_partner_code" id="login" class="form-control form-control-sm" autofocus="autofocus"
+                    autocapitalize="off" required="required" t-att-readonly="'readonly' if next_partner_code else None"/>
+            </t>
+        </xpath>
+        <xpath expr='//div[@class="form-group field-login"]' position="after">
+            <div class="form-group field-email">
+                <label for="email">Your Email</label>
+                <input type="text" name="email" t-att-value="email" id="email" class="form-control form-control-sm" autofocus="autofocus"
+                    autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
