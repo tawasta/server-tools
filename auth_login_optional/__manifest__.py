@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    "name": "Auth Odoo IdP",
-    "summary": "Return user related data using XML-RPC",
+    "name": "Auth Login Optional",
+    "summary": "Option to using another field as login-field",
     "version": "14.0.1.0.0",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
@@ -29,8 +29,7 @@
     "application": False,
     "installable": True,
     "depends": [
-        "membership",
-        "auth_login_optional",
+        "base_setup",
     ],
     "data": [
         "views/res_config_settings_views.xml",
