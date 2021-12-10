@@ -23,7 +23,7 @@
     "summary": "Add a new security group that allows users to read auditlogs",
     "version": "14.0.1.0.0",
     "category": "Website",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools/",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
