@@ -20,6 +20,5 @@ class ResUsers(models.Model):
                 days_in_system = date_now.date() - user.create_date.date()
                 if int(days_in_system.days) > int(inactive_users_val):
                     if '@' in user.login:
-                        print(user)
                         user.sudo().write({"active": False})
                         user.unlink()
