@@ -6,6 +6,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">['|',('user_id', '=', uid),('user_id', '=', False)]</field>
+        <field name="context">{"search_default_my_filters": 1}</field>
         <field name="view_id" ref="base.ir_filters_view_tree"/>
     </record>
     <menuitem 
