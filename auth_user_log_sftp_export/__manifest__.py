@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,17 @@
 ##############################################################################
 
 {
-    "name": "User Log Statistics",
-    "summary": "Statistics regarding res.users.log entries",
-    "version": "12.0.1.0.0",
-    "category": "Extra Tools",
-    "website": "http://www.tawasta.fi",
+    "name": "Export auth attempt logs to SFTP server",
+    "summary": "Export auth attempt logs to SFTP server",
+    "version": "12.0.1.1.2",
+    "category": "Tools",
+    "website": "https://github.com/Tawasta/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
-    "data": [],
-    "depends": ["user_log_view",],
     "application": False,
     "installable": True,
+    "external_dependencies": {"python": ["os", "pysftp", "paramiko"], "bin": []},
+    "depends": ["user_log_view"],
+    "data": ["data/ir_config_parameter.xml", "data/ir_cron.xml"],
+    "demo": [],
 }

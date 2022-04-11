@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,33 +17,22 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-
 {
-    'name': 'Export auth attempt logs to SFTP server',
-    'summary': 'Export auth attempt logs to SFTP server',
-    'version': '12.0.1.1.1',
-    'category': 'Tools',
-    'website': 'https://github.com/Tawasta/server-tools',
-    'author': 'Tawasta',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': False,
-    'external_dependencies': {
-        'python': [
-            'os',
-            'paramiko',
-            'pysftp',
-            'StringIO',
-        ],
-        'bin': [],
-    },
-    'depends': [
-        'auth_brute_force',
+    "name": "Mattermost hooks",
+    "summary": "Adds possible to use Mattermost hooks",
+    "category": "Tools",
+    "version": "12.0.1.0.1",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": [
+        "base",
     ],
-    'data': [
-        'data/ir_config_parameter.xml',
-        'data/ir_cron.xml',
-    ],
-    'demo': [
+    "data": [
+        "security/ir.model.access.csv",
+        "views/res_company.xml",
+        "views/mattermost_hook_views.xml",
     ],
 }
