@@ -21,7 +21,7 @@
 {
     "name": "Scheduled module auto update",
     "summary": "Run Module Auto Update on a schedule",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Tools",
     "website": "https://github.com/Tawasta/server-tools",
     "author": "Tawasta",
