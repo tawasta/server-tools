@@ -58,7 +58,7 @@ class ResConfigSettings(models.TransientModel):
 
     # 7. Action methods
     def set_values(self):
-        """ Check that field is valid for user """
+        """Check that field is valid for user"""
         super().set_values()
         try:
             self.env["res.users"].mapped(self.optional_login_field)
