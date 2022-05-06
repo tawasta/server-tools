@@ -1,11 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="action_send_invitation_mail" model="ir.actions.server">
         <field name="name">Send an Invitation Email</field>
-        <field name="model_id" ref="base.model_res_users"/>
-        <field name="groups_id" eval="[(4, ref('base_user_role_manager.group_role_manager'))]"/>
-        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="model_id" ref="base.model_res_users" />
+        <field
+      name="groups_id"
+      eval="[(4, ref('base_user_role_manager.group_role_manager'))]"
+    />
+        <field name="binding_model_id" ref="base.model_res_users" />
         <field name="state">code</field>
-        <field name="code">records.with_context(create_user=1).action_reset_password()</field>
+        <field
+      name="code"
+    >records.with_context(create_user=1).action_reset_password()</field>
     </record>
 </odoo>

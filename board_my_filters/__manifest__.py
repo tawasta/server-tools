@@ -20,11 +20,10 @@
 {
     "name": "Dashoard My Filters",
     "summary": "Users can edit their own and shared filters from Dashboards",
-    "description": "Users can edit their own and shared filters from Dashboards",
     "version": "14.0.1.0.0",
     "category": "Extra Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
-    "author": "Miika Nissi",
+    "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
