@@ -23,16 +23,13 @@
     "summary": "Rest api menu group",
     "version": "14.0.1.0.1",
     "category": "Roles",
-    "website": "http://www.tawasta.fi",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": [
-        "base",
-        "base_rest"
-    ],
+    "depends": ["base", "base_rest"],
     "data": [
         "menu/menu.xml",
     ],

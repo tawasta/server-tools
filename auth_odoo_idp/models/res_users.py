@@ -52,7 +52,7 @@ class ResUsers(models.Model):
 
     # 7. Action methods
     def user_info(self):
-        """ Return user related data """
+        """Return user related data"""
         self.ensure_one()
         # Add webrole and webrole-meta
         vals = {
@@ -65,7 +65,7 @@ class ResUsers(models.Model):
         return vals
 
     def user_info_json(self):
-        """ Return user data in JSON-format """
+        """Return user data in JSON-format"""
         remote_ip = request.httprequest.remote_addr
         allowed_ips = (
             self.env["ir.config_parameter"].sudo().get_param("idp_allowed_ips", "")

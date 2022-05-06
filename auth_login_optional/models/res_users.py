@@ -48,7 +48,7 @@ class ResUsers(models.Model):
     # 4. Compute and search fields, in the same order that fields declaration
     @api.model
     def _get_login_domain(self, login):
-        """ Get login field from ICP """
+        """Get login field from ICP"""
         domain = []
         login_field = (
             self.env["ir.config_parameter"]
