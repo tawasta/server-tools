@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">Mattermost API</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field
+        name="groups_id"
+        eval="[(4, ref('base.group_erp_manager'))]"
+      />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Mattermost">
+                        <group string="Hooks">
+                            <field name="mattermost_hook_ids" nolabel="1">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="hook" password="True" />
+                                    <field name="channel" />
+                                    <field name="username" />
+                                    <field name="icon_url" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>
