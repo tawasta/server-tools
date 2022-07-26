@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_mattermost_hook_tree" model="ir.ui.view">
+        <field name="name">mattermost.hook.tree</field>
+        <field name="model">mattermost.hook</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree string="Mattermost hooks">
+                <field name="name" />
+                <field name="mattermost_url" />
+                <field name="company_id" />
+                <field name="hook" password="True" required="True" />
+                <field name="res_model" />
+                <field name="function" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mattermost_hook_form" model="ir.ui.view">
+        <field name="name">mattermost.hook.form</field>
+        <field name="model">mattermost.hook</field>
+        <field name="arch" type="xml">
+            <form string="Mattermost hook">
+                <header>
+                    <button
+            string="Test"
+            type="object"
+            name="action_test_hook"
+          />
+                </header>
+                <sheet>
+                    <group name="mattermost_hook_settings">
+                        <group>
+                            <field name="name" />
+                            <field name="mattermost_url" />
+                            <field name="company_id" />
+                            <field
+                name="hook"
+                password="True"
+                required="True"
+              />
+                            <field name="res_model" />
+                            <field name="function" />
+                        </group>
+                        <group>
+                            <field name="channel" />
+                            <field name="username" />
+                            <field name="icon_url" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mattermost_hook_action" model="ir.actions.act_window">
+        <field name="name">Mattermost hooks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mattermost.hook</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    id="mattermost_hook_menu"
+    name="Mattermost hooks"
+    action="mattermost_hook_action"
+    parent="base.menu_custom"
+    sequence="100"
+    groups="base.group_no_one"
+  />
+</odoo>
