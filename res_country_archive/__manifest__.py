@@ -21,7 +21,7 @@
 {
     "name": "Res Country Archive",
     "summary": "Ability to archive countries and states",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Hidden",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",

@@ -70,6 +70,7 @@
         <field name="model">res.country.state</field>
         <field name="arch" type="xml">
             <search string="Search State">
+                <field name="name"/>
                 <filter
           string="Archived"
           name="inactive"
