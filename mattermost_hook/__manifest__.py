@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2022- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,17 +17,22 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-
 {
-    "name": "Res Country Archive",
-    "summary": "Ability to archive countries and states",
+    "name": "Mattermost hooks",
+    "summary": "Adds possible to use Mattermost hooks",
+    "category": "Tools",
     "version": "14.0.1.0.1",
-    "category": "Hidden",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["base"],
-    "data": ["views/res_country_views.xml"],
+    "depends": [
+        "base",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/res_company.xml",
+        "views/mattermost_hook_views.xml",
+    ],
 }

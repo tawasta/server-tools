@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2022- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2022 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Res Country Archive",
-    "summary": "Ability to archive countries and states",
-    "version": "14.0.1.0.1",
-    "category": "Hidden",
+    "name": "User Normal Group",
+    "summary": "Adds a new group that is used on some menu items",
+    "version": "14.0.1.0.0",
+    "category": "Extra Rights",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": ["base"],
-    "data": ["views/res_country_views.xml"],
+    "data": ["data/ir_cron.xml", "data/res_groups.xml"],
 }
