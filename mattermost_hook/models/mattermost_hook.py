@@ -56,7 +56,9 @@ class MattermostHook(models.Model):
     def _get_hook_url(self):
         return "{}/hooks/{}".format(self.mattermost_url, self.hook)
 
-    def post_mattermost(self, message, verify=True):
+    def post_mattermost(
+        self, message, channel=False, username=False, icon_url=False, verify=True
+    ):
         """
         Method to post a message to the hook
 
@@ -70,17 +72,28 @@ class MattermostHook(models.Model):
         """
         self.ensure_one()
         hook_url = self._get_hook_url()
+
         if not message.strip():
             raise ValidationError(_("Message can't be empty!"))
         payload = {
             "text": message,
         }
-        if self.channel:
-            payload["channel"] = self.channel
-        if self.username:
-            payload["username"] = self.username
-        if self.icon_url:
-            payload["icon_url"] = self.icon_url
+
+        if not channel:
+            channel = self.channel
+
+        if not username:
+            username = self.username
+
+        if not icon_url:
+            icon_url = self.icon_url
+
+        if channel:
+            payload["channel"] = channel
+        if username:
+            payload["username"] = username
+        if icon_url:
+            payload["icon_url"] = icon_url
         res = requests.post(hook_url, json=payload, verify=verify)
         if res.status_code != 200:
             raise requests.exceptions.HTTPError(res.text)
