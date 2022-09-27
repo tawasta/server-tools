@@ -64,6 +64,6 @@ class ResConfigSettings(models.TransientModel):
             self.env["res.users"].mapped(self.optional_login_field)
         except KeyError:
             msg = _("User doesn't have this kind of field, so it can't be used!")
-            raise UserError(msg)
+            raise UserError(msg) from KeyError
 
     # 8. Business methods

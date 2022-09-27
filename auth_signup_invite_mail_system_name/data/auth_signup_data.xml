@@ -5,77 +5,71 @@
         <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value
-          eval="[('module', '=', 'auth_signup'), ('name', '=', 'set_password_email')]"
-        />
+                    eval="[('module', '=', 'auth_signup'), ('name', '=', 'set_password_email')]"
+                />
             </function>
             <value eval="{'noupdate': False}" />
         </function>
         <record id="auth_signup.set_password_email" model="mail.template">
             <field
-        name="subject"
-      >${object.company_id.name} invites you to connect to ${object.company_id.system_name}</field>
+                name="subject"
+            >${object.company_id.name} invites you to connect to ${object.company_id.system_name}</field>
             <field name="body_html" type="html">
                 <table
-          border="0"
-          cellpadding="0"
-          cellspacing="0"
-          style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
-        >
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
+                >
                     <tr>
                         <td align="center">
                             <table
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                width="590"
-                style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;"
-              >
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="590"
+                                style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;"
+                            >
                                 <tbody>
                                     <!-- HEADER -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
                                                     <td valign="middle">
                                                         <span
-                              style="font-size: 10px;"
-                            >Welcome to ${object.company_id.system_name}</span>
+                                                            style="font-size: 10px;"
+                                                        >Welcome to ${object.company_id.system_name}</span>
                                                         <br />
                                                         <span
-                              style="font-size: 20px; font-weight: bold;"
-                            >
+                                                            style="font-size: 20px; font-weight: bold;"
+                                                        >
                         ${object.name}
                     </span>
                                                     </td>
-                                                    <td
-                            valign="middle"
-                            align="right"
-                          >
+                                                    <td valign="middle" align="right">
                                                         <img
-                              src="/logo.png?company=${object.company_id.id}"
-                              style="padding: 0px; margin: 0px; height: auto; width: 80px;"
-                              alt="${object.company_id.name}"
-                            />
+                                                            src="/logo.png?company=${object.company_id.id}"
+                                                            style="padding: 0px; margin: 0px; height: auto; width: 80px;"
+                                                            alt="${object.company_id.name}"
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td
-                            colspan="2"
-                            style="text-align:center;"
-                          >
+                                                        colspan="2"
+                                                        style="text-align:center;"
+                                                    >
                                                         <hr
-                              width="100%"
-                              style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
-                            />
+                                                            width="100%"
+                                                            style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
+                                                        />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -83,40 +77,38 @@
                                     </tr>
                                     <!-- CONTENT -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
                                                     <td
-                            valign="top"
-                            style="font-size: 13px;"
-                          >
+                                                        valign="top"
+                                                        style="font-size: 13px;"
+                                                    >
                                                         <div>
                         Dear ${object.name},<br /><br />
                             You have been invited to ${object.company_id.system_name} enterprise resource planning system where operational processes for ${object.company_id.name} are managed.
                         <div style="margin: 16px 0px 16px 0px;"><a
-                                  href="${object.signup_url}"
-                                  style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
-                                >
+                                                                    href="${object.signup_url}"
+                                                                    style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
+                                                                >
                                 Accept invitation
                             </a></div>
                         % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url')
-                                ${object.company_id.system_name} system domain is: <b
-                              ><a
-                                  href="${website_url}"
-                                >${website_url}</a></b><br />
+                                ${object.company_id.system_name} system domain is: <b><a
+                                                                    href="${website_url}"
+                                                                >${website_url}</a></b><br
+                                                            />
                         Your sign in email is: <b><a
-                                  href="/web/login?login=${object.email}"
-                                  target="_blank"
-                                >${object.email}</a></b><br /><br />
+                                                                    href="/web/login?login=${object.email}"
+                                                                    target="_blank"
+                                                                >${object.email}</a></b><br
+                                                            /><br />
                         If you have any questions regarding the system or why you have received this mail, you can contact your contact person at ${object.company_id.name}.
                         <br /><br />
                         Regards, ${object.company_id.name}
@@ -124,13 +116,11 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td
-                            style="text-align:center;"
-                          >
+                                                    <td style="text-align:center;">
                                                         <hr
-                              width="100%"
-                              style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
-                            />
+                                                            width="100%"
+                                                            style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
+                                                        />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -138,43 +128,37 @@
                                     </tr>
                                     <!-- FOOTER -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
-                                                    <td
-                            valign="middle"
-                            align="left"
-                          >
+                                                    <td valign="middle" align="left">
                     ${object.company_id.name}
                 </td>
                                                 </tr>
                                                 <tr>
                                                     <td
-                            valign="middle"
-                            align="left"
-                            style="opacity: 0.7;"
-                          >
+                                                        valign="middle"
+                                                        align="left"
+                                                        style="opacity: 0.7;"
+                                                    >
                     ${object.company_id.phone}
                     % if object.company_id.email
                         | <a
-                              href="'mailto:%s' % ${object.company_id.email}"
-                              style="text-decoration:none; color: #454748;"
-                            >${object.company_id.email}</a>
+                                                            href="'mailto:%s' % ${object.company_id.email}"
+                                                            style="text-decoration:none; color: #454748;"
+                                                        >${object.company_id.email}</a>
                     % endif
                     % if object.company_id.website
                         | <a
-                              href="'%s' % ${object.company_id.website}"
-                              style="text-decoration:none; color: #454748;"
-                            >
+                                                            href="'%s' % ${object.company_id.website}"
+                                                            style="text-decoration:none; color: #454748;"
+                                                        >
                         ${object.company_id.website}
                     </a>
                     % endif
@@ -191,21 +175,19 @@
                     <tr>
                         <td align="center" style="min-width: 590px;">
                             <table
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                width="590"
-                style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;"
-              >
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="590"
+                                style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;"
+                            >
                                 <tr>
-                                    <td
-                    style="text-align: center; font-size: 13px;"
-                  >
+                                    <td style="text-align: center; font-size: 13px;">
         Powered by <a
-                      target="_blank"
-                      href="https://futural.fi/"
-                      style="color: #875A7B;"
-                    >Futural</a>
+                                            target="_blank"
+                                            href="https://futural.fi/"
+                                            style="color: #875A7B;"
+                                        >Futural</a>
       </td>
                                 </tr>
                             </table>
@@ -218,74 +200,68 @@
         <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value
-          eval="[('module', '=', 'auth_signup'), ('name', '=', 'reset_password_email')]"
-        />
+                    eval="[('module', '=', 'auth_signup'), ('name', '=', 'reset_password_email')]"
+                />
             </function>
             <value eval="{'noupdate': False}" />
         </function>
         <record id="auth_signup.reset_password_email" model="mail.template">
             <field name="body_html" type="html">
                 <table
-          border="0"
-          cellpadding="0"
-          cellspacing="0"
-          style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
-        >
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
+                >
                     <tr>
                         <td align="center">
                             <table
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                width="590"
-                style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;"
-              >
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="590"
+                                style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;"
+                            >
                                 <tbody>
                                     <!-- HEADER -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
                                                     <td valign="middle">
                                                         <span
-                              style="font-size: 10px;"
-                            >Your Account</span>
+                                                            style="font-size: 10px;"
+                                                        >Your Account</span>
                                                         <br />
                                                         <span
-                              style="font-size: 20px; font-weight: bold;"
-                            >
+                                                            style="font-size: 20px; font-weight: bold;"
+                                                        >
                         ${object.name}
                     </span>
                                                     </td>
-                                                    <td
-                            valign="middle"
-                            align="right"
-                          >
+                                                    <td valign="middle" align="right">
                                                         <img
-                              src="/logo.png?company=${object.company_id.id}"
-                              style="padding: 0px; margin: 0px; height: auto; width: 80px;"
-                              alt="${object.company_id.name}"
-                            />
+                                                            src="/logo.png?company=${object.company_id.id}"
+                                                            style="padding: 0px; margin: 0px; height: auto; width: 80px;"
+                                                            alt="${object.company_id.name}"
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td
-                            colspan="2"
-                            style="text-align:center;"
-                          >
+                                                        colspan="2"
+                                                        style="text-align:center;"
+                                                    >
                                                         <hr
-                              width="100%"
-                              style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
-                            />
+                                                            width="100%"
+                                                            style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
+                                                        />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -293,47 +269,42 @@
                                     </tr>
                                     <!-- CONTENT -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
                                                     <td
-                            valign="top"
-                            style="font-size: 13px;"
-                          >
+                                                        valign="top"
+                                                        style="font-size: 13px;"
+                                                    >
                                                         <div>
                         Dear ${object.name},<br /><br />
                             A password reset was requested for the ${object.company_id.system_name} account linked to this email.
                         You may change your password by following this link which will remain valid during 24 hours:<br
-                              />
+                                                            />
                         <div style="margin: 16px 0px 16px 0px;"><a
-                                  href="${object.signup_url}"
-                                  style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
-                                >
+                                                                    href="${object.signup_url}"
+                                                                    style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
+                                                                >
                                 Change password
                             </a></div>
                         If you do not expect this, you can safely ignore this email.<br
-                              /><br />
+                                                            /><br />
                         Regards, ${object.company_id.name}
                     </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td
-                            style="text-align:center;"
-                          >
+                                                    <td style="text-align:center;">
                                                         <hr
-                              width="100%"
-                              style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
-                            />
+                                                            width="100%"
+                                                            style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
+                                                        />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -341,43 +312,37 @@
                                     </tr>
                                     <!-- FOOTER -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
-                                                    <td
-                            valign="middle"
-                            align="left"
-                          >
+                                                    <td valign="middle" align="left">
                     ${object.company_id.name}
                 </td>
                                                 </tr>
                                                 <tr>
                                                     <td
-                            valign="middle"
-                            align="left"
-                            style="opacity: 0.7;"
-                          >
+                                                        valign="middle"
+                                                        align="left"
+                                                        style="opacity: 0.7;"
+                                                    >
                     ${object.company_id.phone}
                     % if object.company_id.email
                         | <a
-                              href="'mailto:%s' % ${object.company_id.email}"
-                              style="text-decoration:none; color: #454748;"
-                            >${object.company_id.email}</a>
+                                                            href="'mailto:%s' % ${object.company_id.email}"
+                                                            style="text-decoration:none; color: #454748;"
+                                                        >${object.company_id.email}</a>
                     % endif
                     % if object.company_id.website
                         | <a
-                              href="'%s' % ${object.company_id.website}"
-                              style="text-decoration:none; color: #454748;"
-                            >
+                                                            href="'%s' % ${object.company_id.website}"
+                                                            style="text-decoration:none; color: #454748;"
+                                                        >
                         ${object.company_id.website}
                     </a>
                     % endif
@@ -394,16 +359,14 @@
                     <tr>
                         <td align="center" style="min-width: 590px;">
                             <table
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                width="590"
-                style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;"
-              >
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="590"
+                                style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;"
+                            >
                                 <tr>
-                                    <td
-                    style="text-align: center; font-size: 13px;"
-                  >
+                                    <td style="text-align: center; font-size: 13px;">
         Powered by <a target="_blank" href="https://futural.fi/">Futural</a>
       </td>
                                 </tr>
@@ -417,77 +380,71 @@
         <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value
-          eval="[('module', '=', 'auth_signup'), ('name', '=', 'mail_template_user_signup_account_created')]"
-        />
+                    eval="[('module', '=', 'auth_signup'), ('name', '=', 'mail_template_user_signup_account_created')]"
+                />
             </function>
             <value eval="{'noupdate': False}" />
         </function>
         <record
-      id="auth_signup.mail_template_user_signup_account_created"
-      model="mail.template"
-    >
+            id="auth_signup.mail_template_user_signup_account_created"
+            model="mail.template"
+        >
             <field name="body_html" type="html">
                 <table
-          border="0"
-          cellpadding="0"
-          cellspacing="0"
-          style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
-        >
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
+                >
                     <tr>
                         <td align="center">
                             <table
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                width="590"
-                style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;"
-              >
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="590"
+                                style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;"
+                            >
                                 <tbody>
                                     <!-- HEADER -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
                                                     <td valign="middle">
                                                         <span
-                              style="font-size: 10px;"
-                            >Your Account</span>
+                                                            style="font-size: 10px;"
+                                                        >Your Account</span>
                                                         <br />
                                                         <span
-                              style="font-size: 20px; font-weight: bold;"
-                            >
+                                                            style="font-size: 20px; font-weight: bold;"
+                                                        >
                         ${object.name}
                     </span>
                                                     </td>
-                                                    <td
-                            valign="middle"
-                            align="right"
-                          >
+                                                    <td valign="middle" align="right">
                                                         <img
-                              src="/logo.png?company=${object.company_id.id}"
-                              style="padding: 0px; margin: 0px; height: auto; width: 80px;"
-                              alt="${object.company_id.name}"
-                            />
+                                                            src="/logo.png?company=${object.company_id.id}"
+                                                            style="padding: 0px; margin: 0px; height: auto; width: 80px;"
+                                                            alt="${object.company_id.name}"
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td
-                            colspan="2"
-                            style="text-align:center;"
-                          >
+                                                        colspan="2"
+                                                        style="text-align:center;"
+                                                    >
                                                         <hr
-                              width="100%"
-                              style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
-                            />
+                                                            width="100%"
+                                                            style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
+                                                        />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -495,39 +452,38 @@
                                     </tr>
                                     <!-- CONTENT -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
                                                     <td
-                            valign="top"
-                            style="font-size: 13px;"
-                          >
+                                                        valign="top"
+                                                        style="font-size: 13px;"
+                                                    >
                                                         <div>
                         Dear ${object.name},<br /><br />
                         Your account has been successfully created!<br />
                         % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url')
                             ${object.company_id.system_name} system domain is: <strong
-                              ><a
-                                  href="${website_url}"
-                                >${website_url}</a></strong><br />
+                                                            ><a
+                                                                    href="${website_url}"
+                                                                >${website_url}</a></strong><br
+                                                            />
                         Your sign in email is: <strong><a
-                                  href="/web/login?login=${object.email}"
-                                  target="_blank"
-                                >${object.email}</a></strong><br />
+                                                                    href="/web/login?login=${object.email}"
+                                                                    target="_blank"
+                                                                >${object.email}</a></strong><br
+                                                            />
                         To gain access to your account, you can use the following link:
                         <div style="margin: 16px 0px 16px 0px;"><a
-                                  href="/web/login?auth_login=${object.email}"
-                                  style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
-                                >
+                                                                    href="/web/login?auth_login=${object.email}"
+                                                                    style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
+                                                                >
                                 Go to My Account
                             </a></div>
                         If you have any questions regarding the system or why you have received this mail, you can contact your contact person at ${object.company_id.name}.
@@ -537,13 +493,11 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td
-                            style="text-align:center;"
-                          >
+                                                    <td style="text-align:center;">
                                                         <hr
-                              width="100%"
-                              style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
-                            />
+                                                            width="100%"
+                                                            style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
+                                                        />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -551,43 +505,37 @@
                                     </tr>
                                     <!-- FOOTER -->
                                     <tr>
-                                        <td
-                      align="center"
-                      style="min-width: 590px;"
-                    >
+                                        <td align="center" style="min-width: 590px;">
                                             <table
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        width="590"
-                        style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
-                      >
+                                                border="0"
+                                                cellpadding="0"
+                                                cellspacing="0"
+                                                width="590"
+                                                style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                            >
                                                 <tr>
-                                                    <td
-                            valign="middle"
-                            align="left"
-                          >
+                                                    <td valign="middle" align="left">
                     ${object.company_id.name}
                 </td>
                                                 </tr>
                                                 <tr>
                                                     <td
-                            valign="middle"
-                            align="left"
-                            style="opacity: 0.7;"
-                          >
+                                                        valign="middle"
+                                                        align="left"
+                                                        style="opacity: 0.7;"
+                                                    >
                     ${object.company_id.phone}
                     % if object.company_id.email
                         | <a
-                              href="'mailto:%s' % ${object.company_id.email}"
-                              style="text-decoration:none; color: #454748;"
-                            >${object.company_id.email}</a>
+                                                            href="'mailto:%s' % ${object.company_id.email}"
+                                                            style="text-decoration:none; color: #454748;"
+                                                        >${object.company_id.email}</a>
                     % endif
                     % if object.company_id.website
                         | <a
-                              href="'%s' % ${object.company_id.website}"
-                              style="text-decoration:none; color: #454748;"
-                            >
+                                                            href="'%s' % ${object.company_id.website}"
+                                                            style="text-decoration:none; color: #454748;"
+                                                        >
                         ${object.company_id.website}
                     </a>
                     % endif
@@ -604,16 +552,14 @@
                     <tr>
                         <td align="center" style="min-width: 590px;">
                             <table
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                width="590"
-                style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;"
-              >
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="590"
+                                style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;"
+                            >
                                 <tr>
-                                    <td
-                    style="text-align: center; font-size: 13px;"
-                  >
+                                    <td style="text-align: center; font-size: 13px;">
         Powered by <a target="_blank" href="https://futural.fi/">Futural</a>
       </td>
                                 </tr>
