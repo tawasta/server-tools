@@ -21,9 +21,9 @@
 {
     "name": "Res Country Archive",
     "summary": "Ability to archive countries and states",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "category": "Hidden",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "website": "https://gitlab.com/tawasta/odoo/event",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

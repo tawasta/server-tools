@@ -23,7 +23,7 @@
     "summary": "Ability to upgrade multiple modules",
     "version": "14.0.1.0.0",
     "category": "Tools",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "website": "https://gitlab.com/tawasta/odoo/event",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

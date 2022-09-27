@@ -23,7 +23,7 @@
     "summary": "Run Module Auto Update on a schedule",
     "version": "14.0.1.0.1",
     "category": "Tools",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "website": "https://gitlab.com/tawasta/odoo/event",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

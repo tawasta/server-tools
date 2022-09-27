@@ -23,7 +23,7 @@
     "category": "Tools",
     "version": "14.0.1.0.2",
     "author": "Tawasta",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "website": "https://gitlab.com/tawasta/odoo/event",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

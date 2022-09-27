@@ -23,7 +23,7 @@
     "summary": "Allow user to manage users and their roles",
     "version": "14.0.1.1.0",
     "category": "Tools",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "website": "https://gitlab.com/tawasta/odoo/event",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
