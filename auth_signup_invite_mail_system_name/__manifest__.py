@@ -23,7 +23,7 @@
     "summary": "Adds field to res.company to define system name. Changes invite mail.",
     "version": "14.0.1.0.0",
     "category": "Company",
-    "website": "https://gitlab.com/tawasta/odoo/event",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

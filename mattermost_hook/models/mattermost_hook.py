@@ -106,4 +106,4 @@ class MattermostHook(models.Model):
             self.post_mattermost(test_msg)
         except Exception:
             msg = "An error occured, most likely cause hook settings are incorrect!"
-            raise UserError(msg)
+            raise UserError(msg) from Exception

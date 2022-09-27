@@ -23,7 +23,7 @@
     "summary": "Adds a new group that is used on some menu items",
     "version": "14.0.1.0.0",
     "category": "Extra Rights",
-    "website": "https://gitlab.com/tawasta/odoo/event",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

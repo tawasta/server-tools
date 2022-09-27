@@ -9,9 +9,9 @@
             <field name="enabled" position="after">
                 <field name="hidden" />
                 <field
-          name="hidden_key"
-          attrs="{'required': [('hidden', '=', True)], 'invisible': [('hidden', '=', False)]}"
-        />
+                    name="hidden_key"
+                    attrs="{'required': [('hidden', '=', True)], 'invisible': [('hidden', '=', False)]}"
+                />
             </field>
 
         </field>

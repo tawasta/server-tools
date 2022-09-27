@@ -7,7 +7,7 @@
     "version": "14.0.1.1.0",
     "category": "Tools",
     "author": "XCG Consulting, Odoo Community Association (OCA), Tawasta",
-    "website": "https://gitlab.com/tawasta/odoo/event",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "license": "AGPL-3",
     "depends": ["base_setup"],
     "external_dependencies": {
