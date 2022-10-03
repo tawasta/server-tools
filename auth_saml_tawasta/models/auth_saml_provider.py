@@ -10,12 +10,15 @@ import os
 import tempfile
 import urllib.parse
 
-# dependency name is pysaml2 # pylint: disable=W7936
 import saml2
 import saml2.xmldsig as ds
+
+# dependency name is pysaml2 # pylint: disable=W7936
 from lxml import etree
+from saml2.cache import Cache
 from saml2.client import Saml2Client
 from saml2.config import Config as Saml2Config
+from saml2.ident import code
 from saml2.sigver import security_context
 
 from odoo import api, fields, models
@@ -398,8 +401,19 @@ class AuthSamlProvider(models.Model):
         return sp_config
 
     def _get_client_for_provider(self, base_url: str = None):
-        sp_config = self._get_config_for_provider(base_url)
-        saml_client = Saml2Client(config=sp_config)
+        spConfig = self._get_config_for_provider(base_url)
+        # In order to logout user, identity_cache / state_cache should be enabled
+        # PYSAML2 handles this, but this requires saving the state of client
+
+        ident_cache = Cache()
+        tokens = self.env["res.users.saml"].sudo().search([])
+        ident_cache._db = {token.saml_name_id: token.id for token in tokens}
+        state_cache = {}
+        saml_client = Saml2Client(
+            config=spConfig,
+            identity_cache=ident_cache,
+            state_cache=state_cache,
+        )
         return saml_client
 
     def _get_auth_request(self, extra_state=None, url_root=None):
@@ -477,6 +491,10 @@ class AuthSamlProvider(models.Model):
         if post_vals:
             vals.update(post_vals)
 
+        # In order to use SLO, we have to store session_info and use it in logout
+        # With the session_id or requestId that is saved to auth_saml_request
+        session_info = response.session_info()
+        vals["name_id"] = code(session_info["name_id"])
         return vals
 
     def _get_outstanding_requests_dict(self):
@@ -497,17 +515,9 @@ class AuthSamlProvider(models.Model):
         )
 
     def _metadata_string(self, valid=None, base_url=None):
+        """Client metadata method has an issue"""
         self.ensure_one()
-
         sp_config = self._get_config_for_provider(base_url)
-        # return saml2.metadata.create_metadata_string(
-        #     None,
-        #     config=sp_config,
-        #     valid=valid,
-        #     cert=self._get_cert_key_path("sp_pem_public"),
-        #     keyfile=self._get_cert_key_path("sp_pem_private"),
-        #     sign=self.sign_metadata,
-        # )
         metadata = create_metadata_string_fixed(
             None,
             config=sp_config,
@@ -516,9 +526,9 @@ class AuthSamlProvider(models.Model):
             keyfile=self._get_cert_key_path("sp_pem_private"),
             sign=self.sign_metadata,
         )
-        # TODO: Metadata string can't present ä or ö, temporary fix
+        # Metadata string can't present ä or ö, temporary fix
         metadata = metadata.replace("&#xE4;", "ä")
-        # TODO: ServiceName allowed only in one language, duplicate for sv + en?
+        # ServiceName allowed only in one language, duplicate for sv + en?
         file = etree.fromstring(metadata)
         for elem in file.findall(".//{*}ServiceName"):
             duplicate_sv = copy.deepcopy(elem)
@@ -541,7 +551,7 @@ class AuthSamlProvider(models.Model):
 
         for attribute in self.attribute_mapping_ids:
             if attribute.attribute_name not in attrs:
-                _logger.debug(
+                _logger.info(
                     "SAML attribute '%s' found in response %s",
                     attribute.attribute_name,
                     attrs,
