@@ -17,6 +17,10 @@ class ResUserSaml(models.Model):
         required=False,
         help="The current SAML token in use",
     )
+    saml_name_id = fields.Char(
+        string="Session name ID value encoded",
+        help="The current SAML name ID in use",
+    )
 
     _sql_constraints = [
         (

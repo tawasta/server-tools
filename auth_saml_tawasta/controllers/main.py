@@ -5,8 +5,14 @@
 import functools
 import json
 import logging
+import re
 
+import saml2.xmldsig as ds
 import werkzeug.utils
+from saml2 import BINDING_HTTP_REDIRECT
+from saml2.ident import code, decode
+from saml2.response import StatusError
+from saml2.time_util import in_a_while
 from werkzeug.urls import url_quote_plus
 
 import odoo
@@ -15,6 +21,7 @@ from odoo.http import request
 
 from odoo.addons.web.controllers.main import (
     Home,
+    Session,
     ensure_db,
     login_and_redirect,
     set_cookie_and_redirect,
@@ -148,7 +155,7 @@ class AuthSAMLController(http.Controller):
         id, etc.
         """
 
-        redirect = request.params.get("redirect") or "web"
+        redirect = request.params.get("redirect") or "/"
         if not redirect.startswith(("//", "http://", "https://")):
             redirect = "{}{}".format(
                 request.httprequest.url_root,
@@ -161,7 +168,7 @@ class AuthSAMLController(http.Controller):
         return state
 
     @http.route("/auth_saml/get_auth_request", type="http", auth="none")
-    def get_auth_request(self, pid):
+    def get_auth_request(self, pid, redirect=None):
         provider_id = int(pid)
 
         provider = request.env["auth.saml.provider"].sudo().browse(provider_id)
@@ -219,8 +226,12 @@ class AuthSAMLController(http.Controller):
                 )
                 action = state.get("a")
                 menu = state.get("m")
-                url = "/"
-                if action:
+                redirect = (
+                    werkzeug.url_unquote_plus(state["r"]) if state.get("r") else False
+                )
+                if redirect:
+                    url = redirect
+                elif action:
                     url = "/#action=%s" % action
                 elif menu:
                     url = "/#menu_id=%s" % menu
@@ -270,3 +281,144 @@ class AuthSAMLController(http.Controller):
                 ),
                 [("Content-Type", "text/xml")],
             )
+
+    @http.route("/auth_saml/slo", type="http", auth="none", csrf=False)
+    @fragment_to_query_string
+    def slo_request(self, req, *args, **kwargs):
+        """
+        This method is called from IdP in two different cases:
+        1. We sent a logout request to IdP and IdP responses to this method (LogoutResponse)
+        2. IdP sends logout request to us and we respond to IdP (LogoutRequest handling)
+        :param req: request calling this method
+        :param args: args
+        :param kwargs: kwargs
+        :return: redirect
+        """
+        provider = request.env["auth.saml.provider"].sudo().search([], limit=1)
+        client = provider._get_client_for_provider(
+            request.httprequest.url_root.rstrip("/")
+        )
+        # LogoutResponse handling STARTS
+        if "SAMLResponse" in kwargs:
+            _logger.warning("LogoutResponse handling started")
+            try:
+                response = client.parse_logout_request_response(
+                    kwargs.get("SAMLResponse"), BINDING_HTTP_REDIRECT
+                )
+            except StatusError as e:
+                response = None
+                _logger.warning("Error logging out from remote provider: " + str(e))
+            if response and response.status_ok():
+                # Successfull LogoutResponse handling
+                return werkzeug.utils.redirect("/", 303)
+        # LogoutResponse handling ENDS
+        # LogoutRequest handling STARTS
+        elif "SAMLRequest" in kwargs:
+            # How do we figure out the NameID
+            _logger.warning("LogoutRequest handling started")
+            # TODO: This is ugly workaround to get the NameID
+            # most likely the correct procedure is to get the NameID Odoo
+            # details (cache, session, ...). Now we get it from the requests
+            # so it's always true.
+            xmlreq = client.parse_logout_request(
+                xmlstr=kwargs.get("SAMLRequest"),
+                binding=BINDING_HTTP_REDIRECT,
+                relay_state=kwargs.get("RelayState", ""),
+            )
+            name_id = xmlreq.message.name_id
+            saml_token = (
+                request.env["res.users.saml"]
+                .sudo()
+                .search(
+                    [
+                        ("saml_name_id", "=", code(name_id)),
+                    ]
+                )
+            )
+            if not saml_token:
+                # No SAML token, skip
+                _logger.warning("SAML token not found, aborting...")
+                return werkzeug.utils.redirect("/", 303)
+            http_info = client.handle_logout_request(
+                request=kwargs.get("SAMLRequest"),
+                name_id=name_id,
+                binding=BINDING_HTTP_REDIRECT,
+                relay_state=kwargs.get("RelayState", ""),
+            )
+            # Destroy user sessions in Odoo
+            target_uid = saml_token.user_id.id
+            sessions = http.root.session_store.list()
+            for sess in sessions:
+                session_store = http.root.session_store
+                session = session_store.get(sess)
+                if session.sid and session.uid == target_uid:
+                    session_store.delete(session)
+            return werkzeug.utils.redirect(http_info.get("headers")[0][1], 303)
+        # LogoutRequest handling ENDS
+        # If we end up here, then request wasn't LogoutRequest or LogoutResponse
+        # --> Error?
+        _logger.warning("Request wasn't LogoutRequest or LogoutResponse, error?")
+        return werkzeug.utils.redirect("/", 303)
+
+
+class SAMLSession(Session):
+    @http.route()
+    def logout(self, redirect="/web"):
+        """Logout user from IDP as well"""
+        saml_token = (
+            request.env["res.users.token"]
+            .sudo()
+            .search(
+                [
+                    ("user_id", "=", request.session.uid),
+                ]
+            )
+        )
+        if request.session.get("_saml_user") and saml_token:
+            _logger.warning("Initiating SAML SLO-sequence...")
+            # Here we create LogoutRequest and send it to IdP
+            provider = request.env["auth.saml.provider"].sudo().search([], limit=1)
+            name_id = decode(saml_token.saml_name_id)
+            client = provider._get_client_for_provider(
+                request.httprequest.url_root.rstrip("/")
+            )
+            sig_alg = ds.SIG_RSA_SHA256
+            service_location = re.search(
+                r"SingleLogoutService\sBinding=\".*HTTP-Redirect\"\sLocation=\"(.*)\"",
+                provider.idp_metadata,
+            ).group(1)
+            idp_entity_id = re.search(
+                r"\sentityID=\"(.*)\"", provider.idp_metadata
+            ).group(0)
+            if not (service_location and idp_entity_id):
+                _logger.error(
+                    "Tried to SLO but didn't find IDP service and IDP entity ID"
+                )
+                return super().logout(redirect)
+            req_id, req = client.create_logout_request(
+                service_location,
+                idp_entity_id,
+                name_id=name_id,
+                reason="User logout",
+                expire=in_a_while(minutes=5),
+                sign_alg=sig_alg,
+            )
+            relay_state = {
+                "d": request.env.cr.dbname,
+                "p": provider.id,
+            }
+            # relay_state = client._relay_state(req_id)
+            binding = BINDING_HTTP_REDIRECT
+            http_info = client.apply_binding(
+                binding,
+                str(req),
+                service_location,
+                relay_state,
+                sign=provider.sign,
+                sigalg=sig_alg,
+            )
+            results = {}
+            results[idp_entity_id] = (binding, http_info)
+            redirect = http_info.get("headers")[0][1]
+            # TODO: Should the auth_saml_token be deleted?
+        return super().logout(redirect)
