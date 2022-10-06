@@ -22,6 +22,7 @@ addon | version | maintainers | summary
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 14.0.1.0.1 |  | Send invite mail with mass action
 [base_user_role_manager](base_user_role_manager/) | 14.0.1.1.0 |  | Allow user to manage users and their roles
 [board_my_filters](board_my_filters/) | 14.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
+[ir_ui_view_search](ir_ui_view_search/) | 14.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
 [mattermost_hook](mattermost_hook/) | 14.0.1.0.2 |  | Adds possible to use Mattermost hooks
 [module_auto_update_schedule](module_auto_update_schedule/) | 14.0.1.0.1 |  | Run Module Auto Update on a schedule
