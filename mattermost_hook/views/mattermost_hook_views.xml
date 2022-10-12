@@ -9,7 +9,12 @@
                 <field name="name" />
                 <field name="mattermost_url" />
                 <field name="company_id" />
-                <field name="hook" password="True" required="True" />
+                <field
+                    name="hook"
+                    password="True"
+                    required="True"
+                    groups="base.group_erp_manager"
+                />
                 <field name="res_model" />
                 <field name="function" />
             </tree>
@@ -30,7 +35,12 @@
                             <field name="name" />
                             <field name="mattermost_url" />
                             <field name="company_id" />
-                            <field name="hook" password="True" required="True" />
+                            <field
+                                name="hook"
+                                password="True"
+                                required="True"
+                                groups="base.group_erp_manager"
+                            />
                             <field name="res_model" />
                             <field name="function" />
                         </group>

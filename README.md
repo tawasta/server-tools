@@ -24,8 +24,8 @@ addon | version | maintainers | summary
 [board_my_filters](board_my_filters/) | 14.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
 [ir_ui_view_search](ir_ui_view_search/) | 14.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
-[mattermost_hook](mattermost_hook/) | 14.0.1.0.2 |  | Adds possible to use Mattermost hooks
-[module_auto_update_schedule](module_auto_update_schedule/) | 14.0.1.0.1 |  | Run Module Auto Update on a schedule
+[mattermost_hook](mattermost_hook/) | 14.0.1.0.3 |  | Adds possible to use Mattermost hooks
+[module_auto_update_schedule](module_auto_update_schedule/) | 14.0.1.0.2 |  | Run Module Auto Update on a schedule
 [res_country_archive](res_country_archive/) | 14.0.1.0.2 |  | Ability to archive countries and states
 [res_user_normal_group](res_user_normal_group/) | 14.0.1.0.0 |  | Adds a new group that is used on some menu items
 [rest_api_menu_group](rest_api_menu_group/) | 14.0.1.0.1 |  | Rest api menu group

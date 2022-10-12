@@ -21,7 +21,7 @@
 {
     "name": "Scheduled module auto update",
     "summary": "Run Module Auto Update on a schedule",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
