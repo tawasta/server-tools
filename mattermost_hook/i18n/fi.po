@@ -4,18 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 14.0-20221005\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 05:23+0000\n"
-"PO-Revision-Date: 2021-09-29 08:27+0300\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2022-10-12 13:14+0000\n"
+"PO-Revision-Date: 2022-10-12 13:14+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: fi\n"
-"X-Generator: Poedit 2.0.6\n"
 
 #. module: mattermost_hook
 #: model:ir.model.fields,field_description:mattermost_hook.field_mattermost_hook__channel
@@ -59,6 +57,7 @@ msgstr "Luotu"
 
 #. module: mattermost_hook
 #: model:ir.model.fields,field_description:mattermost_hook.field_mattermost_hook__display_name
+#: model:ir.model.fields,field_description:mattermost_hook.field_res_company__display_name
 msgid "Display Name"
 msgstr "Näyttönimi"
 
@@ -74,6 +73,7 @@ msgstr "Hookit"
 
 #. module: mattermost_hook
 #: model:ir.model.fields,field_description:mattermost_hook.field_mattermost_hook__id
+#: model:ir.model.fields,field_description:mattermost_hook.field_res_company__id
 msgid "ID"
 msgstr "Tunniste (ID)"
 
@@ -89,6 +89,7 @@ msgstr "Kuvakkeen osoite jota käytetään viestin lähettämiseen"
 
 #. module: mattermost_hook
 #: model:ir.model.fields,field_description:mattermost_hook.field_mattermost_hook____last_update
+#: model:ir.model.fields,field_description:mattermost_hook.field_res_company____last_update
 msgid "Last Modified on"
 msgstr "Viimeksi muokattu"
 
@@ -124,6 +125,7 @@ msgstr "Mattermost hookki"
 
 #. module: mattermost_hook
 #: model:ir.actions.act_window,name:mattermost_hook.mattermost_hook_action
+#: model:ir.model,name:mattermost_hook.model_mattermost_hook
 #: model:ir.ui.menu,name:mattermost_hook.mattermost_hook_menu
 #: model_terms:ir.ui.view,arch_db:mattermost_hook.view_mattermost_hook_tree
 msgid "Mattermost hooks"
@@ -135,7 +137,7 @@ msgid "Mattermost hooks used by this company"
 msgstr "Mattermost hookit, jotka omistaa tämä yritys"
 
 #. module: mattermost_hook
-#: code:addons/mattermost_hook/models/mattermost_hook.py:112
+#: code:addons/mattermost_hook/models/mattermost_hook.py:0
 #, python-format
 msgid "Message can't be empty!"
 msgstr "Viesti ei voi olla tyhjä!"
@@ -184,8 +186,3 @@ msgstr "Käyttäjätunnus jota käytetään viestin lähettämiseen Mattermostii
 #: model:ir.model.fields,help:mattermost_hook.field_mattermost_hook__res_model
 msgid "Which model this hook is related to"
 msgstr "Mihin malliin tämä hookki liittyy"
-
-#. module: mattermost_hook
-#: model:ir.model,name:mattermost_hook.model_mattermost_hook
-msgid "mattermost.hook"
-msgstr ""

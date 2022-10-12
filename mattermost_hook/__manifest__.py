@@ -18,10 +18,10 @@
 #
 ##############################################################################
 {
-    "name": "Mattermost hooks",
+    "name": "Mattermost Hooks",
     "summary": "Adds possible to use Mattermost hooks",
     "category": "Tools",
-    "version": "14.0.1.0.2",
+    "version": "14.0.1.0.3",
     "author": "Tawasta",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "license": "AGPL-3",

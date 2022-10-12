@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 ================
-Mattermost hooks
+Mattermost Hooks
 ================
 
 Adds possibility to add Mattermost hooks to be used from Odoo.
@@ -41,6 +41,7 @@ Contributors
 
 * Jarmo Kortetjärvi <jarmo.kortetjarvi@tawasta.fi>
 * Aleksi Savijoki <aleksi.savijoki@tawasta.fi>
+* Miika Nissi <miika.nissi@tawasta.fi>
 
 Maintainer
 ----------
