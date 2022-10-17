@@ -104,7 +104,7 @@ class SAMLLogin(Home):
         return super().web_client(s_action, **kw)
 
     @http.route()
-    def web_login(self, *args, **kw):
+    def web_login(self, redirect=None, *args, **kw):
         ensure_db()
         if (
             request.httprequest.method == "GET"
@@ -113,7 +113,7 @@ class SAMLLogin(Home):
         ):
 
             # Redirect if already logged in and redirect param is present
-            return request.redirect(request.params.get("redirect"))
+            return http.redirect_with_hash(request.params.get("redirect"))
 
         if request.httprequest.method == "GET":
             result = self._saml_autoredirect()
@@ -122,7 +122,7 @@ class SAMLLogin(Home):
 
         providers = self.list_saml_providers()
 
-        response = super().web_login(*args, **kw)
+        response = super().web_login(redirect, *args, **kw)
         if response.is_qweb:
             error = request.params.get("saml_error")
             if error == "no-signup":
