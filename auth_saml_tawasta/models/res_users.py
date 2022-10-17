@@ -64,6 +64,18 @@ class ResUser(models.Model):
                 vals["login"] = "saml-{}".format(uuid4())
 
             user = self._saml_signup(vals)
+            user_saml = (
+                self.env["res.users.saml"]
+                .sudo()
+                .create(
+                    {
+                        "user_id": user.id,
+                        "saml_provider_id": provider,
+                        "saml_uid": saml_uid,
+                        "saml_name_id": validation.get("name_id"),
+                    }
+                )
+            )
 
         elif len(user) != 1:
             raise AccessDenied()
