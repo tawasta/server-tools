@@ -366,7 +366,7 @@ class SAMLSession(Session):
     def logout(self, redirect="/web"):
         """Logout user from IDP as well"""
         saml_token = (
-            request.env["res.users.token"]
+            request.env["res.users.saml"]
             .sudo()
             .search(
                 [
