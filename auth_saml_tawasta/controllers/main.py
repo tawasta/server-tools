@@ -235,6 +235,8 @@ class AuthSAMLController(http.Controller):
                     url = "/#action=%s" % action
                 elif menu:
                     url = "/#menu_id=%s" % menu
+                # Save to session that we are a SAML2 logged in user
+                request.session["_saml_user"] = True
                 return login_and_redirect(*credentials, redirect_url=url)
 
             except odoo.exceptions.AccessDenied:
