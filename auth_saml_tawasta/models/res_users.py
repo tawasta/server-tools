@@ -71,6 +71,7 @@ class ResUser(models.Model):
                     {
                         "user_id": user.id,
                         "saml_provider_id": provider,
+                        "saml_access_token": saml_response,
                         "saml_uid": saml_uid,
                         "saml_name_id": validation.get("name_id"),
                     }
