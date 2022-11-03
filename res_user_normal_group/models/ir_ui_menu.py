@@ -16,3 +16,5 @@ class IrUiMenu(models.Model):
             if internal.id in menu.groups_id.ids:
                 menu.groups_id -= internal
                 menu.groups_id |= normal_user
+            elif not menu.groups_id.ids:
+                menu.groups_id |= normal_user

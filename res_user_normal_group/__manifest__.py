@@ -21,7 +21,7 @@
 {
     "name": "User Normal Group",
     "summary": "Adds a new group that is used on some menu items",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Extra Rights",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
