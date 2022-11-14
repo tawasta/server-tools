@@ -1,5 +1,5 @@
 # Copyright (C) 2020 Glodo UK <https://www.glodo.uk/>
-# Copyright (C) 2010-2016, 2022 XCG Consulting <https://xcg-consulting.fr/>
+# Copyright (C) 2010-2016 XCG Consulting <http://odoo.consulting>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import base64
@@ -12,8 +12,6 @@ import urllib.parse
 
 import saml2
 import saml2.xmldsig as ds
-
-# dependency name is pysaml2 # pylint: disable=W7936
 from lxml import etree
 from saml2.cache import Cache
 from saml2.client import Saml2Client
@@ -36,13 +34,8 @@ def create_metadata_string_fixed(
     name=None,
     sign=None,
 ):
-    """
-    TAWASTA: Pysaml2 has an issue, where metadata string doesn't show the
-    correct algorithms from config.
-    """
     valid_for = 0
     nspair = {"xs": "http://www.w3.org/2001/XMLSchema"}
-    # paths = [".", "/opt/local/bin"]
 
     if valid:
         valid_for = int(valid)  # Hours
@@ -82,13 +75,13 @@ class AuthSamlProvider(models.Model):
     """Configuration values of a SAML2 provider"""
 
     _name = "auth.saml.provider"
-    _description = "SAML2 Provider"
+    _description = "SAML2 provider"
     _order = "sequence, name"
 
-    name = fields.Char("Provider Name", required=True, index=True)
+    name = fields.Char("Provider name", required=True, index=True)
     entity_id = fields.Char(
         "Entity ID",
-        help="EntityID passed to IDP, used to identify the Odoo",
+        help=("EntityID passed to IDP, used to identify the Odoo"),
         required=True,
         default="odoo",
     )
@@ -98,25 +91,21 @@ class AuthSamlProvider(models.Model):
             "Configuration for this Identity Provider. Supplied by the"
             " provider, in XML format."
         ),
-        required=True,
     )
     sp_baseurl = fields.Text(
-        string="Override Base URL",
-        help="""Base URL sent to Odoo with this, rather than automatically
-        detecting from request or system parameter web.base.url""",
+        string="Override Base Url",
+        help="""Base Url sent to Odoo with this, rather than automatically
+        detecting from request or system parameter web.base.url
+        """,
     )
     sp_pem_public = fields.Binary(
         string="Odoo Public Certificate",
         attachment=True,
-        required=True,
     )
-    sp_pem_public_filename = fields.Char("Odoo Public Certificate File Name")
     sp_pem_private = fields.Binary(
         string="Odoo Private Key",
         attachment=True,
-        required=True,
     )
-    sp_pem_private_filename = fields.Char("Odoo Private Key File Name")
     sp_metadata_url = fields.Char(
         compute="_compute_sp_metadata_url",
         string="Metadata URL",
@@ -133,7 +122,8 @@ class AuthSamlProvider(models.Model):
     )
     matching_attribute_to_lower = fields.Boolean(
         string="Lowercase IDP Matching Attribute",
-        help="Force matching_attribute to lower case before passing back to Odoo.",
+        help="""Force matching_attribute to lower case before passing back to
+        Odoo.""",
     )
     attribute_mapping_ids = fields.One2many(
         "auth.saml.attribute.mapping",
@@ -147,50 +137,12 @@ class AuthSamlProvider(models.Model):
         help="Add a CSS class that serves you to style the login button.",
     )
     body = fields.Char(string="Button Description")
-    autoredirect = fields.Boolean(
-        "Automatic Redirection",
-        default=False,
-        help="Only the provider with the higher priority will be automatically "
-        "redirected",
-    )
     sig_alg = fields.Selection(
         selection=lambda s: s._sig_alg_selection(),
         required=True,
         string="Signature Algorithm",
     )
-    # help string is from pysaml2 documentation
-    authn_requests_signed = fields.Boolean(
-        default=True,
-        help="Indicates if the Authentication Requests sent by this SP should be signed"
-        " by default.",
-    )
-    logout_requests_signed = fields.Boolean(
-        default=True,
-        help="Indicates if this entity will sign the Logout Requests originated from it"
-        ".",
-    )
-    want_assertions_signed = fields.Boolean(
-        default=True,
-        help="Indicates if this SP wants the IdP to send the assertions signed.",
-    )
-    want_response_signed = fields.Boolean(
-        default=True,
-        help="Indicates that Authentication Responses to this SP must be signed.",
-    )
-    want_assertions_or_response_signed = fields.Boolean(
-        default=True,
-        help="Indicates that either the Authentication Response or the assertions "
-        "contained within the response to this SP must be signed.",
-    )
-    # this one is used in Saml2Client.prepare_for_authenticate
-    sign_authenticate_requests = fields.Boolean(
-        default=True,
-        help="Whether the request should be signed or not",
-    )
-    sign_metadata = fields.Boolean(
-        default=True,
-        help="Whether metadata should be signed or not",
-    )
+    sign = fields.Boolean(default=True, help="Whether requests should be signed or not")
     contact_person_ids = fields.Many2many(
         comodel_name="res.users",
         string="Contact Persons",
@@ -208,6 +160,11 @@ class AuthSamlProvider(models.Model):
     optional_attributes = fields.Char(
         string="Optional attributes",
         help="Attributes that are optional from IdP (comma separated)",
+    )
+    group_ids = fields.Many2many(
+        comodel_name="res.groups",
+        string="Default groups for users",
+        help="What groups are assigned to newly created users",
     )
 
     @api.model
@@ -237,7 +194,7 @@ class AuthSamlProvider(models.Model):
             qs = urllib.parse.urlencode({"p": record.id, "d": self.env.cr.dbname})
 
             record.sp_metadata_url = urllib.parse.urljoin(
-                base_url, ("/auth_saml/metadata?%s" % qs)
+                base_url, ("/auth_saml/metadata?%s" % (qs))
             )
 
     def _get_cert_key_path(self, field="sp_pem_public"):
@@ -254,7 +211,8 @@ class AuthSamlProvider(models.Model):
         )
 
         if model_attachment._storage() != "file":
-            # For non-file locations we need to create a temp file to pass to pysaml.
+            # For non-file locations we need to create a temp file to pass to
+            # pysaml.
             fd, keys_path = tempfile.mkstemp()
             with open(keys_path, "wb") as f:
                 f.write(base64.b64decode(keys.datas))
@@ -264,7 +222,7 @@ class AuthSamlProvider(models.Model):
 
         return keys_path
 
-    def _get_config_for_provider(self, base_url: str = None):
+    def _get_config_for_provider(self, base_url=None):
         """
         Internal helper to get a configured Saml2Client
         """
@@ -281,6 +239,7 @@ class AuthSamlProvider(models.Model):
         acs_url = urllib.parse.urljoin(base_url, "/auth_saml/signin")
         # EDIT: Add single logout service
         slo_url = urllib.parse.urljoin(base_url, "/auth_saml/slo")
+
         # ADD: Contact persons to metadata, from Tawasta
         contact_persons = []
         for person in self.contact_person_ids:
@@ -309,13 +268,10 @@ class AuthSamlProvider(models.Model):
             digest_alg = getattr(ds, key)
 
         name_id_policy = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-
         settings = {
-            # EDIT: Add service name
             "name": (self.env.ref("base.main_company").name, "fi"),
             "metadata": {"inline": [self.idp_metadata]},
             "entityid": self.entity_id,
-            # EDIT: Add entity attributes
             "entity_attributes": entity_attribute_ids,
             "service": {
                 "sp": {
@@ -323,27 +279,20 @@ class AuthSamlProvider(models.Model):
                         "assertion_consumer_service": [
                             (acs_url, saml2.BINDING_HTTP_REDIRECT),
                             (acs_url, saml2.BINDING_HTTP_POST),
-                            (acs_url, saml2.BINDING_HTTP_REDIRECT),
-                            (acs_url, saml2.BINDING_HTTP_POST),
                         ],
-                        # EDIT: SLO service
                         "single_logout_service": [
                             (slo_url, saml2.BINDING_HTTP_REDIRECT),
                             (slo_url, saml2.BINDING_HTTP_POST),
                         ],
                     },
-                    "allow_unsolicited": False,
-                    "authn_requests_signed": self.authn_requests_signed,
-                    "logout_requests_signed": self.logout_requests_signed,
-                    "want_assertions_signed": self.want_assertions_signed,
-                    "want_response_signed": self.want_response_signed,
-                    "want_assertions_or_response_signed": (
-                        self.want_assertions_or_response_signed
-                    ),
-                    # EDIT: logout responses signed
                     "required_attributes": self.required_attributes.split(","),
                     "optional_attributes": self.optional_attributes.split(","),
-                    "logout_responses_signed": self.authn_requests_signed,
+                    "allow_unsolicited": False,
+                    "authn_requests_signed": self.sign,
+                    "logout_requests_signed": self.sign,
+                    "want_assertions_signed": self.sign,
+                    "want_response_signed": self.sign,
+                    "logout_responses_signed": self.sign,
                     "ui_info": {
                         "display_name": [
                             {
@@ -379,7 +328,6 @@ class AuthSamlProvider(models.Model):
             },
             "cert_file": self._get_cert_key_path("sp_pem_public"),
             "key_file": self._get_cert_key_path("sp_pem_private"),
-            # EDIT: Encryption keypairs, organization details etc.
             "encryption_keypairs": [
                 {
                     "key_file": self._get_cert_key_path("sp_pem_private"),
@@ -395,18 +343,18 @@ class AuthSamlProvider(models.Model):
             "signing_algorithm": sig_alg,
             "digest_algorithm": digest_alg,
         }
-        sp_config = Saml2Config()
-        sp_config.load(settings)
-        sp_config.allow_unknown_attributes = True
-        return sp_config
+        spConfig = Saml2Config()
+        spConfig.load(settings)
+        spConfig.allow_unknown_attributes = True
+        return spConfig
 
-    def _get_client_for_provider(self, base_url: str = None):
+    def _get_client_for_provider(self, base_url=None):
         spConfig = self._get_config_for_provider(base_url)
         # In order to logout user, identity_cache / state_cache should be enabled
         # PYSAML2 handles this, but this requires saving the state of client
 
         ident_cache = Cache()
-        tokens = self.env["res.users.saml"].sudo().search([])
+        tokens = self.env["auth_saml.token"].sudo().search([])
         ident_cache._db = {token.saml_name_id: token.id for token in tokens}
         state_cache = {}
         saml_client = Saml2Client(
@@ -436,12 +384,11 @@ class AuthSamlProvider(models.Model):
 
         saml_client = self._get_client_for_provider(url_root)
         reqid, info = saml_client.prepare_for_authenticate(
-            sign=self.sign_authenticate_requests,
-            relay_state=json.dumps(state),
-            sigalg=sig_alg,
+            sign=self.sign, relay_state=json.dumps(state), sigalg=sig_alg
         )
 
         redirect_url = None
+
         # Select the IdP URL to send the AuthN request to
         for key, value in info["headers"]:
             if key == "Location":
@@ -451,10 +398,9 @@ class AuthSamlProvider(models.Model):
 
         return redirect_url
 
-    def _validate_auth_response(self, token: str, base_url: str = None):
+    def _validate_auth_response(self, token, base_url=None):
         """return the validation data corresponding to the access token"""
         self.ensure_one()
-
         client = self._get_client_for_provider(base_url)
         response = client.parse_authn_request_response(
             token,
@@ -467,7 +413,6 @@ class AuthSamlProvider(models.Model):
             matching_value = response.name_id.text
         else:
             attrs = response.get_identity()
-
             for k, v in attrs.items():
                 if k == self.matching_attribute:
                     matching_value = v
@@ -524,7 +469,7 @@ class AuthSamlProvider(models.Model):
             valid=valid,
             cert=self._get_cert_key_path("sp_pem_public"),
             keyfile=self._get_cert_key_path("sp_pem_private"),
-            sign=self.sign_metadata,
+            sign=self.sign,
         )
         # Metadata string can't present ä or ö, temporary fix
         metadata = metadata.replace("&#xE4;", "ä")
