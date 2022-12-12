@@ -5,3 +5,4 @@ access_auth_saml_attribute_mapping,auth_saml_attribute_mapping,model_auth_saml_a
 auth_saml_provider_erp_manager_access,auth_saml_provider_erp_manager_access,model_auth_saml_provider,base.group_erp_manager,1,0,0,0
 access_auth_saml_request,access_auth_saml_request,model_auth_saml_request,,0,0,0,0
 access_auth_saml_attribute_entity,auth_saml_attribute_entity,model_auth_saml_attribute_entity,base.group_system,1,1,1,1
+access_auth_saml_token,access_auth_saml_token,model_auth_saml_token,,0,0,0,0

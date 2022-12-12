@@ -1,5 +1,5 @@
 # Copyright (C) 2020 GlodoUK <https://www.glodo.uk/>
-# Copyright (C) 2010-2016, 2022 XCG Consulting <https://xcg-consulting.fr/>
+# Copyright (C) 2010-2016 XCG Consulting <http://odoo.consulting>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import functools
@@ -16,7 +16,7 @@ from saml2.time_util import in_a_while
 from werkzeug.urls import url_quote_plus
 
 import odoo
-from odoo import SUPERUSER_ID, _, api, http, models, registry as registry_get
+from odoo import SUPERUSER_ID, _, api, http, registry as registry_get
 from odoo.http import request
 
 from odoo.addons.web.controllers.main import (
@@ -63,45 +63,18 @@ class SAMLLogin(Home):
     def _list_saml_providers_domain(self):
         return []
 
-    def list_saml_providers(self, with_autoredirect: bool = False) -> models.Model:
-        """Return available providers
-
-        :param with_autoredirect: True to only list providers with automatic redirection
-        :return: a recordset of providers
-        """
-        domain = self._list_saml_providers_domain()
-        if with_autoredirect:
-            domain.append(("autoredirect", "=", True))
-        providers = request.env["auth.saml.provider"].sudo().search_read(domain)
+    def list_saml_providers(self):
+        providers = (
+            request.env["auth.saml.provider"]
+            .sudo()
+            .search_read(self._list_saml_providers_domain())
+        )
 
         for provider in providers:
             # Compatibility with auth_oauth/controllers/main.py in order to
             # avoid KeyError rendering template_auth_oauth_providers
             provider.setdefault("auth_link", "")
         return providers
-
-    def _saml_autoredirect(self):
-        # automatically redirect if any provider is set up to do that
-        autoredirect_providers = self.list_saml_providers(True)
-        # do not redirect if asked too or if a SAML error has been found
-        disable_autoredirect = (
-            "disable_autoredirect" in request.params or "error" in request.params
-        )
-        if autoredirect_providers and not disable_autoredirect:
-            return werkzeug.utils.redirect(
-                "/auth_saml/get_auth_request?pid=%d" % autoredirect_providers[0]["id"],
-                303,
-            )
-        return None
-
-    @http.route()
-    def web_client(self, s_action=None, **kw):
-        ensure_db()
-        if not request.session.uid:
-            result = self._saml_autoredirect()
-            if result:
-                return result
-        return super().web_client(s_action, **kw)
 
     @http.route()
     def web_login(self, *args, **kw):
@@ -113,12 +86,7 @@ class SAMLLogin(Home):
         ):
 
             # Redirect if already logged in and redirect param is present
-            return request.redirect(request.params.get("redirect"))
-
-        if request.httprequest.method == "GET":
-            result = self._saml_autoredirect()
-            if result:
-                return result
+            return http.redirect_with_hash(request.params.get("redirect"))
 
         providers = self.list_saml_providers()
 
@@ -137,7 +105,8 @@ class SAMLLogin(Home):
             else:
                 error = None
 
-            response.qcontext["providers"] = providers
+            # Tawasta: Distinct SAML from OAuth
+            response.qcontext["saml_providers"] = providers
 
             if error:
                 response.qcontext["error"] = error
@@ -187,7 +156,6 @@ class AuthSAMLController(http.Controller):
 
     @http.route("/auth_saml/signin", type="http", auth="none", csrf=False)
     @fragment_to_query_string
-    # pylint: disable=unused-argument
     def signin(self, req, **kw):
         """
         Client obtained a saml token and passed it back
@@ -235,6 +203,11 @@ class AuthSAMLController(http.Controller):
                     url = "/#action=%s" % action
                 elif menu:
                     url = "/#menu_id=%s" % menu
+                cr.commit()
+
+                # Save to session that we are a SAML2 logged in user
+                request.session["_saml_user"] = True
+                # Redirect and login user, successfully created
                 return login_and_redirect(*credentials, redirect_url=url)
 
             except odoo.exceptions.AccessDenied:
@@ -255,15 +228,13 @@ class AuthSAMLController(http.Controller):
         return set_cookie_and_redirect(url)
 
     @http.route("/auth_saml/metadata", type="http", auth="none", csrf=False)
-    # pylint: disable=unused-argument
     def saml_metadata(self, req, **kw):
         provider = kw.get("p")
         dbname = kw.get("d")
         valid = kw.get("valid", None)
 
         if not dbname or not provider:
-            _logger.debug("Metadata page asked without database name or provider id")
-            return request.not_found(_("Missing parameters"))
+            raise Exception("Missing parameters")
 
         provider = int(provider)
 
@@ -272,8 +243,6 @@ class AuthSAMLController(http.Controller):
         with registry.cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})
             client = env["auth.saml.provider"].sudo().browse(provider)
-            if not client.exists():
-                return request.not_found(_("Unknown provider"))
 
             return request.make_response(
                 client._metadata_string(
@@ -289,6 +258,7 @@ class AuthSAMLController(http.Controller):
         This method is called from IdP in two different cases:
         1. We sent a logout request to IdP and IdP responses to this method (LogoutResponse)
         2. IdP sends logout request to us and we respond to IdP (LogoutRequest handling)
+
         :param req: request calling this method
         :param args: args
         :param kwargs: kwargs
@@ -308,14 +278,17 @@ class AuthSAMLController(http.Controller):
             except StatusError as e:
                 response = None
                 _logger.warning("Error logging out from remote provider: " + str(e))
+
             if response and response.status_ok():
                 # Successfull LogoutResponse handling
                 return werkzeug.utils.redirect("/", 303)
         # LogoutResponse handling ENDS
+
         # LogoutRequest handling STARTS
         elif "SAMLRequest" in kwargs:
             # How do we figure out the NameID
             _logger.warning("LogoutRequest handling started")
+
             # TODO: This is ugly workaround to get the NameID
             # most likely the correct procedure is to get the NameID Odoo
             # details (cache, session, ...). Now we get it from the requests
@@ -327,7 +300,7 @@ class AuthSAMLController(http.Controller):
             )
             name_id = xmlreq.message.name_id
             saml_token = (
-                request.env["res.users.saml"]
+                request.env["auth_saml.token"]
                 .sudo()
                 .search(
                     [
@@ -335,10 +308,12 @@ class AuthSAMLController(http.Controller):
                     ]
                 )
             )
+
             if not saml_token:
                 # No SAML token, skip
                 _logger.warning("SAML token not found, aborting...")
                 return werkzeug.utils.redirect("/", 303)
+
             http_info = client.handle_logout_request(
                 request=kwargs.get("SAMLRequest"),
                 name_id=name_id,
@@ -353,8 +328,10 @@ class AuthSAMLController(http.Controller):
                 session = session_store.get(sess)
                 if session.sid and session.uid == target_uid:
                     session_store.delete(session)
+
             return werkzeug.utils.redirect(http_info.get("headers")[0][1], 303)
         # LogoutRequest handling ENDS
+
         # If we end up here, then request wasn't LogoutRequest or LogoutResponse
         # --> Error?
         _logger.warning("Request wasn't LogoutRequest or LogoutResponse, error?")
@@ -366,7 +343,7 @@ class SAMLSession(Session):
     def logout(self, redirect="/web"):
         """Logout user from IDP as well"""
         saml_token = (
-            request.env["res.users.token"]
+            request.env["auth_saml.token"]
             .sudo()
             .search(
                 [
@@ -395,6 +372,7 @@ class SAMLSession(Session):
                     "Tried to SLO but didn't find IDP service and IDP entity ID"
                 )
                 return super().logout(redirect)
+
             req_id, req = client.create_logout_request(
                 service_location,
                 idp_entity_id,
@@ -421,4 +399,5 @@ class SAMLSession(Session):
             results[idp_entity_id] = (binding, http_info)
             redirect = http_info.get("headers")[0][1]
             # TODO: Should the auth_saml_token be deleted?
+
         return super().logout(redirect)
