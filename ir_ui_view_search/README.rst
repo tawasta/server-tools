@@ -5,7 +5,7 @@
 ====================
 View Search Extended
 ====================
-* Ability to search ir_ui_view by external id and module 
+* Ability to search ir_ui_view by external id and module - This is helpful after migration when trying to find broken views
 
 Configuration
 =============

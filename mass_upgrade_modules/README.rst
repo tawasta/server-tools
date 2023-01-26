@@ -13,7 +13,10 @@ Configuration
 
 Usage
 =====
-\-
+1. Go to Module listing
+2. Select list view
+3. Select a couple installed modules
+4. Press "Action" > "Upgrade modules"
 
 Known issues / Roadmap
 ======================

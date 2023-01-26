@@ -14,7 +14,9 @@ Configuration
 
 Usage
 =====
-\-
+1. Go to Users
+2. Select a couple users without signup
+3. Press "Action" > "Send an Invitation Email"
 
 Known issues / Roadmap
 ======================
