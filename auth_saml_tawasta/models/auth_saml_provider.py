@@ -166,6 +166,10 @@ class AuthSamlProvider(models.Model):
         string="Default groups for users",
         help="What groups are assigned to newly created users",
     )
+    use_hashed_id = fields.Boolean(
+        string="SAML identifier hashed",
+        help="Save SAML identifier only as hashed string (SHA256)",
+    )
 
     @api.model
     def _sig_alg_selection(self):
