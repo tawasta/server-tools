@@ -146,6 +146,7 @@
                                     Default groups for new users.
                                 </p>
                             </div>
+                            <field name="use_hashed_id" />
                         </group>
                         <group string="Display Settings" name="display_settings">
                             <field name="body" />
