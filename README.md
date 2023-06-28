@@ -26,9 +26,11 @@ addon | version | maintainers | summary
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
 [mattermost_hook](mattermost_hook/) | 14.0.1.0.3 |  | Adds possible to use Mattermost hooks
 [module_auto_update_schedule](module_auto_update_schedule/) | 14.0.1.0.2 |  | Run Module Auto Update on a schedule
+[report_pdfa](report_pdfa/) | 14.0.1.0.0 |  | Converts QWeb PDF into PDF-A using ghostscript
 [report_zip](report_zip/) | 14.0.1.0.0 |  | Download various reports as a zip file
 [res_country_archive](res_country_archive/) | 14.0.1.0.2 |  | Ability to archive countries and states
 [res_user_normal_group](res_user_normal_group/) | 14.0.1.0.0 |  | Adds a new group that is used on some menu items
 [rest_api_menu_group](rest_api_menu_group/) | 14.0.1.0.1 |  | Rest api menu group
+[user_log_statistics](user_log_statistics/) | 14.0.1.0.0 |  | Statistics regarding res.users.log entries
 
 [//]: # (end addons)

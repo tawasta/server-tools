@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,24 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Report - PDF-A",
-    "summary": "Converts QWeb PDF into PDF-A using ghostscript",
+    "name": "User Log Statistics",
+    "summary": "Statistics regarding res.users.log entries",
     "version": "14.0.1.0.0",
-    "category": "Reporting",
+    "category": "Extra Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
+    "data": [],
+    "depends": ["user_log_view"],
     "application": False,
     "installable": True,
-    "external_dependencies": {
-        "bin": [
-            "ghostscript",
-        ],
-    },
-    "depends": [
-        "base",
-    ],
-    "data": [
-        "views/ir_actions_views.xml",
-    ],
 }
