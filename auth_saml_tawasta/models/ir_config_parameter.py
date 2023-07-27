@@ -18,12 +18,12 @@ class IrConfigParameter(models.Model):
         """Redefined to update users when our parameter is changed."""
         result = super().create(vals_list)
         if result.filtered(lambda param: param.key == ALLOW_SAML_UID_AND_PASSWORD):
-            self.env["res.users"].allow_saml_and_password_changed()
+            self.env["res.users"]._allow_saml_and_password()
         return result
 
     def write(self, vals):
         """Redefined to update users when our parameter is changed."""
         result = super().write(vals)
         if self.filtered(lambda param: param.key == ALLOW_SAML_UID_AND_PASSWORD):
-            self.env["res.users"].allow_saml_and_password_changed()
+            self.env["res.users"]._allow_saml_and_password()
         return result
