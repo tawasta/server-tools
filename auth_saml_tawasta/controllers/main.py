@@ -7,6 +7,7 @@ import json
 import logging
 import re
 
+# dependency name is pysaml2 # pylint: disable=W7936
 import saml2.xmldsig as ds
 import werkzeug.utils
 from saml2 import BINDING_HTTP_REDIRECT
@@ -203,7 +204,7 @@ class AuthSAMLController(http.Controller):
                     url = "/#action=%s" % action
                 elif menu:
                     url = "/#menu_id=%s" % menu
-                cr.commit()
+                cr.commit()  # pylint: disable=E8102
 
                 # Save to session that we are a SAML2 logged in user
                 request.session["_saml_user"] = True
