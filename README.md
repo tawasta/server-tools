@@ -15,6 +15,7 @@ addon | version | maintainers | summary
 [auth_login_optional](auth_login_optional/) | 14.0.1.0.0 |  | Option to using another field as login-field
 [auth_oauth_gsuite](auth_oauth_gsuite/) | 14.0.1.0.0 |  | Adds Google G Suite specific options
 [auth_oauth_hidden](auth_oauth_hidden/) | 14.0.1.0.0 |  | Adds a parameter for OAuth providers to allow hiding them
+[auth_oauth_portal_register](auth_oauth_portal_register/) | 14.0.1.0.0 |  | Enables registering with OAuth without opening signup
 [auth_odoo_idp](auth_odoo_idp/) | 14.0.1.0.0 |  | Return user related data using XML-RPC
 [auth_saml_tawasta](auth_saml_tawasta/) | 14.0.1.1.1 |  | SAML2 Authentication Tawasta
 [auth_signup_disable_autoinvite](auth_signup_disable_autoinvite/) | 14.0.1.0.0 |  | Disable signup auto invite
