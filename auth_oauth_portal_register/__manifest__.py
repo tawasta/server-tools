@@ -21,7 +21,7 @@
 {
     "name": "OAuth2 Portal Register",
     "summary": "Enables registering with OAuth without opening signup",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",

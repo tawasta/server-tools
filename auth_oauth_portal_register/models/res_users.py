@@ -60,5 +60,4 @@ class ResUsers(models.Model):
         if "oauth_provider_id" not in values and "partner_id" not in values:
             if self._get_signup_invitation_scope() != "b2c":
                 raise SignupError(_("Signup is not allowed for uninvited users"))
-        _logger.info("OAuth2 signup: {}".format(values))
         return self._create_user_from_template(values)

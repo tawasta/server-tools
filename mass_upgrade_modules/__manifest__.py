@@ -21,7 +21,7 @@
 {
     "name": "Mass Upgrade Modules",
     "summary": "Ability to upgrade multiple modules",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
