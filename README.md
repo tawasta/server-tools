@@ -21,6 +21,7 @@ addon | version | maintainers | summary
 [auth_signup_disable_autoinvite](auth_signup_disable_autoinvite/) | 14.0.1.0.0 |  | Disable signup auto invite
 [auth_signup_invite_mail_system_name](auth_signup_invite_mail_system_name/) | 14.0.1.0.0 |  | Adds field to res.company to define system name. Changes invite mail.
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 14.0.1.0.1 |  | Send invite mail with mass action
+[base_read_access_account_invoice](base_read_access_account_invoice/) | 14.0.1.0.0 |  | Adds a new group that can read invoicing model data
 [base_read_access_purchase](base_read_access_purchase/) | 14.0.1.0.0 |  | Adds a new group that can read purchase-related model data
 [base_read_access_sale](base_read_access_sale/) | 14.0.1.0.0 |  | Adds a new group that can read sales model data
 [base_read_access_stock](base_read_access_stock/) | 14.0.1.0.0 |  | Adds a new group that can read inventory-related model data
