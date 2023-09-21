@@ -21,7 +21,7 @@
 {
     "name": "Read Access Group for Sales",
     "summary": "Adds a new group that can read sales model data",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Extra Rights",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
@@ -32,7 +32,6 @@
     "depends": ["sale", "sales_team"],
     "data": [
         "data/res_groups.xml",
-        "data/ir_ui_menu.xml",
         "security/ir.model.access.csv",
     ],
     "demo": [],

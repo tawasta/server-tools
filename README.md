@@ -23,7 +23,7 @@ addon | version | maintainers | summary
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 14.0.1.0.1 |  | Send invite mail with mass action
 [base_read_access_account_invoice](base_read_access_account_invoice/) | 14.0.1.0.0 |  | Adds a new group that can read invoicing model data
 [base_read_access_purchase](base_read_access_purchase/) | 14.0.1.0.0 |  | Adds a new group that can read purchase-related model data
-[base_read_access_sale](base_read_access_sale/) | 14.0.1.0.0 |  | Adds a new group that can read sales model data
+[base_read_access_sale](base_read_access_sale/) | 14.0.1.0.1 |  | Adds a new group that can read sales model data
 [base_read_access_stock](base_read_access_stock/) | 14.0.1.0.0 |  | Adds a new group that can read inventory-related model data
 [base_user_role_manager](base_user_role_manager/) | 14.0.1.1.0 |  | Allow user to manage users and their roles
 [board_auto_refresh](board_auto_refresh/) | 14.0.1.0.0 |  | Refreshes the board every 5 minutes
