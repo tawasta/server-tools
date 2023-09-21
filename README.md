@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [base_read_access_sale](base_read_access_sale/) | 14.0.1.0.0 |  | Adds a new group that can read sales model data
 [base_read_access_stock](base_read_access_stock/) | 14.0.1.0.0 |  | Adds a new group that can read inventory-related model data
 [base_user_role_manager](base_user_role_manager/) | 14.0.1.1.0 |  | Allow user to manage users and their roles
+[board_auto_refresh](board_auto_refresh/) | 14.0.1.0.0 |  | Refreshes the board every 5 minutes
 [board_my_filters](board_my_filters/) | 14.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
 [ir_ui_view_search](ir_ui_view_search/) | 14.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
