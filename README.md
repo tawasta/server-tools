@@ -13,6 +13,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [auditlog_security_group](auditlog_security_group/) | 14.0.1.0.0 |  | Add a new security group that allows users to read auditlogs
 [auth_login_optional](auth_login_optional/) | 14.0.1.0.0 |  | Option to using another field as login-field
+[auth_oauth_email_login](auth_oauth_email_login/) | 14.0.1.0.0 |  | Find correct user with email when logging in with oAuth2
 [auth_oauth_gsuite](auth_oauth_gsuite/) | 14.0.1.0.0 |  | Adds Google G Suite specific options
 [auth_oauth_hidden](auth_oauth_hidden/) | 14.0.1.0.0 |  | Adds a parameter for OAuth providers to allow hiding them
 [auth_oauth_portal_register](auth_oauth_portal_register/) | 14.0.1.0.0 |  | Enables registering with OAuth without opening signup
