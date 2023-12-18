@@ -68,7 +68,7 @@ class ResUsers(models.Model):
                     "&",
                     ("oauth_uid", "=", oauth_uid),
                     ("oauth_provider_id", "=", provider),
-                    ("email", "=", email),
+                    ("email", "=ilike", email),
                 ]
             )
             if not oauth_user:
