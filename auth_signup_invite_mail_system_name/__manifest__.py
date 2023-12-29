@@ -29,5 +29,9 @@
     "application": False,
     "installable": True,
     "depends": ["auth_signup"],
-    "data": ["views/auth_signup_templates_email.xml","views/res_company_views.xml", "data/auth_signup_data.xml"],
+    "data": [
+        "views/auth_signup_templates_email.xml",
+        "views/res_company_views.xml",
+        "data/auth_signup_data.xml",
+    ],
 }
