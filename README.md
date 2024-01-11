@@ -16,5 +16,6 @@ addon | version | maintainers | summary
 [auth_signup_invite_mail_system_name](auth_signup_invite_mail_system_name/) | 17.0.1.0 |  | Adds field to res.company to define system name. Changes invite mail.
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 17.0.1.0 |  | Send invite mail with mass action
 [base_user_role_manager](base_user_role_manager/) | 17.0.1.1 |  | Allow user to manage users and their roles
+[ir_ui_view_search](ir_ui_view_search/) | 17.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 
 [//]: # (end addons)
