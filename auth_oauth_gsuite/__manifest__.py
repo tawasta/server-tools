@@ -21,7 +21,7 @@
 {
     "name": "Oauth G Suite",
     "summary": "Adds Google G Suite specific options",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
