@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,21 +17,22 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-
 {
-    "name": "Oauth G Suite",
-    "summary": "Adds Google G Suite specific options",
-    "version": "16.0.1.1.0",
+    "name": "Mattermost Hooks",
+    "summary": "Adds possible to use Mattermost hooks",
     "category": "Tools",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "version": "16.0.1.0.0",
     "author": "Tawasta",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": [
-        "auth_oauth",
+        "base",
     ],
     "data": [
-        "views/auth_oauth_provider_form.xml",
+        "security/ir.model.access.csv",
+        "views/res_company.xml",
+        "views/mattermost_hook_views.xml",
     ],
 }
