@@ -10,6 +10,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[auth_oauth_email_login](auth_oauth_email_login/) | 17.0.1.0.0 |  | Find correct user with email when logging in with oAuth2
 [auth_oauth_gsuite](auth_oauth_gsuite/) | 17.0.1.0.0 |  | Adds Google G Suite specific options
 [auth_oauth_hidden](auth_oauth_hidden/) | 17.0.1.0.0 |  | Adds a parameter for OAuth providers to allow hiding them
 [auth_oauth_portal_register](auth_oauth_portal_register/) | 17.0.1.0.0 |  | Enables registering with OAuth without opening signup
