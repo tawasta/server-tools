@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_backend"
+        name="assets_backend_show_toast"
+        inherit_id="mail.assets_backend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/dynamic_instruction_notifier/static/src/js/show_toast.js"
+            />
+        </xpath>
+    </template>
+</odoo>
