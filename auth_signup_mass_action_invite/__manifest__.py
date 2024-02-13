@@ -21,7 +21,7 @@
 {
     "name": "Auth Signup Mass Action Invite",
     "summary": "Send invite mail with mass action",
-    "version": "17.0.1.0",
+    "version": "17.0.1.0.1",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
