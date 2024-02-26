@@ -18,6 +18,7 @@ addon | version | maintainers | summary
 [auth_signup_invite_mail_system_name](auth_signup_invite_mail_system_name/) | 17.0.1.0 |  | Adds field to res.company to define system name. Changes invite mail.
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 17.0.1.0.1 |  | Send invite mail with mass action
 [base_read_access_purchase_request](base_read_access_purchase_request/) | 17.0.1.0.0 |  | Adds a new group that can read PR-related model data
+[base_read_access_stock](base_read_access_stock/) | 17.0.1.0.0 |  | Adds a new group that can read inventory-related model data
 [base_user_role_manager](base_user_role_manager/) | 17.0.1.1 |  | Allow user to manage users and their roles
 [ir_ui_view_search](ir_ui_view_search/) | 17.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mattermost_hook](mattermost_hook/) | 17.0.1.0.0 |  | Adds possible to use Mattermost hooks
