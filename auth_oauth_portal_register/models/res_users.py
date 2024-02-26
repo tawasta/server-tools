@@ -31,7 +31,6 @@ _logger = logging.getLogger(__name__)
 
 
 class ResUsers(models.Model):
-
     # 1. Private attributes
     _inherit = "res.users"
 

@@ -10,7 +10,8 @@
                 <field name="hidden" />
                 <field
                     name="hidden_key"
-                    attrs="{'required': [('hidden', '=', True)], 'invisible': [('hidden', '=', False)]}"
+                    required="[('hidden', '=', True)]"
+                    invisible="[('hidden', '=', False)]"
                 />
             </field>
 
