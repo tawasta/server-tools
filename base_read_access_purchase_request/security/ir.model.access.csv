@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_read_pr,access_read_pr,purchase_request.model_purchase_request,base_read_access_purchase_request.group_readonly,1,0,0,0
+access_read_pr_line,access_read_pr_line,purchase_request.model_purchase_request_line,base_read_access_purchase_request.group_readonly,1,0,0,0
