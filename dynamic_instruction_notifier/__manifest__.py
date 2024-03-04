@@ -32,5 +32,5 @@
         "web",
         "board",
     ],
-    "data": ["views/assets.xml"],
+    "data": ["security/ir.model.access.csv","views/assets.xml"],
 }
