@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="instruction_message_form_view" model="ir.ui.view">
+            <field name="name">instruction.message.form.view</field>
+            <field name="model">instruction.message</field>
+            <field name="arch" type="xml">
+                <form string="Instruction Message">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="category" />
+                            <field
+                                name="model_id"
+                                attrs="{'invisible': [('category', '!=', 'admin')]}"
+                            />
+                            <field
+                                name="view_id"
+                                attrs="{'invisible': [('category', '!=', 'portal')]}"
+                            />
+                            <field name="html_content" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="instruction_message_tree_view" model="ir.ui.view">
+            <field name="name">instruction.message.tree.view</field>
+            <field name="model">instruction.message</field>
+            <field name="arch" type="xml">
+                <tree string="Instruction Messages">
+                    <field name="name" />
+                    <field name="category" />
+                    <field name="model_id" />
+                    <field name="view_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="instruction_message_action" model="ir.actions.act_window">
+            <field name="name">Instruction Message</field>
+            <field name="res_model">instruction.message</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="instruction_message_menu"
+            name="Instruction Message"
+            parent="website.menu_website_global_configuration"
+            action="instruction_message_action"
+        />
+
+    </data>
+</odoo>

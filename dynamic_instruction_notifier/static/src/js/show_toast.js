@@ -13,23 +13,12 @@ odoo.define("dynamic_instruction_notifier.ActionManager", function (require) {
 
         _fetchAndShowNotification: function (res_model) {
             var self = this;
-            var paramName = "instruction_message_" + res_model;
-
             session
-                .rpc("/web/dataset/call_kw/ir.config_parameter/get_param", {
-                    model: "ir.config_parameter",
-                    method: "get_param",
-                    args: [paramName],
-                    kwargs: {},
-                })
+                .rpc("/get_instruction_message", {model_name: res_model})
                 .then(function (notificationHtml) {
                     if (notificationHtml) {
-                        // Näytä ilmoitus, jos vastaavaa parametria löytyy ja sillä on arvo
-                        self.do_notify(
-                            "Notification",
-                            notificationHtml,
-                            true // Salli HTML-sisältö
-                        );
+                        // Näytä ilmoitus, jos ohjeviesti löytyy
+                        self.do_notify("Notification", notificationHtml, true); // Salli HTML-sisältö
                     }
                 });
         },
