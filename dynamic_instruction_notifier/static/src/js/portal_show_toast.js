@@ -13,10 +13,10 @@ odoo.define("dynamic_instruction_notifier.portal_notifications", function (requi
                         Swal.fire({
                             position: "top-end",
                             icon: "info",
-                            title: "Tärkeä ilmoitus!",
+                            title: "Notification!",
                             html: notificationHtml,
                             showConfirmButton: true,
-                            confirmButtonText: "Sulje",
+                            confirmButtonText: "Close",
                             timer: 20000,
                             timerProgressBar: true,
                             toast: true,
