@@ -13,10 +13,17 @@
         </xpath>
     </template>
 
-    <template id="assets_frontend_dynamic_instruction_notifier" inherit_id="web.assets_frontend" name="Dynamic Instruction Notifier - Portal">
+    <template
+        id="assets_frontend_dynamic_instruction_notifier"
+        inherit_id="web.assets_frontend"
+        name="Dynamic Instruction Notifier - Portal"
+    >
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/dynamic_instruction_notifier/static/src/js/portal_show_toast.js"/>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script
+                type="text/javascript"
+                src="/dynamic_instruction_notifier/static/src/js/portal_show_toast.js"
+            />
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" />
         </xpath>
         <xpath expr="link[last()]" position="after">
             <link

@@ -8,11 +8,17 @@
                 <form string="Instruction Message">
                     <sheet>
                         <group>
-                            <field name="name"/>
-                            <field name="category"/>
-                            <field name="model_id" attrs="{'invisible': [('category', '!=', 'admin')]}"/>
-                            <field name="view_id" attrs="{'invisible': [('category', '!=', 'portal')]}"/>
-                            <field name="html_content"/>
+                            <field name="name" />
+                            <field name="category" />
+                            <field
+                                name="model_id"
+                                attrs="{'invisible': [('category', '!=', 'admin')]}"
+                            />
+                            <field
+                                name="view_id"
+                                attrs="{'invisible': [('category', '!=', 'portal')]}"
+                            />
+                            <field name="html_content" />
                         </group>
                     </sheet>
                 </form>
@@ -24,10 +30,10 @@
             <field name="model">instruction.message</field>
             <field name="arch" type="xml">
                 <tree string="Instruction Messages">
-                    <field name="name"/>
-                    <field name="category"/>
-                    <field name="model_id"/>
-                    <field name="view_id"/>
+                    <field name="name" />
+                    <field name="category" />
+                    <field name="model_id" />
+                    <field name="view_id" />
                 </tree>
             </field>
         </record>
