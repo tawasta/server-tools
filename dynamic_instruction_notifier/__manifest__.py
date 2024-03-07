@@ -31,6 +31,7 @@
     "depends": [
         "web",
         "board",
+        "website_utilities",
     ],
-    "data": ["security/ir.model.access.csv", "views/assets.xml"],
+    "data": ["security/ir.model.access.csv", "views/assets.xml", "views/instruction_message.xml"],
 }

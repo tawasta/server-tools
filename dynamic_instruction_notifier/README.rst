@@ -6,15 +6,25 @@
 Dynamic instruction notifier
 ============================
 
-* The dynamic_instruction_notifier module dynamically displays context-specific instructions or notifications in Odoo views. It uses ir.config_parameter to fetch custom HTML messages based on the current view, such as instruction_message_sale_order for the sales order view. This module enhances user guidance and efficiency by showing relevant tips or information as pop-up notifications, managed and updated directly from the Odoo backend.
+Overview
+
+The Dynamic Instruction Notifier module enhances Odoo's user experience by displaying contextual instructions or notifications in the backend administration and the portal frontend, based on the user's current view or action.
+
+Key Features
+
+Contextual Instructions: Automatically displays relevant instructions to users based on their current activity or view in Odoo.
+Admin and Portal Categories: Supports separate instruction sets for backend administration and portal users, ensuring targeted content delivery.
+Rich Text Content: Allows for the creation of rich text instruction messages that can include HTML content.
+SweetAlert2 Integration: Utilizes SweetAlert2 for visually appealing and user-friendly notifications.
 
 Configuration
 =============
-\-
+Administrators can manage instruction messages via the "Instruction Message" menu, setting up content, associating it with models or views, and specifying the target audience.
 
 Usage
 =====
-\-
+Backend Notifications: Triggered by actions related to specific models.
+Portal Notifications: Based on the user's current portal view, identified through HTML data attributes.
 
 Known issues / Roadmap
 ======================
