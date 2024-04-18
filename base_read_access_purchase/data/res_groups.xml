@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Define a new group -->
+    <record id="group_readonly" model="res.groups">
+        <field name="name">Read access to purchases</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        <field
+            name="comment"
+        >Gives the user read access to basic purchase functionalities</field>
+    </record>
+</odoo>
