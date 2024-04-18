@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Show the action button that links to current vendor's orders -->
+    <record id="res_partner_view_purchase_buttons" model="ir.ui.view">
+        <field name="name">res.partner.purchase.button.read.only.group</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase.res_partner_view_purchase_buttons" />
+        <field name="arch" type="xml">
+            <button class="oe_stat_button" position="attributes">
+                <attribute
+                    name="groups"
+                >purchase.group_purchase_user,base_read_access_purchase.group_readonly</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>

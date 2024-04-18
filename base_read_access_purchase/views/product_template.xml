@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Show the action button that links to current product's purchases -->
+    <record id="view_product_template_purchase_buttons_from" model="ir.ui.view">
+        <field name="name">product.template.purchase.button.read.only.group</field>
+        <field name="model">product.template</field>
+        <field
+            name="inherit_id"
+            ref="purchase.view_product_template_purchase_buttons_from"
+        />
+        <field name="arch" type="xml">
+            <button name="action_view_po" position="attributes">
+                <attribute
+                    name="groups"
+                >purchase.group_purchase_user,base_read_access_purchase.group_readonly</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>
