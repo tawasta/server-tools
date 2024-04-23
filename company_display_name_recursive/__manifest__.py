@@ -21,7 +21,7 @@
 {
     "name": "Company recursive display name",
     "summary": "Show parent(s) in company name",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",

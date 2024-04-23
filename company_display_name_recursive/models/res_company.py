@@ -11,7 +11,6 @@ class Company(models.Model):
         for res in result:
             company = self.browse(res[0])
             if company.parent_id:
-                # name = "{}, {}".format(company.parent_id.display_name, res[1])
                 name = self._get_recursive_name(company)
             else:
                 name = res[1]
@@ -19,25 +18,19 @@ class Company(models.Model):
         return new_result
 
     @api.model
-    def name_search(self, name, args=None, operator="ilike", limit=100):
+    def _name_search(self, name, args=None, operator="ilike", limit=100):
         # Search company name from parent.
         # Please note that this search isn't currently recursive
-        res = super().name_search(name=name, args=args, operator=operator)
+        args = args or []
+        res = super()._name_search(name=name, args=args, operator=operator)
         if name:
-            domain = [
-                "|",
-                ("name", "ilike", name),
-                ("parent_id.name", "ilike", name),
-            ]
-
-            args = (args or []) + [
+            args = args + [
                 "|",
                 ("name", operator, name),
                 ("parent_id.name", operator, name),
             ]
 
-            companies = self.search(domain + (args or []), limit=limit)
-            res = companies.name_get()
+            res = self._search(args, limit=limit)
 
         return res
 
