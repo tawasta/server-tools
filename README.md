@@ -29,7 +29,7 @@ addon | version | maintainers | summary
 [base_user_role_manager](base_user_role_manager/) | 14.0.1.1.0 |  | Allow user to manage users and their roles
 [board_auto_refresh](board_auto_refresh/) | 14.0.1.0.0 |  | Refreshes the board every 5 minutes
 [board_my_filters](board_my_filters/) | 14.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
-[company_display_name_recursive](company_display_name_recursive/) | 14.0.1.0.0 |  | Show parent(s) in company name
+[company_display_name_recursive](company_display_name_recursive/) | 14.0.1.0.1 |  | Show parent(s) in company name
 [dynamic_instruction_notifier](dynamic_instruction_notifier/) | 14.0.1.0.0 |  | Dynamic instruction notifier
 [ir_ui_view_search](ir_ui_view_search/) | 14.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
