@@ -21,7 +21,7 @@
 {
     "name": "Read Access Group for Inventory",
     "summary": "Adds a new group that can read inventory-related model data",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": "Extra Rights",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
@@ -29,7 +29,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["stock"],
+    "depends": ["stock", "stock_account"],
     "data": [
         "data/res_groups.xml",
         "data/ir_ui_menu.xml",
