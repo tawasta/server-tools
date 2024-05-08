@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Give the group access to the core Manufacturing menu -->
+    <record model="ir.ui.menu" id="mrp.menu_mrp_root">
+        <field
+            name="groups_id"
+            eval="[(4, ref('base_read_access_manufacture.group_readonly'))]"
+        />
+    </record>
+</odoo>
