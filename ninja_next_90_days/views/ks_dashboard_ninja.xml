@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ks_dashboard_ninja_item" model="ir.ui.view">
+        <field name="name">ks.dashboard.ninja.item</field>
+        <field name="model">ks_dashboard_ninja.item</field>
+        <field name="inherit_id" ref="ks_dashboard_ninja.item_form_view"/>
+        <field name="arch" type="xml">
+            <field name="ks_domain" position="after">
+                <field name="next_90_days_selected" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='ks_compare_period']" position="attributes">
+                <attribute name="attrs">{'invisible': [('next_90_days_selected', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='ks_year_period']" position="attributes">
+                <attribute name="attrs">{'invisible': [('next_90_days_selected', '=', True)]}</attribute>
+            </xpath>
+
+            <field name="ks_domain_2" position="after">
+                <field name="next_90_days_selected_2" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='ks_compare_period_2']" position="attributes">
+                <attribute name="attrs">{'invisible': [('next_90_days_selected_2', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='ks_year_period_2']" position="attributes">
+                <attribute name="attrs">{'invisible': [('next_90_days_selected_2', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
