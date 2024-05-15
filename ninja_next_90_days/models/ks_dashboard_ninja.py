@@ -24,7 +24,10 @@ class KsDashboardNinja(models.Model):
     next_90_days_selected = fields.Boolean(default=False)
     next_90_days_selected_2 = fields.Boolean(default=False)
 
-    def ks_convert_into_proper_domain(self, ks_domain, rec, domain=[]):
+    def ks_convert_into_proper_domain(self, ks_domain, rec, domain=None):
+        if domain is None:
+            domain = []
+
         if self.ks_date_filter_selection == "l_custom_next_90_days":
             self.ks_date_filter_selection = "l_custom"
 
