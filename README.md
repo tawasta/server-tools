@@ -35,6 +35,7 @@ addon | version | maintainers | summary
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
 [mattermost_hook](mattermost_hook/) | 14.0.1.0.3 |  | Adds possible to use Mattermost hooks
 [module_auto_update_schedule](module_auto_update_schedule/) | 14.0.1.0.2 |  | Run Module Auto Update on a schedule
+[ninja_next_90_days](ninja_next_90_days/) | 14.0.1.0.0 |  | Adds 'next 90 days' filtering option
 [report_pdfa](report_pdfa/) | 14.0.1.0.1 |  | Converts QWeb PDF into PDF-A using ghostscript
 [report_zip](report_zip/) | 14.0.1.0.0 |  | Download various reports as a zip file
 [res_country_archive](res_country_archive/) | 14.0.1.0.2 |  | Ability to archive countries and states

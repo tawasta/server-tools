@@ -23,13 +23,11 @@
     "summary": "Adds 'next 90 days' filtering option",
     "version": "14.0.1.0.0",
     "category": "Reporting",
-    "website": "https://gitlab.com/tawasta/odoo/stock",
+    "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": ["ks_dashboard_ninja"],
-    "data": [
-        "views/ks_dashboard_ninja.xml"
-    ],
+    "data": ["views/ks_dashboard_ninja.xml"],
 }
