@@ -21,7 +21,7 @@
 {
     "name": "Read Access Group for Manufacturing",
     "summary": "Adds a new group that can read manufacturing-related model data",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "Extra Rights",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
