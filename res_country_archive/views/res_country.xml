@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_country_tree_archive" model="ir.ui.view">
+        <field name="name">res.country.tree.archive</field>
+        <field name="model">res.country</field>
+        <field name="inherit_id" ref="base.view_country_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="active" column_invisible="True" />
+            </field>
+        </field>
+    </record>
+    <record id="view_country_form_archive" model="ir.ui.view">
+        <field name="name">res.country.form.archive</field>
+        <field name="model">res.country</field>
+        <field name="inherit_id" ref="base.view_country_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="after">
+                <field name="active" invisible="1" />
+                <widget
+                    name="web_ribbon"
+                    title="Archived"
+                    bg_color="bg-danger"
+                    invisible="active"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_country_filter" model="ir.ui.view">
+        <field name="name">res.country.filter</field>
+        <field name="model">res.country</field>
+        <field name="arch" type="xml">
+            <search string="Search Country">
+                <field name="name" />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+</odoo>
