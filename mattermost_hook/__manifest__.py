@@ -19,9 +19,9 @@
 ##############################################################################
 {
     "name": "Mattermost Hooks",
-    "summary": "Adds possible to use Mattermost hooks",
+    "summary": "Adds possibility to add Mattermost hooks to be used from Odoo",
     "category": "Tools",
-    "version": "14.0.1.0.3",
+    "version": "14.0.1.1.0",
     "author": "Tawasta",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "license": "AGPL-3",
@@ -29,6 +29,7 @@
     "installable": True,
     "depends": [
         "base",
+        "queue_job",
     ],
     "data": [
         "security/ir.model.access.csv",

@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [dynamic_instruction_notifier](dynamic_instruction_notifier/) | 14.0.1.0.0 |  | Dynamic instruction notifier
 [ir_ui_view_search](ir_ui_view_search/) | 14.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
-[mattermost_hook](mattermost_hook/) | 14.0.1.0.3 |  | Adds possible to use Mattermost hooks
+[mattermost_hook](mattermost_hook/) | 14.0.1.1.0 |  | Adds possibility to add Mattermost hooks to be used from Odoo
 [module_auto_update_schedule](module_auto_update_schedule/) | 14.0.1.0.2 |  | Run Module Auto Update on a schedule
 [ninja_next_90_days](ninja_next_90_days/) | 14.0.1.0.0 |  | Adds 'next 90 days' filtering option
 [report_pdfa](report_pdfa/) | 14.0.1.0.1 |  | Converts QWeb PDF into PDF-A using ghostscript

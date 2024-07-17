@@ -59,6 +59,17 @@ class MattermostHook(models.Model):
     def post_mattermost(
         self, message, channel=False, username=False, icon_url=False, verify=True
     ):
+        for record in self:
+            msg = "Run mattermost hook '{}' using method '{}'".format(
+                record.name, record.function
+            )
+            record.with_delay(description=msg)._post_mattermost(
+                message, channel, username, icon_url, verify
+            )
+
+    def _post_mattermost(
+        self, message, channel=False, username=False, icon_url=False, verify=True
+    ):
         """
         Method to post a message to the hook
 
