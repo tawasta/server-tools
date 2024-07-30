@@ -24,9 +24,11 @@ addon | version | maintainers | summary
 [base_read_access_sale](base_read_access_sale/) | 17.0.1.0.0 |  | Adds a new group that can read sales model data
 [base_read_access_stock](base_read_access_stock/) | 17.0.1.1.0 |  | Adds a new group that can read inventory-related model data
 [base_user_role_manager](base_user_role_manager/) | 17.0.1.1 |  | Allow user to manage users and their roles
+[board_my_filters](board_my_filters/) | 17.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
 [ir_ui_view_search](ir_ui_view_search/) | 17.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mattermost_hook](mattermost_hook/) | 17.0.1.0.0 |  | Adds possible to use Mattermost hooks
 [module_auto_update_schedule](module_auto_update_schedule/) | 17.0.1.0.0 |  | Run Module Auto Update on a schedule
 [res_country_archive](res_country_archive/) | 17.0.1.0.0 |  | Ability to archive countries and states
+[rest_api_menu_group](rest_api_menu_group/) | 17.0.1.0.1 |  | Rest api menu group
 
 [//]: # (end addons)
