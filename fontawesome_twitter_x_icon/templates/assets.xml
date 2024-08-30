@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_common" inherit_id="web.assets_common" priority="90">
+        <xpath
+            expr="link[@href='/web/static/lib/fontawesome/css/font-awesome.css']"
+            position="replace"
+        >
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="/fontawesome_twitter_x_icon/static/src/css/fontawesome.css"
+            />
+
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="/fontawesome_twitter_x_icon/static/lib/fontawesome-6.5.1/css/all.css"
+            />
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="/fontawesome_twitter_x_icon/static/lib/fontawesome-6.5.1/css/v4-shims.css"
+            />
+
+        </xpath>
+
+        <xpath expr="." position="inside">
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="/fontawesome_twitter_x_icon/static/src/css/icon.css"
+            />
+        </xpath>
+    </template>
+</odoo>
