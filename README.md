@@ -31,7 +31,7 @@ addon | version | maintainers | summary
 [board_my_filters](board_my_filters/) | 14.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
 [company_display_name_recursive](company_display_name_recursive/) | 14.0.1.0.1 |  | Show parent(s) in company name
 [dynamic_instruction_notifier](dynamic_instruction_notifier/) | 14.0.1.0.0 |  | Dynamic instruction notifier
-[fontawesome_twitter_x_icon](fontawesome_twitter_x_icon/) | 14.0.1.0.0 |  | Replace old twitter icon with its X counterpart
+[fontawesome_twitter_x_icon](fontawesome_twitter_x_icon/) | 14.0.1.1.0 |  | Replace old twitter icon with its X counterpart
 [ir_ui_view_search](ir_ui_view_search/) | 14.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mass_upgrade_modules](mass_upgrade_modules/) | 14.0.1.0.0 |  | Ability to upgrade multiple modules
 [mattermost_hook](mattermost_hook/) | 14.0.1.1.0 |  | Adds possibility to add Mattermost hooks to be used from Odoo

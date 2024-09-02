@@ -21,7 +21,7 @@
 {
     "name": "Replace old twitter icon with its X counterpart",
     "summary": "Replace old twitter icon with its X counterpart",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Web",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
