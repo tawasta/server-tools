@@ -196,13 +196,6 @@
 .fa.fa-bar-chart-o:before {
   content: "\e0e3"; }
 
-.fa.fa-twitter-square {
-  font-family: 'Font Awesome 6 Brands';
-  font-weight: 400; }
-
-.fa.fa-twitter-square:before {
-  content: "\f081"; }
-
 .fa.fa-facebook-square {
   font-family: 'Font Awesome 6 Brands';
   font-weight: 400; }
@@ -280,10 +273,6 @@
 
 .fa.fa-bookmark-o:before {
   content: "\f02e"; }
-
-.fa.fa-twitter {
-  font-family: 'Font Awesome 6 Brands';
-  font-weight: 400; }
 
 .fa.fa-facebook {
   font-family: 'Font Awesome 6 Brands';
