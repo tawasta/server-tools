@@ -1,0 +1,17 @@
+.fa-twitter {
+    font-family: "Font Awesome 6 Brands";
+    font-weight: 400;
+}
+
+.fa-twitter:before {
+    content: "\e61b";
+}
+
+.fa-twitter-square {
+    font-family: "Font Awesome 6 Brands";
+    font-weight: 400;
+}
+
+.fa-twitter-square:before {
+    content: "\e61a";
+}
