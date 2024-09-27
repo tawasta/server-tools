@@ -42,7 +42,7 @@
                                         >
                                             <tr>
                                                 <td valign="middle">
-                                                    <span style="font-size: 10px;"><t
+                                                    <span style="font-size: 10px;">Welcome to <t
                                                             t-out="object.company_id.system_name or ''"
                                                         /></span>
                                                     <br />
