@@ -42,18 +42,22 @@
                                         >
                                             <tr>
                                                 <td valign="middle">
-                                                    <span
-                                                        style="font-size: 10px;"
-                                                    ><t t-out="object.company_id.system_name or ''"></t></span>
+                                                    <span style="font-size: 10px;"><t
+                                                            t-out="object.company_id.system_name or ''"
+                                                        /></span>
                                                     <br />
                                                     <span
                                                         style="font-size: 20px; font-weight: bold;"
                                                     >
-                    <t t-out="object.name or ''"></t>
+                    <t t-out="object.name or ''" />
                 </span>
                                                 </td>
                                                 <td valign="middle" align="right">
-                                                    <img t-attf-src="/logo.png?company={{ object.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.company_id.name"/>
+                                                    <img
+                                                        t-attf-src="/logo.png?company={{ object.company_id.id }}"
+                                                        style="padding: 0px; margin: 0px; height: auto; width: 80px;"
+                                                        t-att-alt="object.company_id.name"
+                                                    />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -86,27 +90,36 @@
                                                     style="font-size: 13px;"
                                                 >
                                                     <div>
-                    Dear <t t-out="object.name or ''"></t>,<br /><br />
-                        You have been invited to <t t-out="object.company_id.system_name or ''"></t> enterprise resource planning system where operational processes for <t t-out="object.company_id.name or ''"></t> are managed.
-                    <div style="margin: 16px 0px 16px 0px;"><a t-att-href="object.signup_url"
-                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                    Dear <t t-out="object.name or ''" />,<br /><br />
+                        You have been invited to <t
+                                                            t-out="object.company_id.system_name or ''"
+                                                        /> enterprise resource planning system where operational processes for <t
+                                                            t-out="object.company_id.name or ''"
+                                                        /> are managed.
+                    <div style="margin: 16px 0px 16px 0px;"><a
+                                                                t-att-href="object.signup_url"
+                                                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
+                                                            >
                             Accept invitation
                         </a></div>
-                        <t t-set="website_url" t-value="object.get_base_url()"></t>
+                        <t t-set="website_url" t-value="object.get_base_url()" />
 
-                            <t t-out="object.company_id.system_name or ''"></t> system domain is: <b><a
-                                                                t-att-href='website_url' t-out="website_url or ''"
-                                                            ></a></b><br
-                                                        />
+                            <t
+                                                            t-out="object.company_id.system_name or ''"
+                                                        /> system domain is: <b><a
+                                                                t-att-href='website_url'
+                                                                t-out="website_url or ''"
+                                                            /></b><br />
                     Your sign in email is: <b><a
                                                                 t-attf-href="/web/login?login={{ object.email }}"
                                                                 target="_blank"
                                                                 t-out="object.email or ''"
-                                                            ></a></b><br
-                                                        /><br />
-                    If you have any questions regarding the system or why you have received this mail, you can contact your contact person at <t t-out="object.company_id.name or ''"/>.
+                                                            /></b><br /><br />
+                    If you have any questions regarding the system or why you have received this mail, you can contact your contact person at <t
+                                                            t-out="object.company_id.name or ''"
+                                                        />.
                     <br /><br />
-                    Regards, <t t-out="object.company_id.name or ''"/>
+                    Regards, <t t-out="object.company_id.name or ''" />
                 </div>
                                                 </td>
                                             </tr>
@@ -124,17 +137,39 @@
                                 <!-- FOOTER -->
                                 <tr>
                                     <td align="center" style="min-width: 590px;">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <table
+                                            border="0"
+                                            cellpadding="0"
+                                            cellspacing="0"
+                                            width="590"
+                                            style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                        >
                                             <tr><td valign="middle" align="left">
-                                                <t t-out="object.company_id.name or ''">YourCompany</t>
+                                                <t
+                                                        t-out="object.company_id.name or ''"
+                                                    >YourCompany</t>
                                             </td></tr>
-                                            <tr><td valign="middle" align="left" style="opacity: 0.7;">
-                                                <t t-out="object.company_id.phone or ''">+1 650-123-4567</t>
+                                            <tr><td
+                                                    valign="middle"
+                                                    align="left"
+                                                    style="opacity: 0.7;"
+                                                >
+                                                <t
+                                                        t-out="object.company_id.phone or ''"
+                                                    >+1 650-123-4567</t>
                                                 <t t-if="object.company_id.email">
-                                                    | <a t-att-href="'mailto:%s' % object.company_id.email" style="text-decoration:none; color: #454748;" t-out="object.company_id.email or ''">info@yourcompany.com</a>
+                                                    | <a
+                                                            t-att-href="'mailto:%s' % object.company_id.email"
+                                                            style="text-decoration:none; color: #454748;"
+                                                            t-out="object.company_id.email or ''"
+                                                        >info@yourcompany.com</a>
                                                 </t>
                                                 <t t-if="object.company_id.website">
-                                                    | <a t-att-href="'%s' % object.company_id.website" style="text-decoration:none; color: #454748;" t-out="object.company_id.website or ''">http://www.example.com</a>
+                                                    | <a
+                                                            t-att-href="'%s' % object.company_id.website"
+                                                            style="text-decoration:none; color: #454748;"
+                                                            t-out="object.company_id.website or ''"
+                                                        >http://www.example.com</a>
                                                 </t>
                                             </td></tr>
                                         </table>
@@ -219,11 +254,15 @@
                                                     <span
                                                         style="font-size: 20px; font-weight: bold;"
                                                     >
-                    <t t-out="object.name or ''"></t>
+                    <t t-out="object.name or ''" />
                 </span>
                                                 </td>
                                                 <td valign="middle" align="right">
-                                                    <img t-attf-src="/logo.png?company={{ object.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.company_id.name"/>
+                                                    <img
+                                                        t-attf-src="/logo.png?company={{ object.company_id.id }}"
+                                                        style="padding: 0px; margin: 0px; height: auto; width: 80px;"
+                                                        t-att-alt="object.company_id.name"
+                                                    />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -256,20 +295,21 @@
                                                     style="font-size: 13px;"
                                                 >
                                                     <div>
-                    Dear <t t-out="object.name or ''"></t>,<br /><br />
+                    Dear <t t-out="object.name or ''" />,<br /><br />
                     Your account has been successfully created!<br />
 
-                    <t t-set="website_url" t-value="object.get_base_url()"></t>
-                        <t t-out="object.company_id.system_name or ''"></t> system domain is: <strong><a
-                                                                t-att-href='website_url' t-out="website_url or ''"
-                                                            ></a></strong><br
-                                                        />
+                    <t t-set="website_url" t-value="object.get_base_url()" />
+                        <t
+                                                            t-out="object.company_id.system_name or ''"
+                                                        /> system domain is: <strong><a
+                                                                t-att-href='website_url'
+                                                                t-out="website_url or ''"
+                                                            /></strong><br />
                     Your sign in email is: <strong><a
                                                                 t-attf-href="/web/login?login={{ object.email }}"
                                                                 target="_blank"
                                                                 t-out="object.email or ''"
-                                                            ></a></strong><br
-                                                        />
+                                                            /></strong><br />
                     To gain access to your account, you can use the following link:
                     <div style="margin: 16px 0px 16px 0px;"><a
                                                                 t-attf-href="/web/login?auth_login={{ object.email }}"
@@ -277,9 +317,11 @@
                                                             >
                             Go to My Account
                         </a></div>
-                    If you have any questions regarding the system or why you have received this mail, you can contact your contact person at <t t-out="object.company_id.name or ''"></t>.
+                    If you have any questions regarding the system or why you have received this mail, you can contact your contact person at <t
+                                                            t-out="object.company_id.name or ''"
+                                                        />.
                     <br /><br />
-                    Regards, <t t-out="object.company_id.name or ''"></t>
+                    Regards, <t t-out="object.company_id.name or ''" />
                 </div>
                                                 </td>
                                             </tr>
@@ -297,17 +339,39 @@
                                 <!-- FOOTER -->
                                 <tr>
                                     <td align="center" style="min-width: 590px;">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <table
+                                            border="0"
+                                            cellpadding="0"
+                                            cellspacing="0"
+                                            width="590"
+                                            style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                        >
                                             <tr><td valign="middle" align="left">
-                                                <t t-out="object.company_id.name or ''">YourCompany</t>
+                                                <t
+                                                        t-out="object.company_id.name or ''"
+                                                    >YourCompany</t>
                                             </td></tr>
-                                            <tr><td valign="middle" align="left" style="opacity: 0.7;">
-                                                <t t-out="object.company_id.phone or ''">+1 650-123-4567</t>
+                                            <tr><td
+                                                    valign="middle"
+                                                    align="left"
+                                                    style="opacity: 0.7;"
+                                                >
+                                                <t
+                                                        t-out="object.company_id.phone or ''"
+                                                    >+1 650-123-4567</t>
                                                 <t t-if="object.company_id.email">
-                                                    | <a t-att-href="'mailto:%s' % object.company_id.email" style="text-decoration:none; color: #454748;" t-out="object.company_id.email or ''">info@yourcompany.com</a>
+                                                    | <a
+                                                            t-att-href="'mailto:%s' % object.company_id.email"
+                                                            style="text-decoration:none; color: #454748;"
+                                                            t-out="object.company_id.email or ''"
+                                                        >info@yourcompany.com</a>
                                                 </t>
                                                 <t t-if="object.company_id.website">
-                                                    | <a t-att-href="'%s' % object.company_id.website" style="text-decoration:none; color: #454748;" t-out="object.company_id.website or ''">http://www.example.com</a>
+                                                    | <a
+                                                            t-att-href="'%s' % object.company_id.website"
+                                                            style="text-decoration:none; color: #454748;"
+                                                            t-out="object.company_id.website or ''"
+                                                        >http://www.example.com</a>
                                                 </t>
                                             </td></tr>
                                         </table>
