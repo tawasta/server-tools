@@ -18,6 +18,7 @@ addon | version | maintainers | summary
 [auth_signup_disable_autoinvite](auth_signup_disable_autoinvite/) | 17.0.1.0 |  | Disable signup auto invite
 [auth_signup_invite_mail_system_name](auth_signup_invite_mail_system_name/) | 17.0.1.0 |  | Adds field to res.company to define system name. Changes invite mail.
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 17.0.1.0.1 |  | Send invite mail with mass action
+[auth_signup_portal_user_language_from_website_language](auth_signup_portal_user_language_from_website_language/) | 17.0.1.0.0 |  | Auth Signup: Portal User Language from Website Language
 [base_read_access_account_invoice](base_read_access_account_invoice/) | 17.0.1.0.0 |  | Adds a new group that can read invoicing model data
 [base_read_access_manufacture](base_read_access_manufacture/) | 17.0.1.0.1 |  | Adds a new group that can read manufacturing-related model data
 [base_read_access_purchase](base_read_access_purchase/) | 17.0.1.0.0 |  | Adds a new group that can read purchase-related model data
