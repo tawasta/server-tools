@@ -40,6 +40,7 @@ addon | version | maintainers | summary
 [report_pdfa](report_pdfa/) | 14.0.1.0.1 |  | Converts QWeb PDF into PDF-A using ghostscript
 [report_zip](report_zip/) | 14.0.1.0.0 |  | Download various reports as a zip file
 [res_country_archive](res_country_archive/) | 14.0.1.0.2 |  | Ability to archive countries and states
+[res_groups_autoaccess_new_companies](res_groups_autoaccess_new_companies/) | 14.0.1.0.0 |  | Adds a new group whose users automatically get access to new companies
 [res_user_change_company_helper](res_user_change_company_helper/) | 14.0.1.0.0 |  | Directly change user's Default company from dropdown menu
 [res_user_normal_group](res_user_normal_group/) | 14.0.1.0.0 |  | Adds a new group that is used on some menu items
 [rest_api_menu_group](rest_api_menu_group/) | 14.0.1.0.1 |  | Rest api menu group

@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* res_groups_autoaccess_new_companies
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20230925\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-21 09:47+0000\n"
+"PO-Revision-Date: 2024-10-21 09:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: res_groups_autoaccess_new_companies
+#: model:res.groups,name:res_groups_autoaccess_new_companies.group_autoaccess_new_companies
+msgid "Automatic Access to New Companies"
+msgstr "Automaattiset oikeudet uusiin yrityksiin"
+
+#. module: res_groups_autoaccess_new_companies
+#: model:ir.model,name:res_groups_autoaccess_new_companies.model_res_company
+msgid "Companies"
+msgstr "Yritykset"
+
+#. module: res_groups_autoaccess_new_companies
+#: model:ir.model.fields,field_description:res_groups_autoaccess_new_companies.field_res_company__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: res_groups_autoaccess_new_companies
+#: model:res.groups,comment:res_groups_autoaccess_new_companies.group_autoaccess_new_companies
+msgid ""
+"Gives the user automatically access to any companies created in the future"
+msgstr ""
+"Antaa käyttäjälle automaattisesti pääsyn tulevaisuudessa luotuihin yrityksiin"
+
+#. module: res_groups_autoaccess_new_companies
+#: model:ir.model.fields,field_description:res_groups_autoaccess_new_companies.field_res_company__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: res_groups_autoaccess_new_companies
+#: model:ir.model.fields,field_description:res_groups_autoaccess_new_companies.field_res_company____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
