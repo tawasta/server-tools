@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Define a new group -->
+    <record id="group_autoaccess_new_companies" model="res.groups">
+        <field name="name">Automatic Access to New Companies</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        <field
+            name="comment"
+        >Gives the user automatically access to any companies created in the future</field>
+    </record>
+</odoo>
