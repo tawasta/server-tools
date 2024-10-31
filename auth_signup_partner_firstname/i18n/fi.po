@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* auth_signup_partner_firstname
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20240603\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-31 12:03+0000\n"
+"PO-Revision-Date: 2024-10-31 12:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: auth_signup_partner_firstname
+#: model:ir.model,name:auth_signup_partner_firstname.model_res_partner
+msgid "Contact"
+msgstr "Kontakti"
+
+#. module: auth_signup_partner_firstname
+#: model_terms:ir.ui.view,arch_db:auth_signup_partner_firstname.fields
+msgid "First Name"
+msgstr "Etunimi"
+
+#. module: auth_signup_partner_firstname
+#: model_terms:ir.ui.view,arch_db:auth_signup_partner_firstname.fields
+msgid "Last Name"
+msgstr "Sukunimi"
+
+#. module: auth_signup_partner_firstname
+#: model:ir.model,name:auth_signup_partner_firstname.model_res_users
+msgid "User"
+msgstr "Käyttäjä"
+
+#. module: auth_signup_partner_firstname
+#: model_terms:ir.ui.view,arch_db:auth_signup_partner_firstname.fields
+msgid "e.g. Doe"
+msgstr "esim. Meikäläinen"
+
+#. module: auth_signup_partner_firstname
+#: model_terms:ir.ui.view,arch_db:auth_signup_partner_firstname.fields
+msgid "e.g. John"
+msgstr "esim. Matti"
+

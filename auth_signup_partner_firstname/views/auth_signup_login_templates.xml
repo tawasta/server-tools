@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Add firstname and lastname fields, hide the full 'name' field -->
+    <template id="fields" inherit_id="auth_signup.fields">
+
+        <xpath expr="//div[hasclass('field-name')]" position="before">
+            <div class="mb-3 helper-field-firstname">
+                <label for="helper_firstname">First Name</label>
+                <input
+                    type="text"
+                    name="helper_firstname"
+                    t-att-value="helper_firstname"
+                    id="helper_firstname"
+                    class="form-control form-control-sm"
+                    placeholder="e.g. John"
+                    required="required"
+                    t-att-readonly="'readonly' if only_passwords else None"
+                    t-att-autofocus="'autofocus' if login and not only_passwords else None"
+                />
+            </div>
+
+            <div class="mb-3 helper-field-lastname">
+                <label for="helper_lastname">Last Name</label>
+                <input
+                    type="text"
+                    name="helper_lastname"
+                    t-att-value="helper_lastname"
+                    id="helper_lastname"
+                    class="form-control form-control-sm"
+                    placeholder="e.g. Doe"
+                    required="required"
+                    t-att-readonly="'readonly' if only_passwords else None"
+                />
+            </div>
+
+        </xpath>
+
+        <xpath expr="//input[@id='name']" position="attributes">
+            <attribute name="t-att-autofocus" />
+        </xpath>
+
+        <xpath expr="//div[hasclass('field-name')]" position="attributes">
+            <attribute name="class" separator=" " add="d-none" />
+        </xpath>
+
+    </template>
+
+
+    <!-- Store partner_firstname config value in data attribute for JS to use -->
+    <template id="signup" inherit_id="auth_signup.signup">
+        <xpath expr="//form[hasclass('oe_signup_form')]" position="attributes">
+            <attribute
+                name="t-att-data-partner-names-order"
+            >partner_names_order</attribute>
+        </xpath>
+    </template>
+
+</odoo>
