@@ -22,7 +22,7 @@
     "name": "Allow Admin system rights only for Futural users.",
     "summary": """Disallow other users to modify Futural users and allow only
                   Futural users to have Admin system rights""",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": "Administration",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Futural",
@@ -31,6 +31,7 @@
     "installable": True,
     "depends": [
         "base",
+        "base_user_role",
     ],
     "data": [],
 }
