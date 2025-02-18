@@ -21,14 +21,14 @@
 {
     "name": "Base: Access Filters' Domain Selector without Debug Mode",
     "summary": "Allows regular users to access the text-based domain selector",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "Server Tools",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["base"],
+    "depends": ["web"],
     "external_dependencies": {
         "python": [],
         "bin": [],
