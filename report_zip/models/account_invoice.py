@@ -11,7 +11,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def to_zip(self, records, archive_name):
-        """ Luo ZIP-tiedoston laskujen PDF-tulosteista ja palauttaa latauslinkin. """
+        """Luo ZIP-tiedoston laskujen PDF-tulosteista ja palauttaa latauslinkin."""
 
         if not records:
             raise UserError(_("No invoices selected."))
@@ -21,24 +21,34 @@ class AccountMove(models.Model):
             in_memory_zip = io.BytesIO()
 
             # Haetaan kaikki PDF:t yhdellä kutsulla (tehokkaampaa)
-            pdf_report = self.env['ir.actions.report']
+            pdf_report = self.env["ir.actions.report"]
             pdf_data_map = {
-                invoice.id: pdf_report._render_qweb_pdf('account.account_invoices', res_ids=invoice.id)[0]
+                invoice.id: pdf_report._render_qweb_pdf(
+                    "account.account_invoices", res_ids=invoice.id
+                )[0]
                 for invoice in records
             }
 
-            with zipfile.ZipFile(in_memory_zip, "w", zipfile.ZIP_DEFLATED) as zip_archive:
+            with zipfile.ZipFile(
+                in_memory_zip, "w", zipfile.ZIP_DEFLATED
+            ) as zip_archive:
                 for invoice in records:
                     file_name = f"{invoice.name.replace('/', '-')}.pdf"
                     zip_archive.writestr(file_name, pdf_data_map[invoice.id])
 
             # Luodaan ZIP-tiedosto attachmentiksi
-            attachment = self.env["ir.attachment"].sudo().create({
-                "name": f"{archive_name}.zip",
-                "type": "binary",
-                "datas": base64.b64encode(in_memory_zip.getvalue()),
-                "public": False,
-            })
+            attachment = (
+                self.env["ir.attachment"]
+                .sudo()
+                .create(
+                    {
+                        "name": f"{archive_name}.zip",
+                        "type": "binary",
+                        "datas": base64.b64encode(in_memory_zip.getvalue()),
+                        "public": False,
+                    }
+                )
+            )
 
             return {
                 "type": "ir.actions.act_url",

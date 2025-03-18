@@ -6,7 +6,12 @@
 Report - Zip
 ============
 
-* Download invoice reports as zip file
+This module allows users to **download invoice reports as a ZIP file** in Odoo.
+
+Features
+========
+- Generate invoice reports in PDF format.
+- Bundle multiple invoices into a ZIP archive.
 
 Configuration
 =============
@@ -14,7 +19,10 @@ Configuration
 
 Usage
 =====
-\-
+1. Select multiple invoices in the **Invoices** list view.
+2. Click the **Download as ZIP** action.
+3. The system generates a ZIP file containing the selected invoice reports.
+4. The ZIP file is available for download.
 
 Known issues / Roadmap
 ======================
@@ -30,6 +38,7 @@ Contributors
 
 * Joona Isoaho <joona.isoaho@tawasta.fi>
 * Miika Nissi <miika.nissi@tawasta.fi>
+* Valtteri Lattu <valtteri.lattu@futural.fi>
 
 Maintainer
 ----------
