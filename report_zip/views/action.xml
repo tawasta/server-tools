@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_invoice_report_zip_action" model="ir.actions.server">
+        <field name="name">Download as Zip</field>
+        <field name="type">ir.actions.server</field>
+        <field name="usage">ir_actions_server</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="state">code</field>
+        <field name="code">
+            action = model.to_zip(
+                records,
+                "{} - {}".format(
+                    model._description,
+                    datetime.date(
+                        datetime.datetime.now().year,
+                        datetime.datetime.now().month,
+                        datetime.datetime.now().day,
+                    ).isoformat(),
+                )
+            )
+        </field>
+    </record>
+</odoo>
