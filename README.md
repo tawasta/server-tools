@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [mattermost_hook](mattermost_hook/) | 17.0.1.0.0 |  | Adds possible to use Mattermost hooks
 [module_auto_update_schedule](module_auto_update_schedule/) | 17.0.1.0.0 |  | Run Module Auto Update on a schedule
 [res_country_archive](res_country_archive/) | 17.0.1.0.0 |  | Ability to archive countries and states
+[res_user_change_company_helper](res_user_change_company_helper/) | 17.0.1.0.0 |  | Company dropdown also changes company_id value for user
 [rest_api_menu_group](rest_api_menu_group/) | 17.0.1.0.1 |  | Rest api menu group
 
 [//]: # (end addons)
