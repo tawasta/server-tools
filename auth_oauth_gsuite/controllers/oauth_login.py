@@ -9,7 +9,7 @@ from odoo.addons.auth_oauth.controllers.main import OAuthLogin
 
 class OAuthLoginGsuite(OAuthLogin):
     def list_providers(self):
-        res = super(OAuthLoginGsuite, self).list_providers()
+        res = super().list_providers()
 
         # Punycode URLs (xn--typyt-kra6jb.fi -> työpöytä.fi) require
         # base_url + web.base.url.freeze (url_root doesn't work)
