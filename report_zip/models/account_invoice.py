@@ -1,10 +1,10 @@
 import base64
 import io
-import zipfile
-import datetime
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError
 import logging
+import zipfile
+
+from odoo import _, models
+from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
@@ -58,4 +58,4 @@ class AccountMove(models.Model):
 
         except Exception as e:
             logging.error(f"Failed to create ZIP file: {e}")
-            raise UserError(_("An error occurred while creating the ZIP file."))
+            raise UserError(_("An error occurred while creating the ZIP file.")) from e

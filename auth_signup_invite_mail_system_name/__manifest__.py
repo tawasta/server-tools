@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Author: Futural Oy
+#    Copyright 2021- Futural Oy (https://futural.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,10 +21,10 @@
 {
     "name": "Auth Signup Invite Mail System Name",
     "summary": "Adds field to res.company to define system name. Changes invite mail.",
-    "version": "17.0.1.0",
+    "version": "17.0.1.0.0",
     "category": "Company",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
-    "author": "Tawasta",
+    "website": "https://github.com/tawasta/server-tools",
+    "author": "Futural",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

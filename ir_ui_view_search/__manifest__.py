@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Author: Futural Oy
+#    Copyright 2021- Futural Oy (https://futural.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,8 +22,8 @@
     "version": "17.0.1.0.0",
     "category": "Extra Tools",
     "summary": "Ability to search ir_ui_view by external id and module",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
-    "author": "Tawasta",
+    "website": "https://github.com/tawasta/server-tools",
+    "author": "Futural",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

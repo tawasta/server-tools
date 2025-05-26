@@ -6,7 +6,7 @@ from odoo.addons.auth_oauth.controllers.main import OAuthLogin
 class OAuthLoginHidden(OAuthLogin):
     @http.route()
     def web_login(self, *args, **kw):
-        res = super(OAuthLoginHidden, self).web_login(*args, **kw)
+        res = super().web_login(*args, **kw)
 
         # Remove hidden providers, unless a GET parameter is given
         if res.qcontext.get("providers"):
@@ -26,7 +26,7 @@ class OAuthLoginHidden(OAuthLogin):
         return res
 
     def get_auth_signup_qcontext(self):
-        res = super(OAuthLoginHidden, self).get_auth_signup_qcontext()
+        res = super().get_auth_signup_qcontext()
         providers = []
 
         # Don"t show hidden providers in signup

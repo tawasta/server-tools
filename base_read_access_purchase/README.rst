@@ -8,7 +8,7 @@ Read Access Group for Purchases
 
 * Adds a new group that is allowed to read purchase-related model data in
   Purchases main menu
-* Intended for situations where Employees should have additional read-only 
+* Intended for situations where Employees should have additional read-only
   acccess rights to purchases
 
 Configuration
@@ -21,9 +21,9 @@ Usage
 
 Known issues / Roadmap
 ======================
-* Note that as a byproduct this module grants read access to other models 
+* Note that as a byproduct this module grants read access to other models
   that are utilized on e.g. purchase-related forms. This means the user
-  could read e.g. invoices indirectly (via XMLRPC or by following hyperlink 
+  could read e.g. invoices indirectly (via XMLRPC or by following hyperlink
   paths inside Odoo), even though the accounting menu remains invisible
 
 Credits
@@ -32,13 +32,13 @@ Credits
 Contributors
 ------------
 
-* Timo Talvitie <timo.talvitie@tawasta.fi>
+* Timo Talvitie <timo.talvitie@futural.fi>
 
 Maintainer
 ----------
 
-.. image:: https://tawasta.fi/templates/tawastrap/images/logo.png
-   :alt: Oy Tawasta OS Technologies Ltd.
-   :target: https://tawasta.fi/
+.. image:: https://futural.fi/templates/tawastrap/images/logo.png
+   :alt: Futural Oy
+   :target: https://futural.fi/
 
-This module is maintained by Oy Tawasta OS Technologies Ltd.
+This module is maintained by Futural Oy

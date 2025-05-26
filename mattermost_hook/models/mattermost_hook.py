@@ -51,7 +51,7 @@ class MattermostHook(models.Model):
     )
 
     def _get_hook_url(self):
-        return "{}/hooks/{}".format(self.mattermost_url, self.hook)
+        return f"{self.mattermost_url}/hooks/{self.hook}"
 
     def post_mattermost(
         self, message, channel=False, username=False, icon_url=False, verify=True

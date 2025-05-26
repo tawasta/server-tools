@@ -7,7 +7,7 @@ Auth Signup: Portal User Custom Redirect After Signup
 =====================================================
 
 * Add support for redirecting to a user-specific page after signup email
-* Intended for situations where you link to the Signup page from e.g. product 
+* Intended for situations where you link to the Signup page from e.g. product
   pages, and you want to redirect the user back to the same product after
   they have finished signing up via the e-mail link.
 
@@ -17,7 +17,7 @@ Configuration
 * In addition to installing this module, you need to also modify those links that
   point to the signup page that you want to utilize this feature. That is done in
   separate custom module(s).
-* For a usage example, see the website_sale_force_login module and how it's 
+* For a usage example, see the website_sale_force_login module and how it's
   linking to the signup page.
 
 Usage
@@ -35,13 +35,13 @@ Credits
 Contributors
 ------------
 
-* Timo Talvitie <timo.talvitie@tawasta.fi>
+* Timo Talvitie <timo.talvitie@futural.fi>
 
 Maintainer
 ----------
 
-.. image:: https://tawasta.fi/templates/tawastrap/images/logo.png
-   :alt: Oy Tawasta OS Technologies Ltd.
-   :target: https://tawasta.fi/
+.. image:: https://futural.fi/templates/tawastrap/images/logo.png
+   :alt: Futural Oy
+   :target: https://futural.fi/
 
-This module is maintained by Oy Tawasta OS Technologies Ltd.
+This module is maintained by Futural Oy
