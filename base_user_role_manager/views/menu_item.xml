@@ -12,7 +12,7 @@
         id="user_management_user"
         parent="user_management"
         groups="group_role_manager"
-        action="base.action_res_users"
+        action="base_user_role_manager.action_res_users"
         sequence='10'
     />
     <menuitem
