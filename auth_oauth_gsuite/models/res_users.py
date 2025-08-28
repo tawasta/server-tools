@@ -11,7 +11,7 @@ class ResUsers(models.Model):
 
     @api.model
     def _auth_oauth_validate(self, provider, access_token):
-        res = super(ResUsers, self)._auth_oauth_validate(
+        res = super()._auth_oauth_validate(
             provider=provider,
             access_token=access_token,
         )

@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Author: Futural Oy
+#    Copyright 2021 Futural Oy (https://futural.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,10 +21,10 @@
 {
     "name": "An user group for managing users and roles",
     "summary": "Allow user to manage users and their roles",
-    "version": "17.0.1.1.3",
+    "version": "17.0.1.1.4",
     "category": "Tools",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
-    "author": "Tawasta",
+    "website": "https://github.com/tawasta/server-tools",
+    "author": "Futural",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
@@ -33,7 +33,8 @@
     "data": [
         "security/base_groups.xml",
         "security/model_access.xml",
-        "views/menu.xml",
+        "views/menu_action.xml",
+        "views/menu_item.xml",
         "views/res_users.xml",
     ],
     "demo": [],

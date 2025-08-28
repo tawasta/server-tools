@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Author: Futural Oy
+#    Copyright 2021- Futural Oy (https://futural.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,8 +22,8 @@
     "summary": "Adds possible to use Mattermost hooks",
     "category": "Tools",
     "version": "17.0.1.0.0",
-    "author": "Tawasta",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "author": "Futural",
+    "website": "https://github.com/tawasta/server-tools",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
