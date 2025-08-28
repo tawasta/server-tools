@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* auth_signup_parent_company_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20250428\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-28 13:00+0000\n"
+"PO-Revision-Date: 2025-08-28 13:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: auth_signup_parent_company_selection
+#: model_terms:ir.ui.view,arch_db:auth_signup_parent_company_selection.fields
+msgid "<option value=\"\">I'm not in a member organization</option>"
+msgstr "<option value=\"\">En kuulu jäsenorganisaatioon</option>"
+
+#. module: auth_signup_parent_company_selection
+#: model:ir.model.fields,help:auth_signup_parent_company_selection.field_res_partner_industry__allows_parent_selection_in_user_signup
+msgid ""
+"If checked, companies of this industry can be selected by users as parent "
+"organizations when they sign up as portal users."
+msgstr ""
+"Jos rastitettu, tämän toimialan yritystyyppiset kontaktit ovat valittavissa "
+"emoyritykseksi, kun käyttäjä rekisteröityy portaalikäyttäjäksi."
+
+#. module: auth_signup_parent_company_selection
+#. odoo-python
+#: code:addons/auth_signup_parent_company_selection/controllers/main.py:0
+#, python-format
+msgid "If you are a member, select the organization here."
+msgstr "Jos olet jäsen, valitse organisaatiosi tähän."
+
+#. module: auth_signup_parent_company_selection
+#: model:ir.model,name:auth_signup_parent_company_selection.model_res_partner_industry
+msgid "Industry"
+msgstr "Toimiala"
+
+#. module: auth_signup_parent_company_selection
+#: model_terms:ir.ui.view,arch_db:auth_signup_parent_company_selection.fields
+msgid "Member Organization"
+msgstr "Jäsenorganisaatio"
+
+#. module: auth_signup_parent_company_selection
+#: model:ir.model.fields,field_description:auth_signup_parent_company_selection.field_res_partner_industry__allows_parent_selection_in_user_signup
+msgid "Selectable in User Signup"
+msgstr "Valittavissa kun portaalikäyttäjä rekisteröityy"
