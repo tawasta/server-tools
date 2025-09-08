@@ -72,10 +72,14 @@ class AuthSamlAttributeEntity(models.Model):
         """Return list for metadata from defined attributes"""
         result = []
         for rec in self:
+            if rec.value:
+                rec_value = rec.value.split(",")
+            else:
+                rec_value = []
             vals = {
                 "name_format": rec.name_format,
                 "name": rec.name,
-                "values": [val.strip() for val in rec.value.split(",")],
+                "values": [val.strip() for val in rec_value],
             }
             if rec.friendly_name:
                 vals["friendly_name"] = rec.friendly_name

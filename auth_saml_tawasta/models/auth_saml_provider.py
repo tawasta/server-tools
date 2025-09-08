@@ -273,6 +273,14 @@ class AuthSamlProvider(models.Model):
             digest_alg = getattr(ds, key)
 
         name_id_policy = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+        if self.required_attributes:
+            required_attributes = self.required_attributes.split(",")
+        else:
+            required_attributes = []
+        if self.optional_attributes:
+            optional_attributes = self.optional_attributes.split(",")
+        else:
+            optional_attributes = []
         settings = {
             "name": (self.env.ref("base.main_company").name, "fi"),
             "metadata": {"inline": [self.idp_metadata]},
@@ -290,8 +298,8 @@ class AuthSamlProvider(models.Model):
                             (slo_url, saml2.BINDING_HTTP_POST),
                         ],
                     },
-                    "required_attributes": self.required_attributes.split(","),
-                    "optional_attributes": self.optional_attributes.split(","),
+                    "required_attributes": required_attributes,
+                    "optional_attributes": optional_attributes,
                     "allow_unsolicited": False,
                     "authn_requests_signed": self.sign,
                     "logout_requests_signed": self.sign,
@@ -347,6 +355,33 @@ class AuthSamlProvider(models.Model):
             "contact_person": contact_persons,
             "signing_algorithm": sig_alg,
             "digest_algorithm": digest_alg,
+            "logging": {
+                    "version": 1,
+                    "formatters": {
+                        "simple": {
+                            "format": "[%(asctime)s] [%(levelname)s] [%(name)s.%(funcName)s] %(message)s",
+                            },
+                        },
+                    "handlers": {
+                        "stdout": {
+                            "class": "logging.StreamHandler",
+                            "stream": "ext://sys.stdout",
+                            "level": "DEBUG",
+                            "formatter": "simple",
+                            },
+                        },
+                    "loggers": {
+                        "saml2": {
+                            "level": "DEBUG"
+                            },
+                        },
+                    "root": {
+                        "level": "DEBUG",
+                        "handlers": [
+                            "stdout",
+                            ],
+                        },
+                    }
         }
         spConfig = Saml2Config()
         spConfig.load(settings)

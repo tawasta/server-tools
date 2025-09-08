@@ -4,12 +4,12 @@
 
 {
     "name": "SAML2 Authentication Tawasta",
-    "version": "14.0.1.1.1",
+    "version": "14.0.1.2.1",
     "category": "Tools",
     "author": "XCG Consulting, Odoo Community Association (OCA), Tawasta",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "license": "AGPL-3",
-    "depends": ["base_setup"],
+    "depends": ["base_setup", "partner_firstname"],
     "external_dependencies": {
         "python": ["pysaml2"],
         "bin": ["xmlsec1"],
