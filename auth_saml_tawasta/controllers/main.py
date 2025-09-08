@@ -24,8 +24,9 @@ from odoo.addons.web.controllers.main import (
     Home,
     Session,
     ensure_db,
-    login_and_redirect,
-    set_cookie_and_redirect,
+    _get_login_redirect_url,
+    #login_and_redirect,
+    #set_cookie_and_redirect,
 )
 
 _logger = logging.getLogger(__name__)
@@ -209,7 +210,10 @@ class AuthSAMLController(http.Controller):
                 # Save to session that we are a SAML2 logged in user
                 request.session["_saml_user"] = True
                 # Redirect and login user, successfully created
-                return login_and_redirect(*credentials, redirect_url=url)
+                #return login_and_redirect(*credentials, redirect_url=url)
+                pre_uid = request.session.authenticate(*credentials)
+                resp = request.redirect(_get_login_redirect_url(pre_uid, url), 303)
+                return resp
 
             except odoo.exceptions.AccessDenied:
                 # saml credentials not valid,
@@ -226,7 +230,11 @@ class AuthSAMLController(http.Controller):
                 _logger.exception("SAML2: failure - %s", str(e))
                 url = "/web/login?saml_error=access-denied"
 
-        return set_cookie_and_redirect(url)
+        #return set_cookie_and_redirect(url)
+        redirect = request.redirect(url, 303)
+        redirect.autocorrect_location_header = False
+        return redirect
+
 
     @http.route("/auth_saml/metadata", type="http", auth="none", csrf=False)
     def saml_metadata(self, req, **kw):

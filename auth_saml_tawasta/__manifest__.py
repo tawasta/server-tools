@@ -4,7 +4,7 @@
 
 {
     "name": "SAML2 Authentication Tawasta",
-    "version": "14.0.1.2.1",
+    "version": "17.0.1.0.0",
     "category": "Tools",
     "author": "XCG Consulting, Odoo Community Association (OCA), Tawasta",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
