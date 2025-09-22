@@ -1,30 +1,37 @@
-# Copyright (C) 2020 GlodoUK <https://www.glodo.uk/>
-# Copyright (C) 2010-2016, 2022 XCG Consulting <http://odoo.consulting>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+##############################################################################
+#
+#    Author: Futural Oy
+#    Copyright 2025- Futural Oy (https://futural.fi)
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
+#
+##############################################################################
 
 {
-    "name": "SAML2 Authentication Tawasta",
+    "name": "Futural SAML",
     "version": "17.0.1.0.0",
     "category": "Tools",
-    "author": "XCG Consulting, Odoo Community Association (OCA), Tawasta",
+    "author": "Futural Oy",
     "website": "https://gitlab.com/tawasta/odoo/server-tools",
     "license": "AGPL-3",
-    "depends": ["base_setup", "partner_firstname"],
-    "external_dependencies": {
-        "python": ["pysaml2"],
-        "bin": ["xmlsec1"],
-        # special definition used by OCA to install packages
-        "deb": ["xmlsec1"],
-    },
+    "depends": ["base_setup", "auth_saml", "partner_firstname"],
+    "external_dependencies": {},
     "demo": [],
     "data": [
         "security/ir.model.access.csv",
-        "views/auth_saml.xml",
-        "views/res_config_settings.xml",
-        "views/res_users.xml",
-        "data/ir_config_parameter.xml",
-    ],
+        "views/auth_saml.xml"
+        ],
     "installable": True,
-    "auto_install": False,
-    "development_status": "Beta",
+    "auto_install": False
 }
