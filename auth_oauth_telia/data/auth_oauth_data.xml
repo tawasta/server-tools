@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="provider_telia" model="auth.oauth.provider">
+            <field name="name">Telia</field>
+            <field name="auth_endpoint">https://tunnistus-pp.telia.fi/uas/oauth2/authorization</field>
+            <field name="scope">openid</field>
+            <field name="validation_endpoint">https://tunnistus-pp.telia.fi/uas/oauth2/token</field>
+            <field name="css_class">fa fa-fw o_custom_icon</field>
+            <field name="body">Log in with Telia</field>
+            <field name="enabled" eval="True"/>
+        </record>
+    </data>
+</odoo>
