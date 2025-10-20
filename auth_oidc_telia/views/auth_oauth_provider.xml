@@ -7,6 +7,8 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="flow" />
+                <field name="audience" />
+                <field name="token_audience" />
                 <field
                     name="token_map"
                     placeholder="e.g from:to upn:email sub:user_id"

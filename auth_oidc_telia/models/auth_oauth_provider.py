@@ -32,6 +32,8 @@ class AuthOauthProvider(models.Model):
         required=True,
         default="access_token",
     )
+    audience = fields.Char(string="Audience")
+    token_audience = fields.Char(string="Token Audience")
     token_map = fields.Char(
         help="Some Oauth providers don't map keys in their responses "
         "exactly as required.  It is important to ensure user_id and "

@@ -42,7 +42,10 @@
         <field name="name">Telia Test</field>
         <field name="flow">id_token_code</field>
         <field name="enabled">True</field>
+        <field name="audience">https://tunnistus-pp.telia.fi/uas</field>
+        <field name="token_audience">https://tunnistus-pp.telia.fi/uas/oauth2/token</field>
         <field name="token_map">sub:sub</field>
+        <field name="client_id">118dba6d-705a-43be-bb88-6fc47214d56a</field>
         <field
             name="auth_endpoint"
             >https://tunnistus-pp.telia.fi/uas/oauth2/authorization</field>

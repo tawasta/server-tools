@@ -9,6 +9,7 @@ import logging
 import secrets
 import json
 import uuid
+import requests
 from time import time
 from jwcrypto import jwk, jwt, jwe
 from odoo import api, http, SUPERUSER_ID, _
@@ -92,7 +93,24 @@ jwks = jwk.JWKSet.from_json(
 }
       """)
 
+jwks_new = dict(
+        keys=[
+            jwk.JWK.generate(kty = 'RSA', size = 2048, kid = "1234567890", alg = "RSA256", use = "sig"),
+            jwk.JWK.generate(kty = 'RSA', size = 2048, kid = "1234567890", alg = "RSA256", use = "enc"),
+        ]
+    )
+
+def get_provider_jwks(provider_id):
+    provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
+        ('id', '=', int(provider_id))
+    ])
+    r = requests.get(provider.jwks_uri, timeout=10)
+    r.raise_for_status()
+    _logger.debug("HERE JWKS JSON: " + str(r.text))
+    return jwk.JWKSet.from_json(str(r.text))
+
 def sign_request_object(params):
+    _logger.debug("HERE JWKS: " + str(jwks))
     jwk = find_jwk_by_use(jwks, "sig")
     alg = "RS256"
     token = None
@@ -104,6 +122,7 @@ def sign_request_object(params):
     return token
 
 def sign_client_assertion(claims):
+    _logger.debug("HERE JWKS: " + str(jwks))
     jwk = find_jwk_by_use(jwks, "sig")
     alg = "RS256"
     token = jwt.JWT(
@@ -150,22 +169,33 @@ class OpenIDLogin(OAuthLogin):
                     params.update(params_upd)
 
                 # auth link that the user will click
-                auth_request = dict(json.loads("""
-                {
-                  "iss": "118dba6d-705a-43be-bb88-6fc47214d56a",
-                                                 "aud": "https://tunnistus-pp.telia.fi/uas",
-                                                 "response_type": "code",
-                                                 "client_id": "118dba6d-705a-43be-bb88-6fc47214d56a",
-                                                 "scope": "openid",
-                                                 "redirect_uri": "http://localhost:8069/redirect",
-                                                 "state": "0cd34c4c-d5ab-405a-baed-3457124640d6",
-                                                 "nonce": "3c814544-36cd-4977-b376-f45f1818f924"
-                                               }
+                _logger.debug("HERE PROVIDER:" + str(provider))
+                base_url = request.env["ir.config_parameter"].sudo().get_param("web.base.url")
 
-                """))
-                auth_request['state'] = self.get_state(provider)
+                _logger.debug("HERE client_id: " + provider['client_id'])
+                auth_request = dict()
+
+                # Mandatory fields
+                auth_request['iss'] = provider['client_id']
+                auth_request['aud'] = provider['audience']
+                auth_request['response_type'] = "code"
+                auth_request['scope'] = provider['scope']
+                auth_request['client_id'] = provider['client_id']
+                # FIXME
+                auth_request['redirect_uri'] = "http://localhost:8069/redirect"
+                #auth_request['redirect_uri'] = str(str(base_url) + "/redirect")
+                #_logger.debug("HERE redirect_uri: " + auth_request['redirect_uri'])
+
+                # Optional fields
+                auth_request['state'] = self.get_state(provider) # Not optional for Odoo
+                auth_request['nonce'] = str(uuid.uuid4())
+                auth_request['jti'] = str(uuid.uuid4())
+
+                # TODO
+                #auth_request['ui_locales'] = Set to odoos language if fi/sv otherwise en
+                _logger.debug("HERE auth_request: " + str(auth_request))
                 auth_request_signed = sign_request_object(auth_request)
-                params = dict(request= auth_request_signed)
+                params = dict(request=auth_request_signed)
                 provider["auth_link"] = "{}?{}".format(
                     provider["auth_endpoint"], url_encode(params)
                 )
@@ -187,23 +217,29 @@ class OAuthController(http.Controller):
             return BadRequest()
         ensure_db(db=dbname)
 
-        provider = state['p']
+        provider_id = state['p']
+        provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
+            ('id', '=', int(provider_id))
+        ])
         request.update_context(**clean_context(state.get('c', {})))
         try:
             # auth_oauth may create a new user, the commit makes it
             # visible to authenticate()'s own transaction below
-            token_request = dict(json.loads("""
-            {
-              "iss": "118dba6d-705a-43be-bb88-6fc47214d56a",
-              "sub": "118dba6d-705a-43be-bb88-6fc47214d56a",
-              "aud": "https://tunnistus-pp.telia.fi/uas/oauth2/token"
-            }
-            """))
+
+            token_request = dict()
+
+            # Mandatory fields
+            token_request['iss'] = provider['client_id']
+            token_request['sub'] = provider['client_id']
+            token_request['aud'] = provider['token_audience']
+
+            # Optional fields
             token_request['jti'] = str(uuid.uuid4())
             token_request['exp'] = int((datetime.now() + timedelta(minutes=10)).timestamp())
+
             _logger.debug("HERE TOKEN REQUEST JWT: " + str(token_request))
             jwt = sign_client_assertion(token_request)
-            _, login, key = request.env['res.users'].with_user(SUPERUSER_ID).auth_oauth(provider, kw, jwt)
+            _, login, key = request.env['res.users'].with_user(SUPERUSER_ID).auth_oauth(provider_id, kw, jwt)
             _logger.debug("HERE LOGIN: " + str(login))
             _logger.debug("HERE KEY: " + str(key))
             request.env.cr.commit()
