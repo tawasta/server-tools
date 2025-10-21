@@ -4,10 +4,11 @@
 
 import logging
 import secrets
+import json
 
 import requests
 
-from odoo import fields, models, tools
+from odoo import api, fields, models, tools
 from jwcrypto import jwk, jwt, jwe
 
 _logger = logging.getLogger(__name__)
@@ -50,11 +51,24 @@ class AuthOauthProvider(models.Model):
     token_endpoint = fields.Char(
         string="Token URL", help="Required for OpenID Connect authorization code flow."
     )
-    jwks_uri = fields.Char(string="JWKS URL", help="Required for OpenID Connect.")
+    jwks_uri = fields.Char(string="Provider JWKS URL", help="Required for OpenID Connect.")
+    jwks_local = fields.Text(
+            string="Local JWKS",
+            inverse="_compute_jwks",
+            default=""
+    )
     auth_link_params = fields.Char(
         help="Additional parameters for the auth link. "
         "For example: {'prompt':'select_account'}"
     )
+
+    @api.depends("jwks_local")
+    def _compute_jwks(self):
+        if not self.jwks_local or self.jwks_local == "":
+            sig = jwk.JWK.generate(kty='RSA', size=2048, kid="1234567890")
+            enc = jwk.JWK.generate(kty='RSA', size=2048, kid="0987654321")
+            self.jwks_local = json.dumps(dict(keys=[sig, enc]))
+        _logger.debug("HERE JWKS_LOCAL: " + str(self.jwks_local))
 
     @tools.ormcache("self.jwks_uri", "kid")
     def _get_keys(self, kid):

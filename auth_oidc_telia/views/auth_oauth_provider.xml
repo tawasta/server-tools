@@ -9,6 +9,7 @@
                 <field name="flow" />
                 <field name="audience" />
                 <field name="token_audience" />
+                <field name="jwks_local" />
                 <field
                     name="token_map"
                     placeholder="e.g from:to upn:email sub:user_id"

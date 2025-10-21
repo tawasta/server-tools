@@ -59,8 +59,7 @@ def find_jwk_by_use(jwks: jwk.JWKSet, use: str) -> jwk.JWK:
             jwk = k
     return jwk
 
-jwks = jwk.JWKSet.from_json(
-        """
+jwks_static_str = """
 {
   "keys": [
     {
@@ -91,26 +90,22 @@ jwks = jwk.JWKSet.from_json(
     }
   ]
 }
-      """)
+      """
 
-jwks_new = dict(
-        keys=[
-            jwk.JWK.generate(kty = 'RSA', size = 2048, kid = "1234567890", alg = "RSA256", use = "sig"),
-            jwk.JWK.generate(kty = 'RSA', size = 2048, kid = "1234567890", alg = "RSA256", use = "enc"),
-        ]
-    )
+jwks_static = jwk.JWKSet.from_json(jwks_static_str)
 
 def get_provider_jwks(provider_id):
     provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
         ('id', '=', int(provider_id))
     ])
-    r = requests.get(provider.jwks_uri, timeout=10)
-    r.raise_for_status()
-    _logger.debug("HERE JWKS JSON: " + str(r.text))
-    return jwk.JWKSet.from_json(str(r.text))
+    _logger.debug("JWKS STATIC STR: " + jwks_static_str)
+    _logger.debug("JWKS JSON STR: " + str(provider.jwks_local))
+    return jwks_static
+    return jwk.JWKSet.from_json(provider.jwks_local)
 
-def sign_request_object(params):
-    _logger.debug("HERE JWKS: " + str(jwks))
+def sign_request_object(provider_id, params):
+    jwks = get_provider_jwks(provider_id)
+    _logger.debug("HERE SIGN REQ JWKS: " + str(jwks))
     jwk = find_jwk_by_use(jwks, "sig")
     alg = "RS256"
     token = None
@@ -118,11 +113,13 @@ def sign_request_object(params):
         header={"alg": alg, "typ": "JWT", "kid": jwk.kid},
         claims=params,
     )
+    _logger.debug("HERE TOKEN: " + str(token))
     token.make_signed_token(jwk)
     return token
 
-def sign_client_assertion(claims):
-    _logger.debug("HERE JWKS: " + str(jwks))
+def sign_client_assertion(provider_id, claims):
+    jwks = get_provider_jwks(provider_id)
+    _logger.debug("HERE SIGN ASS JWKS: " + str(jwks))
     jwk = find_jwk_by_use(jwks, "sig")
     alg = "RS256"
     token = jwt.JWT(
@@ -188,13 +185,12 @@ class OpenIDLogin(OAuthLogin):
 
                 # Optional fields
                 auth_request['state'] = self.get_state(provider) # Not optional for Odoo
-                auth_request['nonce'] = str(uuid.uuid4())
+                auth_request['nonce'] = secrets.token_urlsafe()
                 auth_request['jti'] = str(uuid.uuid4())
 
                 # TODO
                 #auth_request['ui_locales'] = Set to odoos language if fi/sv otherwise en
-                _logger.debug("HERE auth_request: " + str(auth_request))
-                auth_request_signed = sign_request_object(auth_request)
+                auth_request_signed = sign_request_object(provider['id'], auth_request)
                 params = dict(request=auth_request_signed)
                 provider["auth_link"] = "{}?{}".format(
                     provider["auth_endpoint"], url_encode(params)
@@ -238,7 +234,7 @@ class OAuthController(http.Controller):
             token_request['exp'] = int((datetime.now() + timedelta(minutes=10)).timestamp())
 
             _logger.debug("HERE TOKEN REQUEST JWT: " + str(token_request))
-            jwt = sign_client_assertion(token_request)
+            jwt = sign_client_assertion(provider_id, token_request)
             _, login, key = request.env['res.users'].with_user(SUPERUSER_ID).auth_oauth(provider_id, kw, jwt)
             _logger.debug("HERE LOGIN: " + str(login))
             _logger.debug("HERE KEY: " + str(key))
@@ -279,3 +275,8 @@ class OAuthController(http.Controller):
         redirect = request.redirect(url, 303)
         redirect.autocorrect_location_header = False
         return redirect
+
+    @http.route('/uas/oauth2/metadata.jwks', type='http', auth='none')
+    def metadata_jwks(self, **kw):
+        return "{}"
+
