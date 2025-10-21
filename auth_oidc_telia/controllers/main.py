@@ -100,7 +100,7 @@ def get_provider_jwks(provider_id):
     ])
     _logger.debug("JWKS STATIC STR: " + jwks_static_str)
     _logger.debug("JWKS JSON STR: " + str(provider.jwks_local))
-    return jwks_static
+    #return jwks_static
     return jwk.JWKSet.from_json(provider.jwks_local)
 
 def sign_request_object(provider_id, params):
