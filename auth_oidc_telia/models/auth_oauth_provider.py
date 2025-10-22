@@ -2,6 +2,7 @@
 # Copyright 2021 ACSONE SA/NV <https://acsone.eu>
 # License: AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
+import base64
 import logging
 import secrets
 import json
@@ -13,11 +14,8 @@ from jwcrypto import jwk, jwt, jwe
 
 _logger = logging.getLogger(__name__)
 
-try:
-    from jose import jwt
-    from jose.exceptions import JWSError, JWTError
-except ImportError:
-    logging.getLogger(__name__).debug("jose library not installed")
+from jose import jwt as jose_jwt
+from jose.exceptions import JWSError, JWTError
 
 
 class AuthOauthProvider(models.Model):
@@ -87,6 +85,7 @@ class AuthOauthProvider(models.Model):
     def _map_token_values(self, res):
         if self.token_map:
             for pair in self.token_map.split(" "):
+                _logger.debug("HERE PAIR:" + str(pair))
                 from_key, to_key = (k.strip() for k in pair.split(":", 1))
                 if to_key not in res:
                     res[to_key] = res.get(from_key, "")
@@ -95,35 +94,16 @@ class AuthOauthProvider(models.Model):
     def _parse_id_token(self, id_token, access_token):
         self.ensure_one()
         res = {}
-        header = jwt.get_unverified_header(id_token)
-        res.update(self._decode_id_token(access_token, id_token, header.get("kid")))
+        res.update(self._decode_id_token(access_token, id_token))
         res.update(self._map_token_values(res))
+        _logger.debug("HERE RES:" + str(res))
         return res
 
-    def _decode_id_token(self, access_token, id_token, kid):
-        keys = self._get_keys(kid)
-        if len(keys) > 1 and kid is None:
-            # https://openid.net/specs/openid-connect-core-1_0.html#rfc.section.10.1
-            # If there are multiple keys in the referenced JWK Set document, a kid
-            # value MUST be provided in the JOSE Header.
-            raise JWTError(
-                "OpenID Connect requires kid to be set if there is more"
-                " than one key in the JWKS"
-            )
-        error = None
-        # we accept multiple keys with the same kid in case a key gets rotated.
-        for key in keys:
-            try:
-                values = jwt.decode(
-                    id_token,
-                    key,
-                    algorithms=["RS256"],
-                    audience=self.client_id,
-                    access_token=access_token,
-                )
-                return values
-            except (JWTError, JWSError) as e:
-                error = e
-        if error:
-            raise error
-        return {}
+    def _decode_id_token(self, access_token, id_token):
+        local_jwks = jwk.JWKSet.from_json(self.jwks_local)
+        token = jwe.JWE()
+        token.deserialize(id_token, key=local_jwks)
+        #jwetoken.decrypt(local_jwks)
+        payload = base64.urlsafe_b64decode(token.payload)
+        _logger.debug("HERE PAYLOAD:" + payload)
+        return json.loads(str(token))

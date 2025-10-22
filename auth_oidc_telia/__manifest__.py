@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "summary": "",
     "external_dependencies": {"python": ["python-jose"]},
-    "depends": ["auth_oauth", "auth_signup"],
+    "depends": ["auth_oauth", "auth_signup", "partner_firstname"],
     "data": ["views/auth_oauth_provider.xml", "data/auth_oauth_data.xml"],
     "demo": ["demo/local_keycloak.xml"],
 }
