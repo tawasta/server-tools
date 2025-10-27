@@ -10,8 +10,8 @@ from odoo import api, models
 from odoo.exceptions import AccessDenied
 from odoo.http import request
 from jwcrypto import jwk, jwt, jwe
-from jose import jwt as jose_jwt
-from jose.exceptions import JWSError, JWTError
+#from jose import jwt as jose_jwt
+#from jose.exceptions import JWSError, JWTError
 
 _logger = logging.getLogger(__name__)
 
@@ -25,7 +25,6 @@ class ResUsers(models.Model):
     def _auth_oauth_get_tokens_auth_code_flow(self, oauth_provider, params, jwt):
         # https://openid.net/specs/openid-connect-core-1_0.html#AuthResponse
         code = params.get("code")
-        _logger.debug("HERE PARAMS: " + str(params))
         # https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest
         auth = None
         if oauth_provider.client_secret:
@@ -38,19 +37,37 @@ class ResUsers(models.Model):
             client_assertion_type = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
             client_assertion = jwt.serialize(),
         )
-        _logger.debug("HERE DATA: " + str(request_data))
         req = requests.Request("POST", oauth_provider.token_endpoint, data=request_data)
         prepared = req.prepare()
         #response = requests.post( oauth_provider.token_endpoint, data=request_data, auth=auth, timeout=10,)
-        for line in prepared.body.split("&"):
-            _logger.debug("HERE REQUEST BODY: " + line)
         s = requests.Session()
         response = s.send(prepared)
-        _logger.debug("HERE RESPONSE JSON: " + str(response.json()))
         response.raise_for_status()
         response_json = response.json()
         # https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse
         return response_json.get("access_token"), response_json.get("id_token")
+
+    @api.model
+    def _generate_signup_values(self, provider, validation, params):
+        oauth_uid = validation['user_id']
+        email = validation.get('email', 'provider_%s_user_%s' % (provider, oauth_uid))
+        firstname = validation.get('firstname', "")
+        lastname = validation.get('lastname', "")
+        if firstname != "" and lastname != "":
+            name = firstname + " " + lastname
+        else:
+            name = validation.get('name', email)
+        return {
+            'firstname': firstname,
+            'lastname': lastname,
+            'name': name,
+            'login': email,
+            'email': email,
+            'oauth_provider_id': provider,
+            'oauth_uid': oauth_uid,
+            'oauth_access_token': params['access_token'],
+            'active': True,
+        }
 
     @api.model
     def auth_oauth(self, provider, params, token_fetch_jwt):
@@ -72,13 +89,9 @@ class ResUsers(models.Model):
             _logger.error("No id_token in response.")
             raise AccessDenied()
         validation = oauth_provider._parse_id_token(id_token, access_token)
+        _logger.debug("HERE VALIDATION: " + str(validation))
         # required check
-        if "sub" in validation and "user_id" not in validation:
-            # set user_id for auth_oauth, user_id is not an OpenID Connect standard
-            # claim:
-            # https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
-            validation["user_id"] = validation["sub"]
-        elif not validation.get("user_id"):
+        if "user_id" not in validation:
             _logger.error("user_id claim not found in id_token (after mapping).")
             raise AccessDenied()
         # retrieve and sign in user

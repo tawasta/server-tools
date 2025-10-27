@@ -6,6 +6,8 @@ import base64
 import logging
 import secrets
 import json
+import jwcrypto
+import jose
 
 import requests
 
@@ -63,10 +65,9 @@ class AuthOauthProvider(models.Model):
     @api.depends("jwks_local")
     def _compute_jwks(self):
         if not self.jwks_local or self.jwks_local == "":
-            sig = jwk.JWK.generate(kty='RSA', size=2048, kid="1234567890")
-            enc = jwk.JWK.generate(kty='RSA', size=2048, kid="0987654321")
+            sig = jwcrypto.jwk.JWK.generate(kty='RS256', size=2048, kid="1234567890")
+            enc = jwcrypto.jwk.JWK.generate(kty='RS256', size=2048, kid="0987654321")
             self.jwks_local = json.dumps(dict(keys=[sig, enc]))
-        _logger.debug("HERE JWKS_LOCAL: " + str(self.jwks_local))
 
     @tools.ormcache("self.jwks_uri", "kid")
     def _get_keys(self, kid):
@@ -76,17 +77,17 @@ class AuthOauthProvider(models.Model):
         # the keys returned here should follow
         # JWS Notes on Key Selection
         # https://datatracker.ietf.org/doc/html/draft-ietf-jose-json-web-signature#appendix-D
-        return [
-            key
-            for key in response["keys"]
-            if kid is None or key.get("kid", None) == kid
-        ]
+        return response["keys"]
+        #return [
+            #key
+            #for key in response["keys"]
+            #if kid is None or key.get("kid", None) == kid
+        #]
 
     def _map_token_values(self, res):
         if self.token_map:
             for pair in self.token_map.split(" "):
-                _logger.debug("HERE PAIR:" + str(pair))
-                from_key, to_key = (k.strip() for k in pair.split(":", 1))
+                from_key, to_key = (k.strip() for k in pair.split("=", 1))
                 if to_key not in res:
                     res[to_key] = res.get(from_key, "")
         return res
@@ -96,14 +97,13 @@ class AuthOauthProvider(models.Model):
         res = {}
         res.update(self._decode_id_token(access_token, id_token))
         res.update(self._map_token_values(res))
-        _logger.debug("HERE RES:" + str(res))
         return res
 
     def _decode_id_token(self, access_token, id_token):
+        jwks = jwk.JWKSet.from_json(json.dumps(dict(keys=self._get_keys(""))))
         local_jwks = jwk.JWKSet.from_json(self.jwks_local)
         token = jwe.JWE()
         token.deserialize(id_token, key=local_jwks)
-        #jwetoken.decrypt(local_jwks)
-        payload = base64.urlsafe_b64decode(token.payload)
-        _logger.debug("HERE PAYLOAD:" + payload)
-        return json.loads(str(token))
+        id_jwt = jwt.JWT()
+        id_jwt.deserialize(token.payload.decode('utf-8'), key=jwks)
+        return json.loads(str(id_jwt.claims))
