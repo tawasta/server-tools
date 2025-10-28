@@ -65,8 +65,8 @@ class AuthOauthProvider(models.Model):
     @api.depends("jwks_local")
     def _compute_jwks(self):
         if not self.jwks_local or self.jwks_local == "":
-            sig = jwcrypto.jwk.JWK.generate(kty='RS256', size=2048, kid="1234567890")
-            enc = jwcrypto.jwk.JWK.generate(kty='RS256', size=2048, kid="0987654321")
+            sig = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid="1234567890")
+            enc = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid="0987654321")
             self.jwks_local = json.dumps(dict(keys=[sig, enc]))
 
     @tools.ormcache("self.jwks_uri", "kid")

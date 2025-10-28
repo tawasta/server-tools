@@ -109,7 +109,7 @@ class OpenIDLogin(OAuthLogin):
                 # PKCE (https://tools.ietf.org/html/rfc7636)
                 code_verifier = provider["code_verifier"]
                 code_challenge = base64.urlsafe_b64encode(
-                    hashlib.sha256(code_verifier.encode("utf8")).digest()
+                    hashlib.sha256(code_verifier.encode("ascii")).digest()
                 ).rstrip(b"=")
                 params["code_challenge"] = code_challenge
                 params["code_challenge_method"] = "S256"
@@ -159,7 +159,7 @@ class OAuthController(http.Controller):
     #@http.route('/auth_oauth/signin', type='http', auth='none')
     @http.route('/redirect', type='http', auth='none')
     @fragment_to_query_string
-    def signin(self, **kw):
+    def telia_signin(self, **kw):
         state = json.loads(kw['state'])
 
         # make sure request.session.db and state['d'] are the same,
