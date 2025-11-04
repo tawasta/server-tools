@@ -156,8 +156,8 @@ class OpenIDLogin(OAuthLogin):
 
 class OAuthController(http.Controller):
 
-    #@http.route('/auth_oauth/signin', type='http', auth='none')
-    @http.route('/redirect', type='http', auth='none')
+    # /redirect is for local testing
+    @http.route(['/redirect', '/signin_telia'], type='http', auth='none')
     @fragment_to_query_string
     def telia_signin(self, **kw):
         state = json.loads(kw['state'])
@@ -228,8 +228,3 @@ class OAuthController(http.Controller):
         redirect = request.redirect(url, 303)
         redirect.autocorrect_location_header = False
         return redirect
-
-    @http.route('/uas/oauth2/metadata.jwks', type='http', auth='none')
-    def metadata_jwks(self, **kw):
-        return "{}"
-

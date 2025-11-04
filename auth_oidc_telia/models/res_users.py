@@ -10,8 +10,6 @@ from odoo import api, models
 from odoo.exceptions import AccessDenied
 from odoo.http import request
 from jwcrypto import jwk, jwt, jwe
-#from jose import jwt as jose_jwt
-#from jose.exceptions import JWSError, JWTError
 
 _logger = logging.getLogger(__name__)
 

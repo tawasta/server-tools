@@ -7,7 +7,7 @@ import logging
 import secrets
 import json
 import jwcrypto
-import jose
+import uuid
 
 import requests
 
@@ -16,9 +16,17 @@ from jwcrypto import jwk, jwt, jwe
 
 _logger = logging.getLogger(__name__)
 
-from jose import jwt as jose_jwt
-from jose.exceptions import JWSError, JWTError
-
+def find_jwk_by_use(jwks: jwk.JWKSet, use: str) -> jwk.JWK:
+    if jwks is None:
+        return None
+    jwk = None
+    for k in jwks:
+        t = k.export(private_key=False, as_dict=True)
+        if "use" in t and t["use"] == use:
+            return k
+        if not "use" in t:
+            jwk = k
+    return jwk
 
 class AuthOauthProvider(models.Model):
     _inherit = "auth.oauth.provider"
@@ -52,11 +60,8 @@ class AuthOauthProvider(models.Model):
         string="Token URL", help="Required for OpenID Connect authorization code flow."
     )
     jwks_uri = fields.Char(string="Provider JWKS URL", help="Required for OpenID Connect.")
-    jwks_local = fields.Text(
-            string="Local JWKS",
-            inverse="_compute_jwks",
-            default=""
-    )
+    jwks_local = fields.Text(string="Local JWKS", inverse="_compute_jwks", default="")
+    jwks_public_local = fields.Text(string="Public keys of local JWKS", default="")
     auth_link_params = fields.Char(
         help="Additional parameters for the auth link. "
         "For example: {'prompt':'select_account'}"
@@ -65,9 +70,19 @@ class AuthOauthProvider(models.Model):
     @api.depends("jwks_local")
     def _compute_jwks(self):
         if not self.jwks_local or self.jwks_local == "":
-            sig = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid="1234567890")
-            enc = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid="0987654321")
-            self.jwks_local = json.dumps(dict(keys=[sig, enc]))
+            enc = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid=str(uuid.uuid4()))
+            sig = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid=str(uuid.uuid4()))
+            self.jwks_local = json.dumps(dict(keys=[enc, sig]))
+            self._update_local_public_jwks()
+        else:
+            self._update_local_public_jwks()
+
+
+    def _update_local_public_jwks(self):
+        local_jwks = jwk.JWKSet.from_json(self.jwks_local)
+        enc = find_jwk_by_use(local_jwks, "enc")
+        sig = find_jwk_by_use(local_jwks, "sig")
+        self.jwks_public_local = json.dumps(dict(keys=[enc.export(private_key=False, as_dict=True), sig.export(private_key=False, as_dict=True)]))
 
     @tools.ormcache("self.jwks_uri", "kid")
     def _get_keys(self, kid):
@@ -76,7 +91,6 @@ class AuthOauthProvider(models.Model):
         response = r.json()
         # the keys returned here should follow
         # JWS Notes on Key Selection
-        # https://datatracker.ietf.org/doc/html/draft-ietf-jose-json-web-signature#appendix-D
         return response["keys"]
         #return [
             #key
