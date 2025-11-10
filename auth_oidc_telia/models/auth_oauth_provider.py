@@ -85,7 +85,7 @@ class AuthOauthProvider(models.Model):
         self.jwks_public_local = json.dumps(dict(keys=[enc.export(private_key=False, as_dict=True), sig.export(private_key=False, as_dict=True)]))
 
     @tools.ormcache("self.jwks_uri", "kid")
-    def _get_keys(self, kid):
+    def _telia_get_keys(self, kid):
         r = requests.get(self.jwks_uri, timeout=10)
         r.raise_for_status()
         response = r.json()
@@ -106,15 +106,15 @@ class AuthOauthProvider(models.Model):
                     res[to_key] = res.get(from_key, "")
         return res
 
-    def _parse_id_token(self, id_token, access_token):
+    def _telia_parse_id_token(self, id_token, access_token):
         self.ensure_one()
         res = {}
-        res.update(self._decode_id_token(access_token, id_token))
+        res.update(self._telia_decode_id_token(access_token, id_token))
         res.update(self._map_token_values(res))
         return res
 
-    def _decode_id_token(self, access_token, id_token):
-        jwks = jwk.JWKSet.from_json(json.dumps(dict(keys=self._get_keys(""))))
+    def _telia_decode_id_token(self, access_token, id_token):
+        jwks = jwk.JWKSet.from_json(json.dumps(dict(keys=self._telia_get_keys(""))))
         local_jwks = jwk.JWKSet.from_json(self.jwks_local)
         token = jwe.JWE()
         token.deserialize(id_token, key=local_jwks)

@@ -16,10 +16,10 @@ Usage
 
 To test locally get from https://github.com/telia-oss/tunnistus-python-sample
 
-- client-id
-    - From client.json
 - Local JWKS
     - From client.jwks
+- client-id
+    - From client.json
 
 
 Known issues / Roadmap

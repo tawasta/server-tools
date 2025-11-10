@@ -86,7 +86,7 @@ class ResUsers(models.Model):
         if not id_token:
             _logger.error("No id_token in response.")
             raise AccessDenied()
-        validation = oauth_provider._parse_id_token(id_token, access_token)
+        validation = oauth_provider._telia_parse_id_token(id_token, access_token)
         _logger.debug("HERE VALIDATION: " + str(validation))
         # required check
         if "user_id" not in validation:
