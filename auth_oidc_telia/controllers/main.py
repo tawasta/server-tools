@@ -93,65 +93,102 @@ class OpenIDLogin(OAuthLogin):
     def list_providers(self):
         providers = super().list_providers()
         for provider in providers:
-            flow = provider.get("flow")
-            if flow in ("id_token", "id_token_code"):
-                params = url_decode(provider["auth_link"].split("?")[-1])
-                # nonce
-                params["nonce"] = secrets.token_urlsafe()
-                # response_type
-                if flow == "id_token":
-                    # https://openid.net/specs/openid-connect-core-1_0.html
-                    # #ImplicitAuthRequest
-                    params["response_type"] = "id_token token"
-                elif flow == "id_token_code":
-                    # https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
-                    params["response_type"] = "code"
-                # PKCE (https://tools.ietf.org/html/rfc7636)
-                code_verifier = provider["code_verifier"]
-                code_challenge = base64.urlsafe_b64encode(
-                    hashlib.sha256(code_verifier.encode("ascii")).digest()
-                ).rstrip(b"=")
-                params["code_challenge"] = code_challenge
-                params["code_challenge_method"] = "S256"
-                # scope
-                if provider.get("scope"):
-                    if "openid" not in provider["scope"].split():
-                        _logger.error("openid connect scope must contain 'openid'")
-                    params["scope"] = provider["scope"]
+            if provider['use_jwks'] == True:
+                flow = provider.get("flow")
+                if flow in ("id_token", "id_token_code"):
+                    params = url_decode(provider["auth_link"].split("?")[-1])
+                    # nonce
+                    params["nonce"] = secrets.token_urlsafe()
+                    # response_type
+                    if flow == "id_token":
+                        # https://openid.net/specs/openid-connect-core-1_0.html
+                        # #ImplicitAuthRequest
+                        params["response_type"] = "id_token token"
+                    elif flow == "id_token_code":
+                        # https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
+                        params["response_type"] = "code"
+                    # PKCE (https://tools.ietf.org/html/rfc7636)
+                    code_verifier = provider["code_verifier"]
+                    code_challenge = base64.urlsafe_b64encode(
+                        hashlib.sha256(code_verifier.encode("ascii")).digest()
+                    ).rstrip(b"=")
+                    params["code_challenge"] = code_challenge
+                    params["code_challenge_method"] = "S256"
+                    # scope
+                    if provider.get("scope"):
+                        if "openid" not in provider["scope"].split():
+                            _logger.error("openid connect scope must contain 'openid'")
+                        params["scope"] = provider["scope"]
 
-                # append provider specific auth link params
-                if provider["auth_link_params"]:
-                    params_upd = literal_eval(provider["auth_link_params"])
-                    params.update(params_upd)
+                    # append provider specific auth link params
+                    if provider["auth_link_params"]:
+                        params_upd = literal_eval(provider["auth_link_params"])
+                        params.update(params_upd)
 
-                # auth link that the user will click
-                base_url = request.env["ir.config_parameter"].sudo().get_param("web.base.url")
+                    # auth link that the user will click
+                    base_url = request.env["ir.config_parameter"].sudo().get_param("web.base.url")
 
-                auth_request = dict()
+                    auth_request = dict()
 
-                # Mandatory fields
-                auth_request['iss'] = provider['client_id']
-                auth_request['aud'] = provider['audience']
-                auth_request['response_type'] = "code"
-                auth_request['scope'] = provider['scope']
-                auth_request['client_id'] = provider['client_id']
-                # FIXME
-                auth_request['redirect_uri'] = "http://localhost:8069/redirect"
-                #auth_request['redirect_uri'] = str(str(base_url) + "/redirect")
-                #_logger.debug("HERE redirect_uri: " + auth_request['redirect_uri'])
+                    # Mandatory fields
+                    auth_request['iss'] = provider['client_id']
+                    auth_request['aud'] = provider['audience']
+                    auth_request['response_type'] = "code"
+                    auth_request['scope'] = provider['scope']
+                    auth_request['client_id'] = provider['client_id']
+                    # FIXME
+                    auth_request['redirect_uri'] = "http://localhost:8069/redirect"
+                    #auth_request['redirect_uri'] = str(str(base_url) + "/redirect")
+                    #_logger.debug("HERE redirect_uri: " + auth_request['redirect_uri'])
 
-                # Optional fields
-                auth_request['state'] = self.get_state(provider) # Not optional for Odoo
-                auth_request['nonce'] = secrets.token_urlsafe()
-                auth_request['jti'] = str(uuid.uuid4())
+                    # Optional fields
+                    auth_request['state'] = self.get_state(provider) # Not optional for Odoo
+                    auth_request['nonce'] = secrets.token_urlsafe()
+                    auth_request['jti'] = str(uuid.uuid4())
 
-                # TODO
-                #auth_request['ui_locales'] = Set to odoos language if fi/sv otherwise en
-                auth_request_signed = sign_request_object(provider['id'], auth_request)
-                params = dict(request=auth_request_signed)
-                provider["auth_link"] = "{}?{}".format(
-                    provider["auth_endpoint"], url_encode(params)
-                )
+                    # TODO
+                    #auth_request['ui_locales'] = Set to odoos language if fi/sv otherwise en
+                    auth_request_signed = sign_request_object(provider['id'], auth_request)
+                    params = dict(request=auth_request_signed)
+                    provider["auth_link"] = "{}?{}".format(
+                        provider["auth_endpoint"], url_encode(params)
+                    )
+            else:
+                flow = provider.get("flow")
+                if flow in ("id_token", "id_token_code"):
+                    params = url_decode(provider["auth_link"].split("?")[-1])
+                    # nonce
+                    params["nonce"] = secrets.token_urlsafe()
+                    # response_type
+                    if flow == "id_token":
+                        # https://openid.net/specs/openid-connect-core-1_0.html
+                        # #ImplicitAuthRequest
+                        params["response_type"] = "id_token token"
+                    elif flow == "id_token_code":
+                        # https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
+                        params["response_type"] = "code"
+                    # PKCE (https://tools.ietf.org/html/rfc7636)
+                    code_verifier = provider["code_verifier"]
+                    code_challenge = base64.urlsafe_b64encode(
+                        hashlib.sha256(code_verifier.encode("ascii")).digest()
+                    ).rstrip(b"=")
+                    params["code_challenge"] = code_challenge
+                    params["code_challenge_method"] = "S256"
+                    # scope
+                    if provider.get("scope"):
+                        if "openid" not in provider["scope"].split():
+                            _logger.error("openid connect scope must contain 'openid'")
+                        params["scope"] = provider["scope"]
+
+                    # append provider specific auth link params
+                    if provider["auth_link_params"]:
+                        params_upd = literal_eval(provider["auth_link_params"])
+                        params.update(params_upd)
+
+                    # auth link that the user will click
+                    provider["auth_link"] = "{}?{}".format(
+                        provider["auth_endpoint"], url_encode(params)
+                    )
         return providers
 
 class OAuthController(http.Controller):

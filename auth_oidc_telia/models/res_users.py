@@ -16,9 +16,6 @@ _logger = logging.getLogger(__name__)
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    def _auth_oauth_get_tokens_implicit_flow(self, oauth_provider, params):
-        # https://openid.net/specs/openid-connect-core-1_0.html#ImplicitAuthResponse
-        return params.get("access_token"), params.get("id_token")
 
     def _auth_oauth_get_tokens_auth_code_flow(self, oauth_provider, params, jwt):
         # https://openid.net/specs/openid-connect-core-1_0.html#AuthResponse
@@ -27,19 +24,33 @@ class ResUsers(models.Model):
         auth = None
         if oauth_provider.client_secret:
             auth = (oauth_provider.client_id, oauth_provider.client_secret)
-        request_data=dict(
-            grant_type="authorization_code",
-            redirect_uri=request.httprequest.url_root + "redirect",
-            code=code,
-            client_id=oauth_provider.client_id,
-            client_assertion_type = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-            client_assertion = jwt.serialize(),
-        )
-        req = requests.Request("POST", oauth_provider.token_endpoint, data=request_data)
-        prepared = req.prepare()
-        #response = requests.post( oauth_provider.token_endpoint, data=request_data, auth=auth, timeout=10,)
-        s = requests.Session()
-        response = s.send(prepared)
+        if oauth_provider.use_jwks:
+            request_data=dict(
+                grant_type="authorization_code",
+                redirect_uri=request.httprequest.url_root + "redirect",
+                code=code,
+                client_id=oauth_provider.client_id,
+                client_assertion_type = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                client_assertion = jwt.serialize(),
+            )
+            req = requests.Request("POST", oauth_provider.token_endpoint, data=request_data)
+            prepared = req.prepare()
+            #response = requests.post( oauth_provider.token_endpoint, data=request_data, auth=auth, timeout=10,)
+            s = requests.Session()
+            response = s.send(prepared)
+        else:
+            response = requests.post(
+                oauth_provider.token_endpoint,
+                data=dict(
+                    client_id=oauth_provider.client_id,
+                    grant_type="authorization_code",
+                    code=code,
+                    code_verifier=oauth_provider.code_verifier,  # PKCE
+                    redirect_uri=request.httprequest.url_root + "auth_oauth/signin",
+                ),
+                auth=auth,
+                timeout=10,
+            )
         response.raise_for_status()
         response_json = response.json()
         # https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse
@@ -68,7 +79,7 @@ class ResUsers(models.Model):
         }
 
     @api.model
-    def auth_oauth(self, provider, params, token_fetch_jwt):
+    def auth_oauth(self, provider, params, token_fetch_jwt=""):
         oauth_provider = self.env["auth.oauth.provider"].browse(provider)
         if oauth_provider.flow == "id_token":
             access_token, id_token = self._auth_oauth_get_tokens_implicit_flow(
@@ -87,7 +98,6 @@ class ResUsers(models.Model):
             _logger.error("No id_token in response.")
             raise AccessDenied()
         validation = oauth_provider._telia_parse_id_token(id_token, access_token)
-        _logger.debug("HERE VALIDATION: " + str(validation))
         # required check
         if "user_id" not in validation:
             _logger.error("user_id claim not found in id_token (after mapping).")

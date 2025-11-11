@@ -62,6 +62,7 @@ class AuthOauthProvider(models.Model):
     jwks_uri = fields.Char(string="Provider JWKS URL", help="Required for OpenID Connect.")
     jwks_local = fields.Text(string="Local JWKS", inverse="_compute_jwks", default="")
     jwks_public_local = fields.Text(string="Public keys of local JWKS", default="")
+    use_jwks = fields.Boolean(string="Use JWKS")
     auth_link_params = fields.Char(
         help="Additional parameters for the auth link. "
         "For example: {'prompt':'select_account'}"
@@ -89,16 +90,16 @@ class AuthOauthProvider(models.Model):
         r = requests.get(self.jwks_uri, timeout=10)
         r.raise_for_status()
         response = r.json()
-        # the keys returned here should follow
-        # JWS Notes on Key Selection
-        return response["keys"]
-        #return [
-            #key
-            #for key in response["keys"]
-            #if kid is None or key.get("kid", None) == kid
-        #]
+        if self.use_jwks:
+            return response["keys"]
+        else:
+            return [
+                key
+                for key in response["keys"]
+                if kid is None or key.get("kid", None) == kid
+            ]
 
-    def _map_token_values(self, res):
+    def _telia_map_token_values(self, res):
         if self.token_map:
             for pair in self.token_map.split(" "):
                 from_key, to_key = (k.strip() for k in pair.split("=", 1))
@@ -110,7 +111,7 @@ class AuthOauthProvider(models.Model):
         self.ensure_one()
         res = {}
         res.update(self._telia_decode_id_token(access_token, id_token))
-        res.update(self._map_token_values(res))
+        res.update(self._telia_map_token_values(res))
         return res
 
     def _telia_decode_id_token(self, access_token, id_token):

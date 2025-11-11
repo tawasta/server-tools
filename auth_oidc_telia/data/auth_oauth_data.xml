@@ -19,6 +19,7 @@
         <field
             name="jwks_uri"
             >https://tunnistus-pp.telia.fi/uas/oauth2/metadata.jwks</field>
+        <field name="use_jwks">True</field>
         <field name="css_class">fa fa-fw</field>
         <field name="body">Log in with Telia</field>
     </record>
