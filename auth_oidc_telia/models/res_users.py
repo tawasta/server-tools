@@ -22,12 +22,17 @@ class ResUsers(models.Model):
         code = params.get("code")
         # https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest
         auth = None
+        response = None
+        base_url = request.httprequest.url_root
         if oauth_provider.client_secret:
             auth = (oauth_provider.client_id, oauth_provider.client_secret)
-        if oauth_provider.use_jwks:
+        if oauth_provider.use_jwks == True:
+            redirect_uri = base_url + "redirect"
+            if(str(base_url) != "http://localhost:8069/"):
+                redirect_uri = str(str(base_url) + "signin_telia")
             request_data=dict(
                 grant_type="authorization_code",
-                redirect_uri=request.httprequest.url_root + "redirect",
+                redirect_uri=redirect_uri,
                 code=code,
                 client_id=oauth_provider.client_id,
                 client_assertion_type = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",

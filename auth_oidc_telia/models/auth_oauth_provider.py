@@ -72,32 +72,36 @@ class AuthOauthProvider(models.Model):
     def _compute_jwks(self):
         if not self.jwks_local or self.jwks_local == "":
             enc = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid=str(uuid.uuid4()))
+            enc_dict = dict(enc)
+            enc_dict['use'] = "enc"
             sig = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid=str(uuid.uuid4()))
-            self.jwks_local = json.dumps(dict(keys=[enc, sig]))
+            sig_dict = dict(sig)
+            sig_dict['use'] = "sig"
+            self.jwks_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
             self._update_local_public_jwks()
         else:
+            self.jwks_local = json.dumps(json.loads(self.jwks_local), indent=2)
             self._update_local_public_jwks()
 
 
     def _update_local_public_jwks(self):
         local_jwks = jwk.JWKSet.from_json(self.jwks_local)
         enc = find_jwk_by_use(local_jwks, "enc")
+        enc_dict = enc.export(private_key=False, as_dict=True)
+        enc_dict['use'] = "enc"
+        enc_dict['alg'] = "RSA256"
         sig = find_jwk_by_use(local_jwks, "sig")
-        self.jwks_public_local = json.dumps(dict(keys=[enc.export(private_key=False, as_dict=True), sig.export(private_key=False, as_dict=True)]))
+        sig_dict = sig.export(private_key=False, as_dict=True)
+        sig_dict['use'] = "sig"
+        sig_dict['alg'] = "RSA256"
+        self.jwks_public_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
 
-    @tools.ormcache("self.jwks_uri", "kid")
-    def _telia_get_keys(self, kid):
+    @tools.ormcache("self.jwks_uri")
+    def _telia_get_keys(self):
         r = requests.get(self.jwks_uri, timeout=10)
         r.raise_for_status()
         response = r.json()
-        if self.use_jwks:
-            return response["keys"]
-        else:
-            return [
-                key
-                for key in response["keys"]
-                if kid is None or key.get("kid", None) == kid
-            ]
+        return response["keys"]
 
     def _telia_map_token_values(self, res):
         if self.token_map:
@@ -115,7 +119,7 @@ class AuthOauthProvider(models.Model):
         return res
 
     def _telia_decode_id_token(self, access_token, id_token):
-        jwks = jwk.JWKSet.from_json(json.dumps(dict(keys=self._telia_get_keys(""))))
+        jwks = jwk.JWKSet.from_json(json.dumps(dict(keys=self._telia_get_keys())))
         local_jwks = jwk.JWKSet.from_json(self.jwks_local)
         token = jwe.JWE()
         token.deserialize(id_token, key=local_jwks)

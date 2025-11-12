@@ -8,10 +8,12 @@
             <field name="name" position="after">
                 <field name="audience" />
                 <field name="token_audience" />
+                <field name="token_endpoint" />
                 <field name="token_map" />
                 <field name="jwks_local" />
                 <field name="jwks_public_local" />
                 <field name="use_jwks" />
+                <field name="jwks_uri" />
             </field>
         </field>
     </record>
