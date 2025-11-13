@@ -12,9 +12,9 @@ import uuid
 import requests
 from time import time
 from jwcrypto import jwk, jwt, jwe
-from odoo import api, http, SUPERUSER_ID, _
+from odoo import api, fields, http, SUPERUSER_ID, _
 from ast import literal_eval
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from werkzeug.urls import url_decode, url_encode, url_unquote_plus, url_parse
 
@@ -47,27 +47,11 @@ def fragment_to_query_string(func):
         return func(self, *a, **kw)
     return wrapper
 
-def find_jwk_by_use(jwks: jwk.JWKSet, use: str) -> jwk.JWK:
-    if jwks is None:
-        return None
-    jwk = None
-    for k in jwks:
-        t = k.export(private_key=False, as_dict=True)
-        if "use" in t and t["use"] == use:
-            return k
-        if not "use" in t:
-            jwk = k
-    return jwk
-
-def get_provider_jwks(provider_id):
+def sign_request_object(provider_id, params):
     provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
         ('id', '=', int(provider_id))
     ])
-    return jwk.JWKSet.from_json(provider.jwks_local)
-
-def sign_request_object(provider_id, params):
-    jwks = get_provider_jwks(provider_id)
-    jwk = find_jwk_by_use(jwks, "sig")
+    jwk = provider.find_jwk_by_use("sig")
     alg = "RS256"
     token = None
     token = jwt.JWT(
@@ -77,21 +61,11 @@ def sign_request_object(provider_id, params):
     token.make_signed_token(jwk)
     return token
 
-def sign_metadata_jwks(provider_id, params):
-    jwks = get_provider_jwks(provider_id)
-    jwk = find_jwk_by_use(jwks, "sig")
-    alg = "RS256"
-    token = None
-    token = jwt.JWT(
-        header={"alg": alg, "typ": "entity-statement+jwt", "kid": jwk.kid},
-        claims=params,
-    )
-    token.make_signed_token(jwk)
-    return token
-
 def sign_client_assertion(provider_id, claims):
-    jwks = get_provider_jwks(provider_id)
-    jwk = find_jwk_by_use(jwks, "sig")
+    provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
+        ('id', '=', int(provider_id))
+    ])
+    jwk = provider.find_jwk_by_use("sig")
     alg = "RS256"
     token = jwt.JWT(
         header={"alg": alg, "typ": "JWT"},
@@ -235,7 +209,7 @@ class OAuthController(http.Controller):
 
             # Optional fields
             token_request['jti'] = str(uuid.uuid4())
-            token_request['exp'] = int((datetime.now() + timedelta(minutes=10)).timestamp())
+            token_request['exp'] = int((fields.datetime.now() + timedelta(minutes=10)).timestamp())
 
             jwt = sign_client_assertion(provider_id, token_request)
             _, login, key = request.env['res.users'].with_user(SUPERUSER_ID).auth_oauth(provider_id, kw, jwt)
@@ -276,82 +250,3 @@ class OAuthController(http.Controller):
         redirect = request.redirect(url, 303)
         redirect.autocorrect_location_header = False
         return redirect
-
-    @http.route(['/<string:provider_name>/.well-known/openid-relying-party', '/.well-known/openid-relying-party'], type='http', auth='none')
-    def entity_statement(self, **kw):
-        provider_name = kw.pop('provider_name', False)
-        if provider_name:
-            provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
-                ('name', '=', str(provider_name))
-            ])
-            if provider:
-                redirect_uri = "http://localhost:8069/redirect"
-                base_url = request.env["ir.config_parameter"].sudo().get_param("web.base.url")
-                local_jwks = jwk.JWKSet.from_json(provider['jwks_local'])
-                sig = find_jwk_by_use(local_jwks, "sig")
-                sig_dict = sig.export(private_key=False, as_dict=True)
-                sig_dict['use'] = "sig"
-                keys = dict(keys=[sig_dict])
-                if(str(base_url) != "http://localhost:8069"):
-                    redirect_uri = str(str(base_url) + "/signin_telia")
-                return str(
-                    sign_metadata_jwks(provider['id'],
-                        dict(
-                            jwks=dict(keys),
-                            metadata=dict(
-                                openid_relying_party=dict(
-                                    redirect_uris=[redirect_uri],
-                                    application_type="web",
-                                    grant_types=["authorization_code"],
-                                    response_types=["code"],
-                                    client_name="Test",
-                                    signed_jwks_uri=str(base_url) + "/" +provider['name'] + "/.well-known/signed_jwks.json",
-                                    id_token_signed_response_alg="RS256",
-                                    id_token_encrypted_response_alg="RSA",
-                                    id_token_encrypted_response_enc="RSA",
-                                    request_object_signing_alg="RS256",
-                                    token_endpoint_auth_method="private_key_jwt",
-                                )
-                            ),
-                            iat=int(datetime.now().timestamp()),
-                            exp=int((datetime.now() + timedelta(minutes=10)).timestamp()),
-                            iss=base_url,
-                            sub=base_url
-                        )
-                    )
-                )
-        return "{}"
-
-    @http.route('/<string:provider_name>/.well-known/signed_jwks.json', type='http', auth='none')
-    def metadata_signed_jwks(self, **kw):
-        provider_name = kw.pop('provider_name', False)
-        if provider_name:
-            provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
-                ('name', '=', str(provider_name))
-            ])
-            if provider:
-                keys = dict(json.loads(provider['jwks_public_local']))
-                base_url = request.env["ir.config_parameter"].sudo().get_param("web.base.url")
-                return str(
-                    sign_request_object(
-                        provider['id'],
-                        keys | dict(
-                            iat=int(datetime.now().timestamp()),
-                            exp=int((datetime.now() + timedelta(minutes=10)).timestamp()),
-                            iss=base_url,
-                            sub=base_url
-                        )
-                    )
-                )
-        return "{}"
-
-    @http.route(['/<string:provider_name>/uas/oauth2/metadata.jwks', '/uas/oauth2/metadata.jwks'], type='http', auth='none')
-    def metadata_jwks(self, **kw):
-        provider_name = kw.pop('provider_name', False)
-        if provider_name:
-            provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
-                ('name', '=', str(provider_name))
-            ])
-            if provider:
-                return provider['jwks_public_local']
-        return "{}"

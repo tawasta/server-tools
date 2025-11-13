@@ -16,18 +16,6 @@ from jwcrypto import jwk, jwt, jwe
 
 _logger = logging.getLogger(__name__)
 
-def find_jwk_by_use(jwks: jwk.JWKSet, use: str) -> jwk.JWK:
-    if jwks is None:
-        return None
-    jwk = None
-    for k in jwks:
-        t = k.export(private_key=False, as_dict=True)
-        if "use" in t and t["use"] == use:
-            return k
-        if not "use" in t:
-            jwk = k
-    return jwk
-
 class AuthOauthProvider(models.Model):
     _inherit = "auth.oauth.provider"
 
@@ -60,17 +48,17 @@ class AuthOauthProvider(models.Model):
         string="Token URL", help="Required for OpenID Connect authorization code flow."
     )
     jwks_uri = fields.Char(string="Provider JWKS URL", help="Required for OpenID Connect.")
-    jwks_local = fields.Text(string="Local JWKS", inverse="_compute_jwks", default="")
-    jwks_public_local = fields.Text(string="Public keys of local JWKS", default="")
+    jwks_local = fields.Text(string="Local JWKS", inverse="_compute_local_jwks", default="")
+    jwks_public_local = fields.Text(string="Public keys of local JWKS", compute="_compute_local_public_jwks", default="")
     use_jwks = fields.Boolean(string="Use JWKS")
     auth_link_params = fields.Char(
         help="Additional parameters for the auth link. "
         "For example: {'prompt':'select_account'}"
     )
 
-    @api.depends("jwks_local")
-    def _compute_jwks(self):
-        if not self.jwks_local or self.jwks_local == "":
+    @api.onchange('jwks_local')
+    def _compute_local_jwks(self):
+        if not self.jwks_local or self.jwks_local.strip() == "":
             enc = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid=str(uuid.uuid4()))
             enc_dict = dict(enc)
             enc_dict['use'] = "enc"
@@ -78,25 +66,37 @@ class AuthOauthProvider(models.Model):
             sig_dict = dict(sig)
             sig_dict['use'] = "sig"
             self.jwks_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
-            self._update_local_public_jwks()
         else:
             self.jwks_local = json.dumps(json.loads(self.jwks_local), indent=2)
-            self._update_local_public_jwks()
 
+    def find_jwk_by_use(self, use):
+        jwks = jwk.JWKSet.from_json(self.jwks_local)
+        for k in jwks:
+            t = k.export(private_key=False, as_dict=True)
+            if t["use"] == use:
+                return k
 
-    def _update_local_public_jwks(self):
-        local_jwks = jwk.JWKSet.from_json(self.jwks_local)
-        enc = find_jwk_by_use(local_jwks, "enc")
-        enc_dict = enc.export(private_key=False, as_dict=True)
-        enc_dict['use'] = "enc"
-        enc_dict['alg'] = "RSA256"
-        sig = find_jwk_by_use(local_jwks, "sig")
-        sig_dict = sig.export(private_key=False, as_dict=True)
-        sig_dict['use'] = "sig"
-        sig_dict['alg'] = "RSA256"
-        self.jwks_public_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
+    @api.onchange('jwks_local')
+    def _compute_local_public_jwks(self):
+        for provider in self:
+            if not provider.jwks_local or provider.jwks_local == "":
+                provider.jwks_public_local = ""
+            else:
+                try:
+                    # Check that jwks_local is valid JSON and prettify it
+                    provider.jwks_local = json.dumps(json.loads(provider.jwks_local), indent=2)
+                    enc = self.find_jwk_by_use("enc")
+                    enc_dict = enc.export(private_key=False, as_dict=True)
+                    enc_dict['use'] = "enc"
+                    enc_dict['alg'] = "RSA256"
+                    sig = selgf.find_jwk_by_use("sig")
+                    sig_dict = sig.export(private_key=False, as_dict=True)
+                    sig_dict['use'] = "sig"
+                    sig_dict['alg'] = "RSA256"
+                    provider.jwks_public_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
+                except:
+                    provider.jwks_public_local = ""
 
-    @tools.ormcache("self.jwks_uri")
     def _telia_get_keys(self):
         r = requests.get(self.jwks_uri, timeout=10)
         r.raise_for_status()
