@@ -21,7 +21,7 @@
                 <details colspan="1">
                     <summary>
                     </summary>
-                        <field name="jwks_public_local" nolabel="1" />
+                        <field name="jwks_public_local" nolabel="1" readonly="1" />
                 </details>
                 <field name="jwks_uri" />
             </field>

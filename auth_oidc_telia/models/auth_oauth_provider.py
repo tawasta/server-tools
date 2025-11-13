@@ -49,7 +49,7 @@ class AuthOauthProvider(models.Model):
     )
     jwks_uri = fields.Char(string="Provider JWKS URL", help="Required for OpenID Connect.")
     jwks_local = fields.Text(string="Local JWKS", inverse="_compute_local_jwks", default="")
-    jwks_public_local = fields.Text(string="Public keys of local JWKS", compute="_compute_local_public_jwks", default="")
+    jwks_public_local = fields.Text(string="Public keys of local JWKS", default="")
     use_jwks = fields.Boolean(string="Use JWKS")
     auth_link_params = fields.Char(
         help="Additional parameters for the auth link. "
@@ -66,8 +66,10 @@ class AuthOauthProvider(models.Model):
             sig_dict = dict(sig)
             sig_dict['use'] = "sig"
             self.jwks_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
+            self._compute_local_public_jwks()
         else:
             self.jwks_local = json.dumps(json.loads(self.jwks_local), indent=2)
+            self._compute_local_public_jwks()
 
     def find_jwk_by_use(self, use):
         jwks = jwk.JWKSet.from_json(self.jwks_local)
@@ -76,7 +78,6 @@ class AuthOauthProvider(models.Model):
             if t["use"] == use:
                 return k
 
-    @api.onchange('jwks_local')
     def _compute_local_public_jwks(self):
         for provider in self:
             if not provider.jwks_local or provider.jwks_local == "":
