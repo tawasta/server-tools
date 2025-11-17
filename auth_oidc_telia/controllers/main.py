@@ -250,3 +250,19 @@ class OAuthController(http.Controller):
         redirect = request.redirect(url, 303)
         redirect.autocorrect_location_header = False
         return redirect
+
+    @http.route('/<string:provider_name>/openid_relying_party/signed_jwks.jwt', type='http', auth='none')
+    def openid_relying_party_signed_jwks(self, **kw):
+        provider_name = kw.pop('provider_name', False)
+        provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
+            ('name', '=', provider_name)
+        ])
+        jwk = provider.find_jwk_by_use("sig")
+        alg = "RS256"
+        signed_jwks = None
+        signed_jwks = jwt.JWT(
+            header={"alg": alg, "typ": "JWT", "kid": jwk.kid},
+            claims=provider['jwks_public_local'],
+        )
+        signed_jwks.make_signed_token(jwk)
+        return str(signed_jwks.serialize())

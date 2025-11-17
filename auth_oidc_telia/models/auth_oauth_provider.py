@@ -86,11 +86,11 @@ class AuthOauthProvider(models.Model):
                 try:
                     # Check that jwks_local is valid JSON and prettify it
                     provider.jwks_local = json.dumps(json.loads(provider.jwks_local), indent=2)
-                    enc = self.find_jwk_by_use("enc")
+                    enc = provider.find_jwk_by_use("enc")
                     enc_dict = enc.export(private_key=False, as_dict=True)
                     enc_dict['use'] = "enc"
                     enc_dict['alg'] = "RSA256"
-                    sig = selgf.find_jwk_by_use("sig")
+                    sig = provider.find_jwk_by_use("sig")
                     sig_dict = sig.export(private_key=False, as_dict=True)
                     sig_dict['use'] = "sig"
                     sig_dict['alg'] = "RSA256"
