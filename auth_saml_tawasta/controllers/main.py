@@ -338,6 +338,9 @@ class SAMLSession(Session):
     @http.route()
     def logout(self, redirect="/web"):
         """Logout user from IDP as well"""
+
+        # TODO
+        """
         saml_token = (
             request.env["auth_saml.token"]
             .sudo()
@@ -347,6 +350,7 @@ class SAMLSession(Session):
                 ]
             )
         )
+        """
         if request.session.get("_saml_user") and saml_token:
             _logger.warning("Initiating SAML SLO-sequence...")
             # Here we create LogoutRequest and send it to IdP
