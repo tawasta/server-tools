@@ -46,7 +46,6 @@ class AuthSamlProvider(models.Model):
     def _metadata_string(self, valid=None, base_url=None):
         metadata = super()._metadata_string(valid, base_url)
         metadata = metadata.replace("&#xE4;", "ä")
-        _logger.debug("HERE: " + str(metadata))
         file = etree.fromstring(metadata)
         for elem in file.findall(".//{*}ServiceName"):
             duplicate_sv = copy.deepcopy(elem)

@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
+    <!-- Telia -->
     <record id="entity_attribute_finnishauthmethod" model="auth.saml.attribute.entity">
-        <field name="provider_id" ref="auth_saml_tawasta.provider_suomifi" />
+        <field name="provider_id" ref="auth_saml_tawasta.provider_telia" />
         <field name="name_format">urn:oasis:names:tc:SAML:2.0:attrname-format:uri</field>
         <field name="name">FinnishAuthMethod</field>
         <field name="friendly_name"></field>
         <field name="value">http://ftn.ficora.fi/2017/loa3,http://ftn.ficora.fi/2017/loa2</field>
     </record>
     <record id="entity_attribute_ciphername" model="auth.saml.attribute.entity">
-        <field name="provider_id" ref="auth_saml_tawasta.provider_suomifi" />
+        <field name="provider_id" ref="auth_saml_tawasta.provider_telia" />
         <field name="name_format">urn:oasis:names:tc:SAML:2.0:attrname-format:uri</field>
         <field name="name">urn:oid:1.2.246.517.3003.111.26</field>
         <field name="friendly_name">CipherName</field>
         <field name="value">AES-GCM</field>
     </record>
     <record id="entity_attribute_eidassupport" model="auth.saml.attribute.entity">
-        <field name="provider_id" ref="auth_saml_tawasta.provider_suomifi" />
+        <field name="provider_id" ref="auth_saml_tawasta.provider_telia" />
+        <field name="name_format">urn:oasis:names:tc:SAML:2.0:attrname-format:uri</field>
+        <field name="name">urn:oid:1.2.246.517.3003.111.14</field>
+        <field name="friendly_name">EidasSupport</field>
+        <field name="value">none</field>
+    </record>
+    <!-- Apro -->
+    <record id="entity_attribute_finnishauthmethod" model="auth.saml.attribute.entity">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_apro" />
+        <field name="name_format">urn:oasis:names:tc:SAML:2.0:attrname-format:uri</field>
+        <field name="name">FinnishAuthMethod</field>
+        <field name="friendly_name"></field>
+        <field name="value">http://ftn.ficora.fi/2017/loa3,http://ftn.ficora.fi/2017/loa2</field>
+    </record>
+    <record id="entity_attribute_ciphername" model="auth.saml.attribute.entity">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_apro" />
+        <field name="name_format">urn:oasis:names:tc:SAML:2.0:attrname-format:uri</field>
+        <field name="name">urn:oid:1.2.246.517.3003.111.26</field>
+        <field name="friendly_name">CipherName</field>
+        <field name="value">AES-GCM</field>
+    </record>
+    <record id="entity_attribute_eidassupport" model="auth.saml.attribute.entity">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_apro" />
         <field name="name_format">urn:oasis:names:tc:SAML:2.0:attrname-format:uri</field>
         <field name="name">urn:oid:1.2.246.517.3003.111.14</field>
         <field name="friendly_name">EidasSupport</field>

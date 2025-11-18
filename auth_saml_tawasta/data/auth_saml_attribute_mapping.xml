@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
-    <record id="provider_suomifi_firstname" model="auth.saml.attribute.mapping">
-        <field name="provider_id" ref="auth_saml_tawasta.provider_suomifi" />
+    <!-- Telia -->
+    <record id="provider_telia_firstname" model="auth.saml.attribute.mapping">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_telia" />
         <field name="attribute_name">givenName</field>
         <field name="field_name">firstname</field>
     </record>
-    <record id="provider_suomifi_lastname" model="auth.saml.attribute.mapping">
-        <field name="provider_id" ref="auth_saml_tawasta.provider_suomifi" />
+    <record id="provider_telia_lastname" model="auth.saml.attribute.mapping">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_telia" />
+        <field name="attribute_name">sn</field>
+        <field name="field_name">lastname</field>
+    </record>
+    <!-- Apro -->
+    <record id="provider_apro_firstname" model="auth.saml.attribute.mapping">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_apro" />
+        <field name="attribute_name">givenName</field>
+        <field name="field_name">firstname</field>
+    </record>
+    <record id="provider_apro_lastname" model="auth.saml.attribute.mapping">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_apro" />
         <field name="attribute_name">sn</field>
         <field name="field_name">lastname</field>
     </record>

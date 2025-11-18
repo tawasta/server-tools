@@ -228,24 +228,27 @@ class AuthSAMLController(http.Controller):
         #return set_cookie_and_redirect(url) # CHANGED FROM 14
         return set_cookie_and_redirect(url) # CHANGED FROM 14
 
-    @http.route("/<string:provider_name>/auth_saml/metadata", type="http", auth="none", csrf=False)
+    @http.route(["/<string:provider_name>/auth_saml/metadata", "/auth_saml/metadata"], type="http", auth="none", csrf=False)
     def saml_metadata(self, **kw):
         provider_name = kw.pop('provider_name', False)
-        provider = request.env['auth.saml.provider'].with_user(SUPERUSER_ID).search([
-            ('name', '=', provider_name)
-        ])
-        if len(provider) == 0:
-            return request.make_response(
-                "No such provider",
-                headers=[],
-                status=500,
-            )
+        if provider_name:
+            provider = request.env['auth.saml.provider'].with_user(SUPERUSER_ID).search([
+                ('name', '=', provider_name)
+            ])
+            if len(provider) == 0:
+                return request.make_response(
+                    "No such provider",
+                    headers=[],
+                    status=500,
+                )
+            else:
+                return request.make_response(
+                    provider[0]._metadata_string(),
+                    headers=[('Content-Type', 'application/xml')],
+                    status=200
+                )
         else:
-            return request.make_response(
-                provider[0]._metadata_string(),
-                headers=[('Content-Type', 'application/xml')],
-                status=200
-            )
+            super.saml_metadata(**kw)
 
     @http.route("/auth_saml/slo", type="http", auth="none", csrf=False)
     @fragment_to_query_string

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
-    <record id="provider_suomifi" model="auth.saml.provider">
+    <!-- Telia -->
+    <record id="provider_telia" model="auth.saml.provider">
         <field name="name">Telia</field>
         <field name="matching_attribute">urn:oid:1.2.246.21</field>
         <field name="active">False</field>
@@ -13,6 +14,23 @@
         <field name="group_ids" eval="[10]" />
         <field name="use_hashed_id">True</field>
         <field name="body">Telia-identification</field>
+        <field name="required_attributes">urn:oid:1.2.246.21,urn:oid:2.5.4.3</field>
+        <field name="optional_attributes">urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
+    </record>
+    <!-- Apro -->
+    <record id="provider_apro" model="auth.saml.provider">
+        <field name="name">Apro</field>
+        <field name="matching_attribute">urn:oid:1.2.246.21</field>
+        <field name="active">False</field>
+        <field name="autoredirect">False</field>
+        <field name="idp_metadata"> </field>
+        <field name="autoredirect">False</field>
+        <field name="sp_pem_private"> </field>
+        <field name="sp_pem_public"> </field>
+        <field name="sig_alg">SIG_RSA_SHA256</field>
+        <field name="group_ids" eval="[10]" />
+        <field name="use_hashed_id">True</field>
+        <field name="body">Apro testitunnistus</field>
         <field name="required_attributes">urn:oid:1.2.246.21,urn:oid:2.5.4.3</field>
         <field name="optional_attributes">urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
     </record>
