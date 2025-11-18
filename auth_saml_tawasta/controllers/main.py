@@ -57,6 +57,7 @@ def fragment_to_query_string(func):
 
 
 class SAMLLogin(Home):
+    """
     def _list_saml_providers_domain(self):
         return []
 
@@ -72,6 +73,7 @@ class SAMLLogin(Home):
             # avoid KeyError rendering template_auth_oauth_providers
             provider.setdefault("auth_link", "")
         return providers
+    """
 
     @http.route()
     def web_login(self, *args, **kw):
