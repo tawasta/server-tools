@@ -135,7 +135,7 @@ class AuthSAMLController(http.Controller):
         }
         return state
 
-    @http.route("/auth_saml/get_auth_request", type="http", auth="none")
+    @http.route("tawasta/auth_saml/get_auth_request", type="http", auth="none")
     def get_auth_request(self, pid, redirect=None):
         provider_id = int(pid)
 
@@ -161,6 +161,8 @@ class AuthSAMLController(http.Controller):
         to us... we need to validate it
         """
         saml_response = kw.get("SAMLResponse")
+
+        _logger.debug("SAMLRESPONSE: " + str(saml_response))
 
         if kw.get("RelayState") is None:
             # here we are in front of a client that went through

@@ -3,11 +3,22 @@
     <!-- Telia -->
     <record id="provider_telia_firstname" model="auth.saml.attribute.mapping">
         <field name="provider_id" ref="auth_saml_tawasta.provider_telia" />
-        <field name="attribute_name">givenName</field>
+        <field name="attribute_name">urn:oid:1.2.246.575.1.14</field>
         <field name="field_name">firstname</field>
     </record>
     <record id="provider_telia_lastname" model="auth.saml.attribute.mapping">
         <field name="provider_id" ref="auth_saml_tawasta.provider_telia" />
+        <field name="attribute_name">urn:oid:2.5.4.4</field>
+        <field name="field_name">lastname</field>
+    </record>
+    <!-- SuomiFI -->
+    <record id="provider_suomifi_firstname" model="auth.saml.attribute.mapping">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_suomifi" />
+        <field name="attribute_name">givenName</field>
+        <field name="field_name">firstname</field>
+    </record>
+    <record id="provider_suomifi_lastname" model="auth.saml.attribute.mapping">
+        <field name="provider_id" ref="auth_saml_tawasta.provider_suomifi" />
         <field name="attribute_name">sn</field>
         <field name="field_name">lastname</field>
     </record>
