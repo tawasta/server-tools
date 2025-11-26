@@ -6,6 +6,7 @@ import functools
 import json
 import logging
 import re
+import urllib
 
 # dependency name is pysaml2 # pylint: disable=W7936
 import saml2.xmldsig as ds
@@ -14,15 +15,17 @@ from saml2 import BINDING_HTTP_REDIRECT
 from saml2.ident import code, decode
 from saml2.response import StatusError
 from saml2.time_util import in_a_while
-from werkzeug.urls import url_quote_plus
+from werkzeug.urls import url_quote_plus, url_unquote_plus
 
 import odoo
-from odoo import SUPERUSER_ID, _, api, http, registry as registry_get
+from odoo import SUPERUSER_ID, _, api, exceptions, http, registry as registry_get
 from odoo.http import request
+from odoo.tools.misc import clean_context
 
-from odoo.addons.web.controllers.utils import ensure_db
+from odoo.addons.web.controllers.utils import _get_login_redirect_url, ensure_db
 from odoo.addons.web.controllers.session import Session
 from odoo.addons.web.controllers.home import Home
+from odoo.addons.auth_saml.controllers.main import AuthSAMLController
 
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +37,7 @@ _logger = logging.getLogger(__name__)
 
 def fragment_to_query_string(func):
     @functools.wraps(func)
-    def wrapper(self, req, **kw):
+    def wrapper(self, **kw):
         if not kw:
             return """<html><head><script>
                 var l = window.location;
@@ -46,7 +49,7 @@ def fragment_to_query_string(func):
                 }
                 window.location = r;
             </script></head><body></body></html>"""
-        return func(self, req, **kw)
+        return func(self, **kw)
 
     return wrapper
 
@@ -113,7 +116,7 @@ class SAMLLogin(Home):
         return response
 
 
-class AuthSAMLController(http.Controller):
+class TawastaAuthSAMLController(AuthSAMLController):
     def _get_saml_extra_relaystate(self):
         """
         Compute any additional extra state to be sent to the IDP so it can
@@ -135,7 +138,7 @@ class AuthSAMLController(http.Controller):
         }
         return state
 
-    @http.route("tawasta/auth_saml/get_auth_request", type="http", auth="none")
+    @http.route("/auth_saml/get_auth_request", type="http", auth="none")
     def get_auth_request(self, pid, redirect=None):
         provider_id = int(pid)
 
@@ -155,16 +158,14 @@ class AuthSAMLController(http.Controller):
 
     @http.route("/auth_saml/signin", type="http", auth="none", csrf=False)
     @fragment_to_query_string
-    def signin(self, req, **kw):
+    def signin(self, **kw):
         """
         Client obtained a saml token and passed it back
         to us... we need to validate it
         """
         saml_response = kw.get("SAMLResponse")
 
-        _logger.debug("SAMLRESPONSE: " + str(saml_response))
-
-        if kw.get("RelayState") is None:
+        if not kw.get("RelayState"):
             # here we are in front of a client that went through
             # some routes that "lost" its relaystate... this can happen
             # if the client visited his IDP and successfully logged in
@@ -178,57 +179,59 @@ class AuthSAMLController(http.Controller):
         state = json.loads(kw["RelayState"])
         provider = state["p"]
         dbname = state["d"]
-        context = state.get("c", {})
-        registry = registry_get(dbname)
+        if not http.db_filter([dbname]):
+            return BadRequest()
+        ensure_db(db=dbname)
 
-        with registry.cursor() as cr:
-            try:
-                env = api.Environment(cr, SUPERUSER_ID, context)
-                credentials = (
-                    env["res.users"]
-                    .sudo()
-                    .auth_saml(
-                        provider,
-                        saml_response,
-                        request.httprequest.url_root.rstrip("/"),
-                    )
+        request.update_context(**clean_context(state.get("c", {})))
+        try:
+            credentials = (
+                request.env["res.users"]
+                .with_user(SUPERUSER_ID)
+                .auth_saml(
+                    provider,
+                    saml_response,
+                    request.httprequest.url_root.rstrip("/"),
                 )
-                action = state.get("a")
-                menu = state.get("m")
-                redirect = (
-                    werkzeug.url_unquote_plus(state["r"]) if state.get("r") else False
-                )
-                if redirect:
-                    url = redirect
-                elif action:
-                    url = "/#action=%s" % action
-                elif menu:
-                    url = "/#menu_id=%s" % menu
-                cr.commit()  # pylint: disable=E8102
+            )
+            _logger.error("HERE credentials: " + str(credentials))
+            action = state.get("a")
+            menu = state.get("m")
+            redirect = (
+                werkzeug.urls.url_unquote_plus(state["r"]) if state.get("r") else False
+            )
+            url = "/web"
+            if redirect:
+                url = redirect
+            elif action:
+                url = "/#action=%s" % action
+            elif menu:
+                url = "/#menu_id=%s" % menu
+            request.session["_saml_user"] = True
+            pre_uid = request.session.authenticate(*credentials)
+            _logger.error("HERE pre_uid: " + str(pre_uid))
+            resp = request.redirect(_get_login_redirect_url(pre_uid, url), 303)
+            resp.autocorrect_location_header = False
+            return resp
 
-                # Save to session that we are a SAML2 logged in user
-                request.session["_saml_user"] = True
-                # Redirect and login user, successfully created
-                #return login_and_redirect(*credentials, redirect_url=url) # CHANGED FROM 14
-                return redirect(*credentials, redirect_url=url) # CHANGED FROM 14
+        except exceptions.AccessDenied:
+            # saml credentials not valid,
+            # user could be on a temporary session
+            _logger.info("SAML2: access denied")
 
-            except odoo.exceptions.AccessDenied:
-                # saml credentials not valid,
-                # user could be on a temporary session
-                _logger.info("SAML2: access denied")
+            url = "/web/login?saml_error=expired"
+            redirect = werkzeug.utils.redirect(url, 303)
+            redirect.autocorrect_location_header = False
+            return redirect
 
-                url = "/web/login?saml_error=expired"
-                redirect = werkzeug.utils.redirect(url, 303)
-                redirect.autocorrect_location_header = False
-                return redirect
+        except Exception as e:
+            # signup error
+            _logger.exception("SAML2: failure - %s", str(e))
+            url = "/web/login?saml_error=access-denied"
 
-            except Exception as e:
-                # signup error
-                _logger.exception("SAML2: failure - %s", str(e))
-                url = "/web/login?saml_error=access-denied"
-
-        #return set_cookie_and_redirect(url) # CHANGED FROM 14
-        return set_cookie_and_redirect(url) # CHANGED FROM 14
+        redirect = request.redirect(url, 303)
+        redirect.autocorrect_location_header = False
+        return redirect
 
     @http.route(["/<string:provider_name>/auth_saml/metadata", "/auth_saml/metadata"], type="http", auth="none", csrf=False)
     def saml_metadata(self, **kw):
