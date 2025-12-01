@@ -194,7 +194,6 @@ class TawastaAuthSAMLController(AuthSAMLController):
                     request.httprequest.url_root.rstrip("/"),
                 )
             )
-            _logger.error("HERE credentials: " + str(credentials))
             action = state.get("a")
             menu = state.get("m")
             redirect = (
@@ -209,7 +208,6 @@ class TawastaAuthSAMLController(AuthSAMLController):
                 url = "/#menu_id=%s" % menu
             request.session["_saml_user"] = True
             pre_uid = request.session.authenticate(*credentials)
-            _logger.error("HERE pre_uid: " + str(pre_uid))
             resp = request.redirect(_get_login_redirect_url(pre_uid, url), 303)
             resp.autocorrect_location_header = False
             return resp
@@ -247,8 +245,12 @@ class TawastaAuthSAMLController(AuthSAMLController):
                     status=500,
                 )
             else:
+                if provider[0].sp_baseurl:
+                    base_url = provider[0].sp_baseurl
+                else:
+                    base_url = None
                 return request.make_response(
-                    provider[0]._metadata_string(),
+                    provider[0]._metadata_string(base_url=base_url),
                     headers=[('Content-Type', 'application/xml')],
                     status=200
                 )
@@ -347,8 +349,6 @@ class SAMLSession(Session):
     def logout(self, redirect="/web"):
         """Logout user from IDP as well"""
 
-        # TODO
-        """
         saml_token = (
             request.env["auth_saml.token"]
             .sudo()
@@ -358,7 +358,6 @@ class SAMLSession(Session):
                 ]
             )
         )
-        """
         if request.session.get("_saml_user") and saml_token:
             _logger.warning("Initiating SAML SLO-sequence...")
             # Here we create LogoutRequest and send it to IdP

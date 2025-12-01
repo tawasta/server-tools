@@ -66,7 +66,7 @@ class ResUser(models.Model):
     def create(self, vals_list):
         result = super().create(vals_list)
         result._autoremove_password_if_saml()
-        result._ensure_saml_token_exists()
+        self._ensure_saml_token_exists()
         return result
 
     def _saml_signup(self, vals):
@@ -76,7 +76,6 @@ class ResUser(models.Model):
         :param vals: dict, user values
         :return: list
         """
-        _logger.error("HERE saml_signup: vals: " + str(vals))
         return self.sudo().create(vals)
 
     def _auth_saml_signin(self, provider, validation, saml_response):
@@ -114,29 +113,33 @@ class ResUser(models.Model):
                     ]
                 }
             )
-        else:
-            token_osv = self.env["auth_saml.token"]
-            token_ids = token_osv.search(
-                [("saml_provider_id", "=", provider), ("user_id", "=", user.id)]
+            user._ensure_saml_token_exists()
+            self.env.cr.commit()
+        elif len(user) != 1:
+            raise AccessDenied()
+
+        token_osv = self.env["auth_saml.token"]
+        token_ids = token_osv.search(
+            [("saml_provider_id", "=", provider), ("user_id", "=", user.id)]
+        )
+        # TODO: Save session info to somewhere - tokens -model?
+        name_id = validation.get("name_id")
+        if token_ids:
+            token_ids.write(
+                {
+                    "saml_access_token": saml_response,
+                    "saml_name_id": name_id,
+                }
             )
-            # TODO: Save session info to somewhere - tokens -model?
-            name_id = validation.get("name_id")
-            if token_ids:
-                token_ids.write(
-                    {
-                        "saml_access_token": saml_response,
-                        "saml_name_id": name_id,
-                    }
-                )
-            else:
-                _logger.info("Creating auth_saml.token")
-                token_ids = token_osv.create(
-                    {
-                        "saml_access_token": saml_response,
-                        "saml_provider_id": provider,
-                        "user_id": user.id,
-                        "saml_name_id": name_id,
-                    }
-                )
+        else:
+            _logger.info("Creating auth_saml.token")
+            token_ids = token_osv.create(
+                {
+                    "saml_access_token": saml_response,
+                    "saml_provider_id": provider,
+                    "user_id": user.id,
+                    "saml_name_id": name_id,
+                }
+            )
 
         return super()._auth_saml_signin(provider, validation, saml_response)

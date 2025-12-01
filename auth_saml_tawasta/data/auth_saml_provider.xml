@@ -7,7 +7,7 @@
         <field name="active">False</field>
         <field name="autoredirect">False</field>
         <field name="idp_metadata"> </field>
-        <field name="sp_baseurl">tawasta</field>
+        <field name="sp_baseurl"></field>
         <field name="autoredirect">False</field>
         <field name="entity_id">https://erp17dev.futural.fi</field>
         <field name="sp_pem_private"> </field>
@@ -27,7 +27,7 @@
         <field name="autoredirect">False</field>
         <field name="entity_id">https://erp17dev.futural.fi</field>
         <field name="idp_metadata"> </field>
-        <field name="sp_baseurl">tawasta</field>
+        <field name="sp_baseurl"></field>
         <field name="autoredirect">False</field>
         <field name="sp_pem_private"> </field>
         <field name="sp_pem_public"> </field>
@@ -45,7 +45,7 @@
         <field name="active">False</field>
         <field name="autoredirect">False</field>
         <field name="idp_metadata"> </field>
-        <field name="sp_baseurl">tawasta</field>
+        <field name="sp_baseurl"></field>
         <field name="autoredirect">False</field>
         <field name="entity_id">https://erp17dev.futural.fi</field>
         <field name="sp_pem_private"> </field>

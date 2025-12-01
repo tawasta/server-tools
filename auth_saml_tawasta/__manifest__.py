@@ -31,6 +31,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/auth_saml.xml",
+        "views/auth_saml_token.xml",
         "data/auth_saml_provider.xml",
         "data/auth_saml_attribute_mapping.xml",
         "data/auth_saml_attribute_entity.xml",
