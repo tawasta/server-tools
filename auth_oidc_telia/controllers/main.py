@@ -251,7 +251,7 @@ class OAuthController(http.Controller):
         redirect.autocorrect_location_header = False
         return redirect
 
-    @http.route('/<string:provider_name>/openid_relying_party/signed_jwks.jwt', type='http', auth='none')
+    @http.route(['/uas/oauth2/metadata.jwks', '/<string:provider_name>/openid_relying_party/signed_jwks.jwt'], type='http', auth='none')
     def openid_relying_party_signed_jwks(self, **kw):
         provider_name = kw.pop('provider_name', False)
         provider = request.env['auth.oauth.provider'].with_user(SUPERUSER_ID).search([
