@@ -2,19 +2,19 @@
 # Copyright 2021 ACSONE SA/NV <https://acsone.eu>
 # License: AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
-import base64
+import json
 import logging
 import secrets
-import json
-import jwcrypto
 import uuid
 
+import jwcrypto
 import requests
+from jwcrypto import jwe, jwk, jwt
 
-from odoo import api, fields, models, tools
-from jwcrypto import jwk, jwt, jwe
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
+
 
 class AuthOauthProvider(models.Model):
     _inherit = "auth.oauth.provider"
@@ -29,8 +29,8 @@ class AuthOauthProvider(models.Model):
         required=True,
         default="access_token",
     )
-    audience = fields.Char(string="Audience")
-    token_audience = fields.Char(string="Token Audience")
+    audience = fields.Char()
+    token_audience = fields.Char()
     token_map = fields.Char(
         help="Some Oauth providers don't map keys in their responses "
         "exactly as required.  It is important to ensure user_id and "
@@ -47,8 +47,12 @@ class AuthOauthProvider(models.Model):
     token_endpoint = fields.Char(
         string="Token URL", help="Required for OpenID Connect authorization code flow."
     )
-    jwks_uri = fields.Char(string="Provider JWKS URL", help="Required for OpenID Connect.")
-    jwks_local = fields.Text(string="Local JWKS", inverse="_compute_local_jwks", default="")
+    jwks_uri = fields.Char(
+        string="Provider JWKS URL", help="Required for OpenID Connect."
+    )
+    jwks_local = fields.Text(
+        string="Local JWKS", inverse="_inverse_local_jwks", default=""
+    )
     jwks_public_local = fields.Text(string="Public keys of local JWKS", default="")
     use_jwks = fields.Boolean(string="Use JWKS")
     auth_link_params = fields.Char(
@@ -56,15 +60,15 @@ class AuthOauthProvider(models.Model):
         "For example: {'prompt':'select_account'}"
     )
 
-    @api.onchange('jwks_local')
-    def _compute_local_jwks(self):
+    @api.onchange("jwks_local")
+    def _inverse_local_jwks(self):
         if not self.jwks_local or self.jwks_local.strip() == "":
-            enc = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid=str(uuid.uuid4()))
+            enc = jwcrypto.jwk.JWK.generate(kty="RSA", size=2048, kid=str(uuid.uuid4()))
             enc_dict = dict(enc)
-            enc_dict['use'] = "enc"
-            sig = jwcrypto.jwk.JWK.generate(kty='RSA', size=2048, kid=str(uuid.uuid4()))
+            enc_dict["use"] = "enc"
+            sig = jwcrypto.jwk.JWK.generate(kty="RSA", size=2048, kid=str(uuid.uuid4()))
             sig_dict = dict(sig)
-            sig_dict['use'] = "sig"
+            sig_dict["use"] = "sig"
             self.jwks_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
             self._compute_local_public_jwks()
         else:
@@ -85,17 +89,21 @@ class AuthOauthProvider(models.Model):
             else:
                 try:
                     # Check that jwks_local is valid JSON and prettify it
-                    provider.jwks_local = json.dumps(json.loads(provider.jwks_local), indent=2)
+                    provider.jwks_local = json.dumps(
+                        json.loads(provider.jwks_local), indent=2
+                    )
                     enc = provider.find_jwk_by_use("enc")
                     enc_dict = enc.export(private_key=False, as_dict=True)
-                    enc_dict['use'] = "enc"
-                    enc_dict['alg'] = "RSA256"
+                    enc_dict["use"] = "enc"
+                    enc_dict["alg"] = "RSA256"
                     sig = provider.find_jwk_by_use("sig")
                     sig_dict = sig.export(private_key=False, as_dict=True)
-                    sig_dict['use'] = "sig"
-                    sig_dict['alg'] = "RSA256"
-                    provider.jwks_public_local = json.dumps(dict(keys=[enc_dict, sig_dict]), indent=2)
-                except:
+                    sig_dict["use"] = "sig"
+                    sig_dict["alg"] = "RSA256"
+                    provider.jwks_public_local = json.dumps(
+                        dict(keys=[enc_dict, sig_dict]), indent=2
+                    )
+                except Exception:
                     provider.jwks_public_local = ""
 
     def _telia_get_keys(self):
@@ -125,5 +133,5 @@ class AuthOauthProvider(models.Model):
         token = jwe.JWE()
         token.deserialize(id_token, key=local_jwks)
         id_jwt = jwt.JWT()
-        id_jwt.deserialize(token.payload.decode('utf-8'), key=jwks)
+        id_jwt.deserialize(token.payload.decode("utf-8"), key=jwks)
         return json.loads(str(id_jwt.claims))

@@ -11,13 +11,13 @@
                 <field name="token_endpoint" />
                 <field name="token_map" />
                 <field name="use_jwks" />
-                <label name="jwks_local" for="jwks_local"/>
+                <label name="jwks_local" for="jwks_local" />
                 <details colspan="1">
                     <summary>
                     </summary>
                         <field name="jwks_local" nolabel="1" />
                 </details>
-                <label name="jwks_public_local" for="jwks_public_local"/>
+                <label name="jwks_public_local" for="jwks_public_local" />
                 <details colspan="1">
                     <summary>
                     </summary>

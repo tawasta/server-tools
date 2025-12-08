@@ -9,13 +9,12 @@ import requests
 from odoo import api, models
 from odoo.exceptions import AccessDenied
 from odoo.http import request
-from jwcrypto import jwk, jwt, jwe
 
 _logger = logging.getLogger(__name__)
 
+
 class ResUsers(models.Model):
     _inherit = "res.users"
-
 
     def _auth_oauth_get_tokens_auth_code_flow(self, oauth_provider, params, jwt):
         # https://openid.net/specs/openid-connect-core-1_0.html#AuthResponse
@@ -26,21 +25,24 @@ class ResUsers(models.Model):
         base_url = request.httprequest.url_root
         if oauth_provider.client_secret:
             auth = (oauth_provider.client_id, oauth_provider.client_secret)
-        if oauth_provider.use_jwks == True:
+        if oauth_provider.use_jwks:
             redirect_uri = base_url + "redirect"
-            if(str(base_url) != "http://localhost:8069/"):
+            if str(base_url) != "http://localhost:8069/":
                 redirect_uri = str(str(base_url) + "signin_telia")
-            request_data=dict(
+            request_data = dict(
                 grant_type="authorization_code",
                 redirect_uri=redirect_uri,
                 code=code,
                 client_id=oauth_provider.client_id,
-                client_assertion_type = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-                client_assertion = jwt.serialize(),
+                client_assertion_type="urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                client_assertion=jwt.serialize(),
             )
-            req = requests.Request("POST", oauth_provider.token_endpoint, data=request_data)
+            req = requests.Request(
+                "POST", oauth_provider.token_endpoint, data=request_data
+            )
             prepared = req.prepare()
-            #response = requests.post( oauth_provider.token_endpoint, data=request_data, auth=auth, timeout=10,)
+            # response = requests.post( oauth_provider.token_endpoint,
+            # data=request_data, auth=auth, timeout=10,)
             s = requests.Session()
             response = s.send(prepared)
         else:
@@ -63,24 +65,24 @@ class ResUsers(models.Model):
 
     @api.model
     def _generate_signup_values(self, provider, validation, params):
-        oauth_uid = validation['user_id']
-        email = validation.get('email', 'provider_%s_user_%s' % (provider, oauth_uid))
-        firstname = validation.get('firstname', "")
-        lastname = validation.get('lastname', "")
+        oauth_uid = validation["user_id"]
+        email = validation.get("email", f"provider_{provider}_user_{oauth_uid}")
+        firstname = validation.get("firstname", "")
+        lastname = validation.get("lastname", "")
         if firstname != "" and lastname != "":
             name = firstname + " " + lastname
         else:
-            name = validation.get('name', email)
+            name = validation.get("name", email)
         return {
-            'firstname': firstname,
-            'lastname': lastname,
-            'name': name,
-            'login': email,
-            'email': email,
-            'oauth_provider_id': provider,
-            'oauth_uid': oauth_uid,
-            'oauth_access_token': params['access_token'],
-            'active': True,
+            "firstname": firstname,
+            "lastname": lastname,
+            "name": name,
+            "login": email,
+            "email": email,
+            "oauth_provider_id": provider,
+            "oauth_uid": oauth_uid,
+            "oauth_access_token": params["access_token"],
+            "active": True,
         }
 
     @api.model
