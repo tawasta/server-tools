@@ -113,7 +113,6 @@ class ResUser(models.Model):
                     ]
                 }
             )
-            user._ensure_saml_token_exists()
             self.env.cr.commit()
         elif len(user) != 1:
             raise AccessDenied()
