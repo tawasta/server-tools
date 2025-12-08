@@ -3,9 +3,12 @@
     <record model="ir.ui.view" id="view_saml_provider_form_tawasta">
         <field name="name">auth.saml.provider.form</field>
         <field name="model">auth.saml.provider</field>
-        <field name="inherit_id" ref="auth_saml.view_saml_provider_form"></field>
+        <field name="inherit_id" ref="auth_saml.view_saml_provider_form" />
         <field name="arch" type="xml">
-            <xpath expr="//form/sheet/group/group[@name='odoo_settings']" position="inside">
+            <xpath
+                expr="//form/sheet/group/group[@name='odoo_settings']"
+                position="inside"
+            >
                 <label for="group_ids" />
                 <div>
                     <field name="group_ids" />
@@ -33,7 +36,10 @@
                 <group string="Attribute settings" name="attribute_settings">
                     <label for="entity_attribute_ids" />
                     <div>
-                        <field name="entity_attribute_ids" context="{'default_provider_id': id}" >
+                        <field
+                            name="entity_attribute_ids"
+                            context="{'default_provider_id': id}"
+                        >
                             <tree editable="bottom">
                                 <field name="name_format" />
                                 <field name="name" />

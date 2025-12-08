@@ -1,7 +1,7 @@
 from odoo import fields, models
 
-class AuthSamlAttributeEntity(models.Model):
 
+class AuthSamlAttributeEntity(models.Model):
     _name = "auth.saml.attribute.entity"
     _description = "Entity attributes for SAML provider"
 
@@ -17,12 +17,10 @@ class AuthSamlAttributeEntity(models.Model):
         required=True,
     )
     name = fields.Char(
-        string="Name",
         help="What's the attributes name",
         required=True,
     )
     friendly_name = fields.Char(
-        string="Friendly name",
         help="What's the attributes friendly name",
     )
     value = fields.Char(

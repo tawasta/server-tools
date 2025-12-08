@@ -7,8 +7,7 @@
         <field name="active">False</field>
         <field name="autoredirect">False</field>
         <field name="idp_metadata"> </field>
-        <field name="sp_baseurl"></field>
-        <field name="autoredirect">False</field>
+        <field name="sp_baseurl" />
         <field name="entity_id">https://erp17dev.futural.fi</field>
         <field name="sp_pem_private"> </field>
         <field name="sp_pem_public"> </field>
@@ -17,7 +16,9 @@
         <field name="use_hashed_id">False</field>
         <field name="body">Telia login</field>
         <field name="required_attributes">urn:oid:1.2.246.21,urn:oid:2.5.4.3</field>
-        <field name="optional_attributes">urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
+        <field
+            name="optional_attributes"
+        >urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
     </record>
     <!-- SuomiFI -->
     <record id="provider_suomifi" model="auth.saml.provider">
@@ -27,8 +28,7 @@
         <field name="autoredirect">False</field>
         <field name="entity_id">https://erp17dev.futural.fi</field>
         <field name="idp_metadata"> </field>
-        <field name="sp_baseurl"></field>
-        <field name="autoredirect">False</field>
+        <field name="sp_baseurl" />
         <field name="sp_pem_private"> </field>
         <field name="sp_pem_public"> </field>
         <field name="sig_alg">SIG_RSA_SHA256</field>
@@ -36,7 +36,9 @@
         <field name="use_hashed_id">False</field>
         <field name="body">Suomi.fi login</field>
         <field name="required_attributes">urn:oid:1.2.246.21,urn:oid:2.5.4.3</field>
-        <field name="optional_attributes">urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
+        <field
+            name="optional_attributes"
+        >urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
     </record>
     <!-- Apro -->
     <record id="provider_apro" model="auth.saml.provider">
@@ -45,8 +47,7 @@
         <field name="active">False</field>
         <field name="autoredirect">False</field>
         <field name="idp_metadata"> </field>
-        <field name="sp_baseurl"></field>
-        <field name="autoredirect">False</field>
+        <field name="sp_baseurl" />
         <field name="entity_id">https://erp17dev.futural.fi</field>
         <field name="sp_pem_private"> </field>
         <field name="sp_pem_public"> </field>
@@ -55,6 +56,8 @@
         <field name="use_hashed_id">False</field>
         <field name="body">Apro login</field>
         <field name="required_attributes">urn:oid:1.2.246.21,urn:oid:2.5.4.3</field>
-        <field name="optional_attributes">urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
+        <field
+            name="optional_attributes"
+        >urn:oid:2.16.840.1.113730.3.1.241,urn:oid:2.5.4.42,urn:oid:2.5.4.4,http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName</field>
     </record>
 </odoo>

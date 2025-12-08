@@ -5,27 +5,22 @@
 import functools
 import json
 import logging
-import re
-import urllib
 
 # dependency name is pysaml2 # pylint: disable=W7936
-import saml2.xmldsig as ds
 import werkzeug.utils
 from saml2 import BINDING_HTTP_REDIRECT
-from saml2.ident import code, decode
+from saml2.ident import code
 from saml2.response import StatusError
-from saml2.time_util import in_a_while
-from werkzeug.urls import url_quote_plus, url_unquote_plus
+from werkzeug.exceptions import BadRequest
+from werkzeug.urls import url_quote_plus
 
-import odoo
-from odoo import SUPERUSER_ID, _, api, exceptions, http, registry as registry_get
+from odoo import SUPERUSER_ID, _, exceptions, http
 from odoo.http import request
 from odoo.tools.misc import clean_context
 
-from odoo.addons.web.controllers.utils import _get_login_redirect_url, ensure_db
-from odoo.addons.web.controllers.session import Session
-from odoo.addons.web.controllers.home import Home
 from odoo.addons.auth_saml.controllers.main import AuthSAMLController
+from odoo.addons.web.controllers.home import Home
+from odoo.addons.web.controllers.utils import _get_login_redirect_url, ensure_db
 
 _logger = logging.getLogger(__name__)
 
@@ -86,7 +81,6 @@ class SAMLLogin(Home):
             and request.session.uid
             and request.params.get("redirect")
         ):
-
             # Redirect if already logged in and redirect param is present
             return http.redirect_with_hash(request.params.get("redirect"))
 
@@ -231,13 +225,20 @@ class TawastaAuthSAMLController(AuthSAMLController):
         redirect.autocorrect_location_header = False
         return redirect
 
-    @http.route(["/<string:provider_name>/auth_saml/metadata", "/auth_saml/metadata"], type="http", auth="none", csrf=False)
+    @http.route(
+        ["/<string:provider_name>/auth_saml/metadata", "/auth_saml/metadata"],
+        type="http",
+        auth="none",
+        csrf=False,
+    )
     def saml_metadata(self, **kw):
-        provider_name = kw.pop('provider_name', False)
+        provider_name = kw.pop("provider_name", False)
         if provider_name:
-            provider = request.env['auth.saml.provider'].with_user(SUPERUSER_ID).search([
-                ('name', '=', provider_name)
-            ])
+            provider = (
+                request.env["auth.saml.provider"]
+                .with_user(SUPERUSER_ID)
+                .search([("name", "=", provider_name)])
+            )
             if len(provider) == 0:
                 return request.make_response(
                     "No such provider",
@@ -251,8 +252,8 @@ class TawastaAuthSAMLController(AuthSAMLController):
                     base_url = None
                 return request.make_response(
                     provider[0]._metadata_string(base_url=base_url),
-                    headers=[('Content-Type', 'application/xml')],
-                    status=200
+                    headers=[("Content-Type", "application/xml")],
+                    status=200,
                 )
         else:
             super.saml_metadata(**kw)
@@ -262,8 +263,10 @@ class TawastaAuthSAMLController(AuthSAMLController):
     def slo_request(self, req, *args, **kwargs):
         """
         This method is called from IdP in two different cases:
-        1. We sent a logout request to IdP and IdP responses to this method (LogoutResponse)
-        2. IdP sends logout request to us and we respond to IdP (LogoutRequest handling)
+        1. We sent a logout request to IdP and IdP responses to this method
+            (LogoutResponse)
+        2. IdP sends logout request to us and we respond to IdP
+            (LogoutRequest handling)
 
         :param req: request calling this method
         :param args: args

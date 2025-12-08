@@ -1,16 +1,17 @@
-from odoo import api, fields, models
-from lxml import etree
-
 import copy
 import logging
 import urllib.parse
 
 # dependency name is pysaml2 # pylint: disable=W7936
 import saml2
-from saml2.config import Config as Saml2Config
 import saml2.xmldsig as ds
+from lxml import etree
+from saml2.config import Config as Saml2Config
+
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
+
 
 class AuthSamlProvider(models.Model):
     _inherit = "auth.saml.provider"
@@ -129,12 +130,12 @@ class AuthSamlProvider(models.Model):
                         "assertion_consumer_service": [
                             (acs_url, saml2.BINDING_HTTP_REDIRECT),
                             (acs_url, saml2.BINDING_HTTP_POST),
-                            ],
+                        ],
                         "single_logout_service": [
                             (slo_url, saml2.BINDING_HTTP_REDIRECT),
                             (slo_url, saml2.BINDING_HTTP_POST),
-                            ],
-                        },
+                        ],
+                    },
                     "required_attributes": required_attrs,
                     "optional_attributes": optional_attrs,
                     "allow_unsolicited": False,
@@ -147,31 +148,31 @@ class AuthSamlProvider(models.Model):
                             {
                                 "lang": "fi",
                                 "text": self.env.ref("base.main_company").name,
-                                },
+                            },
                             {
                                 "lang": "sv",
                                 "text": self.env.ref("base.main_company").name,
-                                },
+                            },
                             {
                                 "lang": "en",
                                 "text": self.env.ref("base.main_company").name,
-                                },
-                            ],
+                            },
+                        ],
                         "description": [
                             {
                                 "lang": "fi",
                                 "text": self.env.ref("base.main_company").name,
-                                },
+                            },
                             {
                                 "lang": "sv",
                                 "text": self.env.ref("base.main_company").name,
-                                },
+                            },
                             {
                                 "lang": "en",
                                 "text": self.env.ref("base.main_company").name,
-                                },
-                            ],
-                        },
+                            },
+                        ],
+                    },
                     "name_id_policy_format": name_id_policy,
                 },
             },

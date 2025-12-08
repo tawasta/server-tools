@@ -22,8 +22,8 @@
     "name": "Futural SAML",
     "version": "17.0.1.0.0",
     "category": "Tools",
-    "author": "Futural Oy",
-    "website": "https://gitlab.com/tawasta/odoo/server-tools",
+    "author": "Futural",
+    "website": "https://github.com/tawasta/server-tools",
     "license": "AGPL-3",
     "depends": ["base_setup", "auth_saml", "partner_firstname"],
     "external_dependencies": {},
@@ -35,7 +35,7 @@
         "data/auth_saml_provider.xml",
         "data/auth_saml_attribute_mapping.xml",
         "data/auth_saml_attribute_entity.xml",
-        ],
+    ],
     "installable": True,
-    "auto_install": False
+    "auto_install": False,
 }
