@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="provider_telia" model="auth.oauth.provider">
+        <field name="name">Telia</field>
+        <field name="flow">id_token_code</field>
+        <field name="enabled">True</field>
+        <field name="audience">https://tunnistus-pp.telia.fi/uas</field>
+        <field
+            name="token_audience"
+        >https://tunnistus-pp.telia.fi/uas/oauth2/token</field>
+        <field name="jwks_local" />
+    <field
+            name="token_map"
+        >urn:oid:1.2.246.21=user_id http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier=user_id urn:oid:2.5.4.4=lastname urn:oid:1.2.246.575.1.14=firstname</field>
+        <field name="client_id" />
+        <field
+            name="auth_endpoint"
+        >https://tunnistus-pp.telia.fi/uas/oauth2/authorization</field>
+        <field name="scope">openid</field>
+        <field
+            name="token_endpoint"
+        >https://tunnistus-pp.telia.fi/uas/oauth2/token</field>
+        <field
+            name="jwks_uri"
+        >https://tunnistus-pp.telia.fi/uas/oauth2/metadata.jwks</field>
+        <field name="use_jwks">True</field>
+        <field name="css_class">fa fa-fw</field>
+        <field name="body">Log in with Telia</field>
+    </record>
+</odoo>
