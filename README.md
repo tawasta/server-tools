@@ -6,4 +6,11 @@ Server Tools
 ============
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[auth_oauth_hidden](auth_oauth_hidden/) | 19.0.1.0.0 |  | Adds a parameter for OAuth providers to allow hiding them
+
 [//]: # (end addons)
