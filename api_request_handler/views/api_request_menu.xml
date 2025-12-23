@@ -6,6 +6,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_api_request" name="API Requests" parent="base.next_id_9" action="action_api_request" sequence="120"/>
+    <menuitem
+        id="menu_api_request"
+        name="API Requests"
+        parent="base.next_id_9"
+        action="action_api_request"
+        sequence="120"
+    />
 
 </odoo>

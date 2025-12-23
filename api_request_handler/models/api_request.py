@@ -1,6 +1,7 @@
-import httpx
 import logging
+
 from odoo import fields, models
+
 _logger = logging.getLogger(__name__)
 
 
@@ -10,12 +11,14 @@ class ApiRequest(models.Model):
     _order = "create_date desc"
 
     name = fields.Char(compute="_compute_name", store=True)
-    method = fields.Selection([
-        ("GET", "GET"),
-        ("POST", "POST"),
-        ("PUT", "PUT"),
-        ("DELETE", "DELETE"),
-    ])
+    method = fields.Selection(
+        [
+            ("GET", "GET"),
+            ("POST", "POST"),
+            ("PUT", "PUT"),
+            ("DELETE", "DELETE"),
+        ]
+    )
     endpoint = fields.Char()
     headers = fields.Text()
     params = fields.Text()

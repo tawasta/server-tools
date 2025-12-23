@@ -5,13 +5,13 @@
         <field name="model">api.request</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="method"/>
-                <field name="endpoint"/>
-                <field name="status_code"/>
-                <field name="successful"/>
-                <field name="res_model"/>
-                <field name="res_id"/>
-                <field name="create_date"/>
+                <field name="method" />
+                <field name="endpoint" />
+                <field name="status_code" />
+                <field name="successful" />
+                <field name="res_model" />
+                <field name="res_id" />
+                <field name="create_date" />
             </tree>
         </field>
     </record>

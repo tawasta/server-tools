@@ -5,15 +5,35 @@
         <field name="model">api.request</field>
         <field name="arch" type="xml">
             <search>
-                <field name="method"/>
-                <field name="endpoint" string="Endpoint" filter_domain="['|', ('endpoint', 'ilike', self), ('endpoint', '=', False)]"/>
-                <field name="status_code"/>
-                <field name="successful"/>
-                <field name="res_model" string="Related Model" filter_domain="['|', ('res_model', 'ilike', self), ('res_model', '=', False)]"/>
-                <field name="res_id" string="Related Record ID"/>
-                <filter string="Successful" name="successful" domain="[('successful', '=', True)]"/>
-                <filter string="Failed" name="failed" domain="[('successful', '=', False)]"/>
-                <filter string="Recent" name="recent" domain="[('create_date', '>=', (context_today().strftime('%Y-%m-%d') + ' 00:00:00'))]"/>
+                <field name="method" />
+                <field
+                    name="endpoint"
+                    string="Endpoint"
+                    filter_domain="['|', ('endpoint', 'ilike', self), ('endpoint', '=', False)]"
+                />
+                <field name="status_code" />
+                <field name="successful" />
+                <field
+                    name="res_model"
+                    string="Related Model"
+                    filter_domain="['|', ('res_model', 'ilike', self), ('res_model', '=', False)]"
+                />
+                <field name="res_id" string="Related Record ID" />
+                <filter
+                    string="Successful"
+                    name="successful"
+                    domain="[('successful', '=', True)]"
+                />
+                <filter
+                    string="Failed"
+                    name="failed"
+                    domain="[('successful', '=', False)]"
+                />
+                <filter
+                    string="Recent"
+                    name="recent"
+                    domain="[('create_date', '>=', (context_today().strftime('%Y-%m-%d') + ' 00:00:00'))]"
+                />
             </search>
         </field>
     </record>
