@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_api_request" model="ir.actions.act_window">
+        <field name="name">API Requests</field>
+        <field name="res_model">api.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_api_request" name="API Requests" parent="base.next_id_9" action="action_api_request" sequence="120"/>
+
+</odoo>
