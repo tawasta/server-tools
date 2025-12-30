@@ -4,7 +4,7 @@ import logging
 import httpx
 
 from odoo import _, api, models
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -47,13 +47,13 @@ class ApiRequestMixin(models.Model):
             httpx.Response: The API response.
 
         Raises:
-            UserError: If the request fails or the method is invalid.
+            ValidationError: If the request fails or the method is invalid.
         """
         method = method.upper()
         valid_methods = ["GET", "POST", "PUT", "DELETE"]
 
         if method not in valid_methods:
-            raise UserError(_("Unsupported HTTP method: %s") % method)
+            raise ValidationError(_("Unsupported HTTP method: %s") % method)
 
         _logger.debug(
             "Making %s request to %s with:\n"
@@ -120,7 +120,7 @@ class ApiRequestMixin(models.Model):
             response (httpx.Response): The API response.
 
         Raises:
-            UserError: If the response status code indicates an error.
+            ValidationError: If the response status code indicates an error.
         """
         if not 200 <= response.status_code < 300:
             error_msg = (
@@ -128,7 +128,7 @@ class ApiRequestMixin(models.Model):
                 f"{response.text}"
             )
             _logger.error(error_msg)
-            raise UserError(_(error_msg))
+            raise ValidationError(_(error_msg))
 
         return True
 

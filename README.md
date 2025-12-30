@@ -11,7 +11,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[api_request_handler](api_request_handler/) | 17.0.1.0.0 |  | Base module for handling API/HTTP requests
+[api_request_handler](api_request_handler/) | 17.0.1.1.0 |  | Base module for handling API/HTTP requests
 [auditlog_security_group](auditlog_security_group/) | 17.0.1.0.0 |  | Add a new security group that allows users to read auditlogs
 [auth_oauth_email_login](auth_oauth_email_login/) | 17.0.1.0.0 |  | Find correct user with email when logging in with oAuth2
 [auth_oauth_gsuite](auth_oauth_gsuite/) | 17.0.1.0.0 |  | Adds Google G Suite specific options
