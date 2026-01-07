@@ -21,7 +21,7 @@
 {
     "name": "API Request Handler",
     "summary": "Base module for handling API/HTTP requests",
-    "version": "17.0.1.1.0",
+    "version": "17.0.1.1.1",
     "category": "Tools",
     "website": "https://github.com/tawasta/server-tools",
     "author": "Futural",
