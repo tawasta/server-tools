@@ -128,7 +128,8 @@ class ApiRequestMixin(models.Model):
                 f"{response.text}"
             )
             _logger.error(error_msg)
-            raise ValidationError(_(error_msg))
+            # TODO: change the error handling based on config settings?
+            raise ValidationError(response.text)
 
         return True
 
