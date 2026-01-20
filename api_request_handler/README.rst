@@ -15,7 +15,10 @@ Configuration
 
 Usage
 =====
-\-
+This module provides a mixin class `ApiRequestMixin` that can be inherited by any Odoo model to enable API request handling capabilities. The mixin includes a method `_api_request_make` that allows you to make HTTP requests to external APIs.
+
+The _api_request_make is called in the same way as httpx.request method,
+but it will also log the request and response details in the `api.request` model.
 
 Known issues / Roadmap
 ======================
