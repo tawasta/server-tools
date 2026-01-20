@@ -19,12 +19,13 @@ class ApiRequestMixin(models.Model):
         self,
         method,
         endpoint,
-        headers=None,
-        values=None,
         params=None,
+        content=None,
+        values=None,
         files=None,
+        json=None,
+        headers=None,
         auth=None,
-        payload=None,
         timeout=30.0,
         verify_ssl=True,
     ) -> httpx.Response:
@@ -32,16 +33,17 @@ class ApiRequestMixin(models.Model):
 
         Args:
             method (str): HTTP method (GET, POST, PUT, DELETE).
-            endpoint (str): API endpoint URL.
-            headers (dict, optional): Request headers. Defaults to None.
-            values (dict, optional): Form data payload. Defaults to None.
+            endpoint (str): The API endpoint URL.
             params (dict, optional): Query parameters. Defaults to None.
+            content (bytes, optional): Raw request body. Defaults to None.
+            values (dict, optional): Form data values. Defaults to None.
             files (dict, optional): Files to upload. Defaults to None.
-            auth (tuple, optional): Auth tuple (username, password)
-                                    or httpx Auth object. Defaults to None.
-            payload (dict, optional): JSON payload. Defaults to None.
+            json (dict, optional): JSON payload. Defaults to None.
+            headers (dict, optional): HTTP headers. Defaults to None.
+            auth (tuple, optional): Authentication credentials. Defaults to None.
             timeout (float, optional): Request timeout in seconds. Defaults to 30.0.
-            verify_ssl (bool, optional): Verify SSL certificates. Defaults to True.
+            verify_ssl (bool, optional): Whether to verify SSL certificate.
+                                         Defaults to True.
 
         Returns:
             httpx.Response: The API response.
@@ -60,15 +62,17 @@ class ApiRequestMixin(models.Model):
             "Headers: %s\n"
             "Values: %s\n"
             "Params: %s\n"
+            "Content: %s\n"
             "Files: %s\n"
-            "Payload: %s",
+            "JSON: %s",
             method,
             endpoint,
             headers,
             values,
             params,
+            content,
             bool(files),  # Avoid logging file contents
-            payload,
+            json,
         )
 
         try:
@@ -79,9 +83,10 @@ class ApiRequestMixin(models.Model):
                     headers=headers,
                     data=values,
                     params=params,
+                    content=content,
                     files=files,
                     auth=auth,
-                    json=payload,
+                    json=json,
                 )
 
                 # Log the request
@@ -89,7 +94,7 @@ class ApiRequestMixin(models.Model):
                     method=method,
                     endpoint=endpoint,
                     headers=headers,
-                    payload=payload or values,
+                    payload=json or values,
                     params=params,
                     response=response,
                 )
@@ -105,7 +110,7 @@ class ApiRequestMixin(models.Model):
                 method=method,
                 endpoint=endpoint,
                 headers=headers,
-                payload=payload or values,
+                payload=json or values,
                 params=params,
                 response=None,
                 error=str(e),
@@ -128,7 +133,8 @@ class ApiRequestMixin(models.Model):
                 f"{response.text}"
             )
             _logger.error(error_msg)
-            raise ValidationError(_(error_msg))
+            # TODO: change the error handling based on config settings?
+            raise ValidationError(response.text)
 
         return True
 
@@ -137,9 +143,9 @@ class ApiRequestMixin(models.Model):
         self,
         method,
         endpoint,
-        headers,
-        payload,
         params,
+        payload,
+        headers,
         response=None,
         error=None,
     ) -> None:
@@ -151,10 +157,9 @@ class ApiRequestMixin(models.Model):
             {
                 "method": method,
                 "endpoint": endpoint,
-                "headers": json.dumps(headers) if headers else False,
                 "params": json.dumps(params) if params else False,
-                "values": json.dumps(payload) if payload else False,
                 "payload": json.dumps(payload) if payload else False,
+                "headers": json.dumps(headers) if headers else False,
                 "response": response_text,
                 "status_code": status_code,
                 "successful": 200 <= status_code < 300 if response else False,
