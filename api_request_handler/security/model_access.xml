@@ -9,4 +9,13 @@
         <field name="perm_create" eval="1" />
         <field name="perm_unlink" eval="0" />
     </record>
+    <record id="api_request_mixin_manager" model="ir.model.access">
+        <field name="name">api.request.mixin.manager</field>
+        <field name="model_id" ref="model_api_request_mixin" />
+        <field name="group_id" ref="base.group_erp_manager" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="0" />
+    </record>
 </odoo>
