@@ -22,7 +22,6 @@
                         <field name="endpoint" readonly="1" />
                         <field name="headers" readonly="1" />
                         <field name="params" readonly="1" />
-                        <field name="values" readonly="1" />
                         <field name="payload" readonly="1" />
                         <field name="status_code" readonly="1" />
                         <field name="successful" readonly="1" />
