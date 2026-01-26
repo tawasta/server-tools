@@ -6,7 +6,7 @@
 
         <xpath expr="//div[hasclass('field-name')]" position="after">
 
-            <div class="mb-3 parent-partner-container">
+            <div t-if="not token" class="mb-3 parent-partner-container">
                 <label for="parent_id">Member Organization</label>
                 <select
                     name="parent_id"
