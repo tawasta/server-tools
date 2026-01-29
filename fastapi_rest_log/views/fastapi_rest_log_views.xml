@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="view_fastapi_rest_log_tree" model="ir.ui.view">
+    <field name="name">fastapi.rest.log.tree</field>
+    <field name="model">fastapi.rest.log</field>
+    <field name="arch" type="xml">
+      <tree string="FastAPI REST Logs">
+        <field name="create_date"/>
+        <field name="method"/>
+        <field name="path"/>
+        <field name="status_code"/>
+        <field name="odoo_user_id"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_fastapi_rest_log_form" model="ir.ui.view">
+    <field name="name">fastapi.rest.log.form</field>
+    <field name="model">fastapi.rest.log</field>
+    <field name="arch" type="xml">
+      <form string="FastAPI REST Log">
+        <sheet>
+          <group>
+            <group>
+              <field name="create_date" readonly="1"/>
+              <field name="method"/>
+              <field name="path"/>
+              <field name="status_code"/>
+            </group>
+            <group>
+              <field name="odoo_user_id"/>
+            </group>
+          </group>
+
+          <notebook>
+            <page string="Payload">
+              <field name="payload" nolabel="1" widget="text"/>
+            </page>
+            <page string="Response">
+              <field name="response" nolabel="1" widget="text"/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_fastapi_rest_log" model="ir.actions.act_window">
+    <field name="name">FastAPI REST Logs</field>
+    <field name="res_model">fastapi.rest.log</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="menu_fastapi_rest_log_root"
+            name="FastAPI REST Logs"
+            parent="fastapi.menu_fastapi_root"
+            action="action_fastapi_rest_log"
+            sequence="90"/>
+
+</odoo>
