@@ -31,6 +31,7 @@ def log_fastapi_call(
     payload=None,
     response=None,
     status_code: int = 200,
+    ip_address: str = "",
 ):
     """
     Minimal helper that writes one log row.
@@ -47,6 +48,7 @@ def log_fastapi_call(
     vals = {
         "method": method,
         "path": path,
+        "ip_address": ip_address or "",
         "odoo_user_id": env.user.id if env and env.user else False,
         "payload": _dump(payload),
         "response": _dump(response),

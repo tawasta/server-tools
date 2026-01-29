@@ -12,3 +12,4 @@ class FastapiRestLog(models.Model):
     payload = fields.Text(string="Request Payload")
     response = fields.Text(string="Response Payload")
     status_code = fields.Integer(index=True)
+    ip_address = fields.Char(string="Client IP", index=True)
