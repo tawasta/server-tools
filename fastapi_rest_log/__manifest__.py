@@ -29,7 +29,9 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["base",],
+    "depends": [
+        "base",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/fastapi_rest_log_views.xml",

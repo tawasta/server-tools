@@ -1,7 +1,7 @@
 import json
+
 from odoo import SUPERUSER_ID
 from odoo.api import Environment
-
 
 _MAX_TEXT = 20000
 
@@ -15,7 +15,7 @@ def _truncate(text: str, limit: int = _MAX_TEXT) -> str:
 def _dump(val) -> str:
     if val is None:
         return ""
-    if isinstance(val, (dict, list, int, float, bool)):
+    if isinstance(val, (dict, list, int, float, bool)):  # noqa UP038
         try:
             return json.dumps(val, ensure_ascii=False)
         except Exception:
