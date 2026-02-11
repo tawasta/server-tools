@@ -12,5 +12,6 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [auth_oauth_hidden](auth_oauth_hidden/) | 19.0.1.0.0 |  | Adds a parameter for OAuth providers to allow hiding them
+[res_country_archive](res_country_archive/) | 19.0.1.0.0 |  | Ability to archive countries and states
 
 [//]: # (end addons)
