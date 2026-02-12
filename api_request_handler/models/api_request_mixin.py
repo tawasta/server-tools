@@ -153,7 +153,7 @@ class ApiRequestMixin(models.Model):
         status_code = response.status_code if response else 500
         response_text = response.text if response else str(error) or "No response"
 
-        self.env["api.request"].create(
+        self.env["api.request"].sudo().create(
             {
                 "method": method,
                 "endpoint": endpoint,
