@@ -43,7 +43,7 @@ repos:
     hooks:
       - id: whool-init
   - repo: https://github.com/oca/maintainer-tools
-    rev: f9b919b9868143135a9c9cb03021089cabba8223
+    rev: d5fab7ee87fceee858a3d01048c78a548974d935
     hooks:
       # update the NOT INSTALLABLE ADDONS section above
       - id: oca-update-pre-commit-excluded-addons
@@ -135,3 +135,15 @@ repos:
       - id: pylint_odoo
         args:
           - --rcfile=.pylintrc-mandatory
+  - repo: https://github.com/tawasta/github-workflows.git
+    rev: v1.2.1
+    hooks:
+      - id: ensure-finnish-translation
+  - repo: https://github.com/mondeja/pre-commit-po-hooks
+    rev: v1.7.3
+    hooks:
+      - id: untranslated-messages
+  - repo: https://github.com/tawasta/github-workflows.git
+    rev: v1.2.1
+    hooks:
+      - id: ensure-module-icon
