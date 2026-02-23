@@ -12,6 +12,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [auth_oauth_hidden](auth_oauth_hidden/) | 19.0.1.0.0 |  | Adds a parameter for OAuth providers to allow hiding them
+[base_user_role_manager](base_user_role_manager/) | 19.0.1.0.0 |  | Allow user to manage users and their roles
 [res_country_archive](res_country_archive/) | 19.0.1.0.0 |  | Ability to archive countries and states
 
 [//]: # (end addons)
