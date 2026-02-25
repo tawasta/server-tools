@@ -1,0 +1,4 @@
+Etunimi,Sukunimi,Sähköposti,Tuotteen nimi,Mallipohja,Hinnasto,Tuotteen koodi,Internal reference,Hinta,KPL,Tyyppi
+Testi,Eka,testi.eka@example.com,Demo Tuote A,1,1,DEMOA,INT001,100,2,parent
+Ali,Osoite,ali.eka@example.com,,,,,,,,child
+Demo,Toka,demo.toka@example.com,Demo Tuote B,1,1,DEMOB,INT002,150,1,parent
