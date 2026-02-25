@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="generic_import_step_partner" model="generic.import.step">
+        <field name="name">Partners</field>
+        <field name="code">partner</field>
+        <field name="sequence">10</field>
+        <field name="required_models">res.partner</field>
+    </record>
+</odoo>
