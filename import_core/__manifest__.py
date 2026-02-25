@@ -20,7 +20,7 @@
 
 {
     "name": "Import Core",
-    "summary": "Generic CSV import core: templates + wizard + step runner framework",
+    "summary": "Generic CSV import core",
     "version": "17.0.1.0.0",
     "category": "Specific Industry Applications",
     "website": "https://github.com/tawasta/server-tools",

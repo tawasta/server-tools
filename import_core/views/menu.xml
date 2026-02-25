@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <!-- Root menu -->
-    <menuitem id="menu_generic_import_root" name="Imports" sequence="10"/>
+    <menuitem id="menu_generic_import_root" name="Imports" sequence="10" />
 
     <!-- Templates action -->
     <record id="action_generic_import_template" model="ir.actions.act_window">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="action_download_csv_template" model="ir.actions.act_url">
@@ -13,23 +13,32 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="template_id"/>
+                    <field name="template_id" />
                 </group>
 
                 <group string="Download templates">
-                    <button type="action" name="%(action_download_csv_template)d" string="Download CSV template"/>
+                    <button
+                        type="action"
+                        name="%(action_download_csv_template)d"
+                        string="Download CSV template"
+                    />
                     <p class="text-muted">
                         Opens in a new tab. Save, fill rows, and upload the file below.
                     </p>
                 </group>
 
                 <group>
-                    <field name="file_data" filename="file_name"/>
+                    <field name="file_data" filename="file_name" />
                 </group>
 
                 <footer>
-                    <button string="Upload" type="object" name="create_records_from_file" class="btn-primary"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button
+                        string="Upload"
+                        type="object"
+                        name="create_records_from_file"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
             </form>
         </field>

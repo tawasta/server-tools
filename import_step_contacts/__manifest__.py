@@ -20,7 +20,7 @@
 
 {
     "name": "Import Step: Contacts",
-    "summary": "Adds partner import step for import_core (supports child rows via 'Tyyppi=child')",
+    "summary": "Adds partner import step for import_core",
     "version": "17.0.1.0.0",
     "category": "Specific Industry Applications",
     "website": "https://github.com/tawasta/server-tools",

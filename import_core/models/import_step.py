@@ -23,5 +23,7 @@ class GenericImportStep(models.Model):
         if not self.required_models:
             return True
         installed = set(self.env.registry.keys())
-        needed = [m.strip() for m in (self.required_models or "").split(",") if m.strip()]
+        needed = [
+            m.strip() for m in (self.required_models or "").split(",") if m.strip()
+        ]
         return all(m in installed for m in needed)

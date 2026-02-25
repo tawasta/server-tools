@@ -7,7 +7,9 @@ class RunnerPartner(models.AbstractModel):
     _description = "Import Runner: Partners"
 
     def _clean_vals(self, vals: dict) -> dict:
-        return {k: (v if v not in ("", None) else False) for k, v in (vals or {}).items()}
+        return {
+            k: (v if v not in ("", None) else False) for k, v in (vals or {}).items()
+        }
 
     def _build_domain(self, search_vals: dict):
         domain = []
