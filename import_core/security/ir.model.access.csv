@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_generic_import_template_user,generic.import.template,model_generic_import_template,base.group_user,1,1,1,1
+access_generic_import_template_line_user,generic.import.template.line,model_generic_import_template_line,base.group_user,1,1,1,1
+access_generic_import_step_user,generic.import.step,model_generic_import_step,base.group_user,1,0,0,0
+access_file_upload_wizard_user,file.upload.wizard,model_file_upload_wizard,base.group_user,1,1,1,1

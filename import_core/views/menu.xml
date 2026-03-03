@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Root menu -->
+    <menuitem id="menu_generic_import_root" name="Imports" sequence="10" />
+
+    <!-- Templates action -->
+    <record id="action_generic_import_template" model="ir.actions.act_window">
+        <field name="name">Import Templates</field>
+        <field name="res_model">generic.import.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Create templates with steps and CSV field mappings.</p>
+        </field>
+    </record>
+
+    <!-- Templates menu (under root) -->
+    <menuitem
+        id="menu_generic_import_templates"
+        name="Templates"
+        parent="menu_generic_import_root"
+        action="action_generic_import_template"
+        sequence="10"
+    />
+
+    <!-- Wizard action -->
+    <record model="ir.actions.act_window" id="action_file_upload_wizard">
+        <field name="name">Import (Upload File)</field>
+        <field name="res_model">file.upload.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Wizard menu (child of Templates menu) -->
+    <menuitem
+        id="menu_file_upload_wizard"
+        name="Import (Upload)"
+        parent="menu_generic_import_templates"
+        action="action_file_upload_wizard"
+        sequence="10"
+    />
+
+</odoo>
