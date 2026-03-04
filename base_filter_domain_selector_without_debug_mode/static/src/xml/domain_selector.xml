@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="web.DomainSelector" t-inherit-mode="extension">
+        <xpath
+            expr="//label[hasclass('o_domain_selector_debug_container')]/parent::t"
+            position="attributes"
+        >
+            <attribute name="t-if">!tree or !props.readonly</attribute>
+        </xpath>
+    </t>
+</templates>
