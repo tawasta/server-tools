@@ -11,6 +11,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[auditlog_security_group](auditlog_security_group/) | 19.0.1.0.0 |  | Add a new security group that allows users to read auditlogs
 [auth_oauth_hidden](auth_oauth_hidden/) | 19.0.1.0.0 |  | Adds a parameter for OAuth providers to allow hiding them
 [auth_signup_disable_autoinvite](auth_signup_disable_autoinvite/) | 19.0.1.0.0 |  | Disable signup auto invite
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 19.0.1.0.0 |  | Send invite mail with mass action
