@@ -16,6 +16,7 @@ Contributors
 
 * Jarmo Kortetjärvi <jarmo.kortetjarvi@futural.fi>
 * Timo Kekäläinen <timo.kekalainen@futural.fi>
+* Joona Isoaho <joona.isoaho@futural.fi>
 
 Maintainer
 ----------
