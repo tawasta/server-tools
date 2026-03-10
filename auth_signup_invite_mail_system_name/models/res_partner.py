@@ -24,7 +24,7 @@ from odoo import fields, models
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    signup_url = fields.Char(compute='_compute_signup_url', string='Signup URL')
+    signup_url = fields.Char(compute="_compute_signup_url", string="Signup URL")
 
     def _compute_signup_url(self):
         for record in self:

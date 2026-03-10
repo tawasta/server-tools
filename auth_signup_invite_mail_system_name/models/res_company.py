@@ -30,8 +30,7 @@ class Company(models.Model):
         required=True,
         store=True,
     )
-    signup_url = fields.Char(compute='_compute_signup_url', string='Signup URL')
+    signup_url = fields.Char(compute="_compute_signup_url", string="Signup URL")
 
     def _default_system_name(self):
         return self.env.user.company_id.name
-
