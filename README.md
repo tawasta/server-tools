@@ -17,6 +17,7 @@ addon | version | maintainers | summary
 [auth_signup_mass_action_invite](auth_signup_mass_action_invite/) | 19.0.1.0.0 |  | Send invite mail with mass action
 [base_filter_domain_selector_without_debug_mode](base_filter_domain_selector_without_debug_mode/) | 19.0.1.0.0 |  | Allows regular users to access the text-based domain selector
 [base_user_role_manager](base_user_role_manager/) | 19.0.1.0.0 |  | Allow user to manage users and their roles
+[ir_ui_view_search](ir_ui_view_search/) | 19.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [module_auto_update_schedule](module_auto_update_schedule/) | 19.0.1.0.0 |  | Run Module Auto Update on a schedule
 [res_country_archive](res_country_archive/) | 19.0.1.0.0 |  | Ability to archive countries and states
 
