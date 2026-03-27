@@ -44,6 +44,5 @@ addon | version | maintainers | summary
 [report_zip](report_zip/) | 17.0.1.0.0 |  | Download various reports as a zip file
 [res_country_archive](res_country_archive/) | 17.0.1.0.0 |  | Ability to archive countries and states
 [res_user_change_company_helper](res_user_change_company_helper/) | 17.0.1.0.0 |  | Company dropdown also changes company_id value for user
-[rest_api_menu_group](rest_api_menu_group/) | 17.0.1.0.1 |  | Rest api menu group
 
 [//]: # (end addons)
