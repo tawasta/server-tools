@@ -2,11 +2,12 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-============
-Report - Zip
-============
+====================================
+Invoice PDF Report - Download as ZIP
+====================================
 
 This module allows users to **download invoice reports as a ZIP file** in Odoo.
+DEPRECATED: Will be replaced by OCA's `report_pdf_zip_download` in Odoo 18.0.
 
 Features
 ========
@@ -26,9 +27,8 @@ Usage
 
 Known issues / Roadmap
 ======================
-* TODO Refactor module to be more generic like OCA module report_xlsx
-* TODO Make cron action that removes the file after some time
-* TODO Add support for sale orders
+Retire the module in 18.0 in favor of the OCA's `report_pdf_zip_download`.
+It provides similar functionality and is actively maintained.
 
 Credits
 =======

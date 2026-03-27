@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    "name": "Report - Zip",
-    "summary": "Download various reports as a zip file",
+    "name": "Invoice PDF Report - Download as ZIP",
+    "summary": "Download invoice PDF reports as a zip file",
     "version": "17.0.1.0.0",
     "category": "Reporting",
     "website": "https://github.com/tawasta/server-tools",
