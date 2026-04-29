@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
 
 <t t-name="customer_manual.CustomerManual">
@@ -7,7 +7,7 @@
 
         <t t-if="state.loading">
             <div class="cm-loading" role="status" aria-live="polite">
-                <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"/>
+                <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true" />
                 <span>Loading instructions...</span>
             </div>
         </t>
@@ -16,32 +16,35 @@
             <aside class="cm-sidebar" aria-label="Instruction topics">
                 <div class="cm-brand">
                     <div class="cm-brand-icon" aria-hidden="true">
-                        <i class="fa fa-book"/>
+                        <i class="fa fa-book" />
                     </div>
                     <div>
                         <h1>Help Center</h1>
-                        <p t-esc="state.data.company"/>
+                        <p t-esc="state.data.company" />
                     </div>
                 </div>
 
                 <!-- Search covers section names, instruction text and module names. -->
                 <div class="cm-search">
-                    <i class="fa fa-search" aria-hidden="true"/>
-                    <label class="cm-sr-only" for="customer_manual_search">Search instructions</label>
+                    <i class="fa fa-search" aria-hidden="true" />
+                    <label
+                            class="cm-sr-only"
+                            for="customer_manual_search"
+                        >Search instructions</label>
                     <input
-                        id="customer_manual_search"
-                        type="search"
-                        placeholder="Search instructions..."
-                        t-att-value="state.searchText"
-                        t-on-input="onSearchInput"
-                    />
+                            id="customer_manual_search"
+                            type="search"
+                            placeholder="Search instructions..."
+                            t-att-value="state.searchText"
+                            t-on-input="onSearchInput"
+                        />
                     <button
-                        type="button"
-                        t-if="hasSearch"
-                        t-on-click="clearSearch"
-                        aria-label="Clear search"
-                    >
-                        <i class="fa fa-times" aria-hidden="true"/>
+                            type="button"
+                            t-if="hasSearch"
+                            t-on-click="clearSearch"
+                            aria-label="Clear search"
+                        >
+                        <i class="fa fa-times" aria-hidden="true" />
                     </button>
                 </div>
 
@@ -57,14 +60,17 @@
                     <!-- Changing section also closes possible active editors. -->
                     <t t-foreach="filteredSections" t-as="section" t-key="section.key">
                         <button
-                            type="button"
-                            t-att-class="'cm-section-button ' + (state.selectedSectionKey === section.key ? 'active' : '')"
-                            t-att-aria-current="state.selectedSectionKey === section.key ? 'page' : false"
-                            t-on-click="() => selectSection(section)"
-                        >
-                            <span class="cm-section-name" t-esc="section.name"/>
+                                type="button"
+                                t-att-class="'cm-section-button ' + (state.selectedSectionKey === section.key ? 'active' : '')"
+                                t-att-aria-current="state.selectedSectionKey === section.key ? 'page' : false"
+                                t-on-click="() => selectSection(section)"
+                            >
+                            <span class="cm-section-name" t-esc="section.name" />
 
-                            <span class="cm-section-status has-note" t-if="section.note_count">
+                            <span
+                                    class="cm-section-status has-note"
+                                    t-if="section.note_count"
+                                >
                                 <span aria-hidden="true">✓</span>
                                 <span>Instructions added</span>
                             </span>
@@ -82,7 +88,7 @@
                 <section class="cm-page-header">
                     <div>
                         <div class="cm-eyebrow">Topic</div>
-                        <h2 t-esc="selectedSection.name"/>
+                        <h2 t-esc="selectedSection.name" />
                         <p>
                             This page contains the instructions related to this topic.
                         </p>
@@ -90,58 +96,61 @@
 
                     <div class="cm-actions" aria-label="Instruction actions">
                         <button
-                            type="button"
-                            class="cm-secondary"
-                            t-on-click="addNote"
-                            t-if="state.canSeeButton"
-                        >
-                            <i class="fa fa-plus" aria-hidden="true"/>
+                                type="button"
+                                class="cm-secondary"
+                                t-on-click="addNote"
+                                t-if="state.canSeeButton"
+                            >
+                            <i class="fa fa-plus" aria-hidden="true" />
                             <span>Add instruction</span>
                         </button>
 
                         <t t-if="state.editingNotes">
                             <button
-                                type="button"
-                                class="cm-primary"
-                                t-on-click="saveNotes"
-                                t-att-disabled="state.saving"
-                                t-if="state.canSeeButton"
-                            >
-                                <i class="fa fa-check" aria-hidden="true"/>
+                                    type="button"
+                                    class="cm-primary"
+                                    t-on-click="saveNotes"
+                                    t-att-disabled="state.saving"
+                                    t-if="state.canSeeButton"
+                                >
+                                <i class="fa fa-check" aria-hidden="true" />
                                 <span t-if="!state.saving">Save</span>
                                 <span t-else="">Saving...</span>
                             </button>
 
                             <button
-                                type="button"
-                                class="cm-secondary"
-                                t-on-click="cancelEditNotes"
-                                t-att-disabled="state.saving"
-                                t-if="state.canSeeButton"
-                            >
+                                    type="button"
+                                    class="cm-secondary"
+                                    t-on-click="cancelEditNotes"
+                                    t-att-disabled="state.saving"
+                                    t-if="state.canSeeButton"
+                                >
                                 Cancel
                             </button>
                         </t>
 
                         <t t-else="">
                             <button
-                                type="button"
-                                class="cm-primary"
-                                t-on-click="enterEditMode"
-                                t-if="state.canSeeButton"
-                            >
-                                <i class="fa fa-pencil" aria-hidden="true"/>
+                                    type="button"
+                                    class="cm-primary"
+                                    t-on-click="enterEditMode"
+                                    t-if="state.canSeeButton"
+                                >
+                                <i class="fa fa-pencil" aria-hidden="true" />
                                 <span>Edit</span>
                             </button>
                         </t>
                     </div>
                 </section>
 
-                <section class="cm-instructions-card" aria-labelledby="customer_manual_instructions_title">
+                <section
+                        class="cm-instructions-card"
+                        aria-labelledby="customer_manual_instructions_title"
+                    >
                     <t t-if="!hasNotes">
                         <div class="cm-empty">
                             <div class="cm-empty-icon" aria-hidden="true">
-                                <i class="fa fa-lightbulb-o"/>
+                                <i class="fa fa-lightbulb-o" />
                             </div>
                             <h3 id="customer_manual_instructions_title">
                                 No instructions have been written for this topic yet
@@ -152,12 +161,12 @@
                             </p>
 
                             <button
-                                type="button"
-                                class="cm-primary cm-empty-action"
-                                t-on-click="addNote"
-                                t-if="state.canSeeButton"
-                            >
-                                <i class="fa fa-plus" aria-hidden="true"/>
+                                    type="button"
+                                    class="cm-primary cm-empty-action"
+                                    t-on-click="addNote"
+                                    t-if="state.canSeeButton"
+                                >
+                                <i class="fa fa-plus" aria-hidden="true" />
                                 <span>Write the first instruction</span>
                             </button>
                         </div>
@@ -169,35 +178,38 @@
                             <t t-if="state.editingNotes">
                                 <label>Title</label>
                                 <input
-                                    t-model="note.title"
-                                    placeholder="For example: How event registrations are processed"
-                                />
+                                        t-model="note.title"
+                                        placeholder="For example: How event registrations are processed"
+                                    />
 
                                 <label>Instruction</label>
 
                                 <textarea
-                                    class="cm-ckeditor o_wysiwyg_loader"
-                                    rows="10"
-                                    t-att-data-note-id="note.id"
-                                    t-att-data-initial-value="note.body_html || ''"
-                                ></textarea>
+                                        class="cm-ckeditor o_wysiwyg_loader"
+                                        rows="10"
+                                        t-att-data-note-id="note.id"
+                                        t-att-data-initial-value="note.body_html || ''"
+                                    />
 
                                 <button
-                                    type="button"
-                                    class="cm-danger"
-                                    t-on-click="() => removeNote(note)"
-                                >
-                                    <i class="fa fa-trash" aria-hidden="true"/>
+                                        type="button"
+                                        class="cm-danger"
+                                        t-on-click="() => removeNote(note)"
+                                    >
+                                    <i class="fa fa-trash" aria-hidden="true" />
                                     <span>Delete instruction</span>
                                 </button>
                             </t>
 
                             <t t-else="">
-                                <h3 id="customer_manual_instructions_title" t-esc="note.title || 'Instruction'"/>
+                                <h3
+                                        id="customer_manual_instructions_title"
+                                        t-esc="note.title || 'Instruction'"
+                                    />
                                 <div
-                                    class="cm-note-body"
-                                    t-out="getHtml(note.body_html || '&lt;p&gt;Instruction content is missing.&lt;/p&gt;')"
-                                />
+                                        class="cm-note-body"
+                                        t-out="getHtml(note.body_html || '&lt;p&gt;Instruction content is missing.&lt;/p&gt;')"
+                                    />
                             </t>
                         </article>
                     </t>
@@ -205,42 +217,56 @@
 
                 <section class="cm-admin-box">
                     <button
-                        type="button"
-                        class="cm-admin-toggle"
-                        t-on-click="toggleTechnicalDetails"
-                        t-att-aria-expanded="state.showTechnicalDetails ? 'true' : 'false'"
-                    >
+                            type="button"
+                            class="cm-admin-toggle"
+                            t-on-click="toggleTechnicalDetails"
+                            t-att-aria-expanded="state.showTechnicalDetails ? 'true' : 'false'"
+                        >
                         <div>
                             <strong>Maintainer details</strong>
-                            <span>Technical modules and original module descriptions</span>
+                            <span
+                                >Technical modules and original module descriptions</span>
                         </div>
-                        <i t-att-class="'fa ' + (state.showTechnicalDetails ? 'fa-chevron-up' : 'fa-chevron-down')" aria-hidden="true"/>
+                        <i
+                                t-att-class="'fa ' + (state.showTechnicalDetails ? 'fa-chevron-up' : 'fa-chevron-down')"
+                                aria-hidden="true"
+                            />
                     </button>
 
                     <div class="cm-admin-content" t-if="state.showTechnicalDetails">
                         <!-- Useful when checking which installed modules belong to this topic. -->
                         <div class="cm-doc-list">
-                            <t t-foreach="technicalModules" t-as="module" t-key="module.key">
+                            <t
+                                    t-foreach="technicalModules"
+                                    t-as="module"
+                                    t-key="module.key"
+                                >
                                 <article class="cm-doc-card">
                                     <button
-                                        type="button"
-                                        class="cm-doc-toggle"
-                                        t-on-click="() => toggleModule(module)"
-                                        t-att-aria-expanded="isModuleOpen(module) ? 'true' : 'false'"
-                                    >
+                                            type="button"
+                                            class="cm-doc-toggle"
+                                            t-on-click="() => toggleModule(module)"
+                                            t-att-aria-expanded="isModuleOpen(module) ? 'true' : 'false'"
+                                        >
                                         <div>
-                                            <strong t-esc="module.name"/>
-                                            <span t-esc="module.technical_name"/>
+                                            <strong t-esc="module.name" />
+                                            <span t-esc="module.technical_name" />
                                         </div>
-                                        <i t-att-class="'fa ' + (isModuleOpen(module) ? 'fa-chevron-up' : 'fa-chevron-down')" aria-hidden="true"/>
+                                        <i
+                                                t-att-class="'fa ' + (isModuleOpen(module) ? 'fa-chevron-up' : 'fa-chevron-down')"
+                                                aria-hidden="true"
+                                            />
                                     </button>
 
-                                    <div class="cm-doc-body" t-if="isModuleOpen(module)">
+                                    <div
+                                            class="cm-doc-body"
+                                            t-if="isModuleOpen(module)"
+                                        >
                                         <t t-if="module.description_html">
                                             <div
-                                                class="cm-module-description"
-                                                t-out="module.description"
-                                            />
+                                                    class="cm-module-description"
+                                                    t-out="module.description"
+                                                />
                                         </t>
                                         <t t-else="">
                                             <div class="cm-doc-empty">

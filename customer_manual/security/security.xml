@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="group_customer_manual_edit" model="res.groups">
         <field name="name">Edit Instructions</field>
-        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="category_id" ref="base.module_category_hidden" />
         <field name="comment">
             Users in this group can create, edit and delete Help Center instructions.
         </field>

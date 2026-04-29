@@ -56,9 +56,13 @@ class CustomerManualService(models.AbstractModel):
         """Build the data structure used by the manual view."""
         sections = {}
 
-        notes = self.env["customer.manual.note"].sudo().search(
-            [("active", "=", True)],
-            order="section_key, sequence, id",
+        notes = (
+            self.env["customer.manual.note"]
+            .sudo()
+            .search(
+                [("active", "=", True)],
+                order="section_key, sequence, id",
+            )
         )
 
         # Group notes first so they can be attached while sections are built.
@@ -73,9 +77,13 @@ class CustomerManualService(models.AbstractModel):
                 }
             )
 
-        modules = self.env["ir.module.module"].sudo().search(
-            [("state", "=", "installed")],
-            order="category_id, shortdesc, name",
+        modules = (
+            self.env["ir.module.module"]
+            .sudo()
+            .search(
+                [("state", "=", "installed")],
+                order="category_id, shortdesc, name",
+            )
         )
 
         for module in modules:
@@ -148,7 +156,9 @@ class CustomerManualService(models.AbstractModel):
             }
 
             note_id = note.get("id")
-            record = Note.browse(note_id).exists() if isinstance(note_id, int) else False
+            record = (
+                Note.browse(note_id).exists() if isinstance(note_id, int) else False
+            )
 
             # Never update a note from another section by accident.
             if record and record.section_key == section_key:

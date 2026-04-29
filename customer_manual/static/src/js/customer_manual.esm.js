@@ -1,12 +1,11 @@
 /** @odoo-module **/
 
-import { Component, markup, onWillStart, useState } from "@odoo/owl";
-import { registry } from "@web/core/registry";
-import { useService } from "@web/core/utils/hooks";
+import {Component, markup, onWillStart, useState} from "@odoo/owl";
+import {registry} from "@web/core/registry";
+import {useService} from "@web/core/utils/hooks";
 
 export class CustomerManual extends Component {
     setup() {
-
         this.user = useService("user");
         this.state = useState({
             canSeeButton: false, // Initial button visibility state
@@ -14,8 +13,9 @@ export class CustomerManual extends Component {
 
         // Check if the user belongs to the "customer_manual.group_customer_manual_edit" group
         onWillStart(async () => {
-            this.state.canSeeButton = await this.user.hasGroup("customer_manual.group_customer_manual_edit");
-
+            this.state.canSeeButton = await this.user.hasGroup(
+                "customer_manual.group_customer_manual_edit"
+            );
         });
         this.orm = useService("orm");
         this.notification = useService("notification");
@@ -103,17 +103,13 @@ export class CustomerManual extends Component {
             try {
                 this.syncEditorsToNotes();
 
-                await this.orm.call(
-                    "customer.manual.service",
-                    "save_section_notes",
-                    [
-                        this.selectedSection.key,
-                        this.selectedSection.name,
-                        this.selectedSection.notes,
-                    ]
-                );
+                await this.orm.call("customer.manual.service", "save_section_notes", [
+                    this.selectedSection.key,
+                    this.selectedSection.name,
+                    this.selectedSection.notes,
+                ]);
 
-                this.notification.add("Ohje tallennettu.", { type: "success" });
+                this.notification.add("Ohje tallennettu.", {type: "success"});
 
                 this.state.editingNotes = false;
                 await this.destroyEditors();
@@ -128,7 +124,8 @@ export class CustomerManual extends Component {
         };
 
         this.toggleModule = (module) => {
-            this.state.openModuleKeys[module.key] = !this.state.openModuleKeys[module.key];
+            this.state.openModuleKeys[module.key] =
+                !this.state.openModuleKeys[module.key];
         };
 
         onWillStart(() => this.load(true));
@@ -159,9 +156,12 @@ export class CustomerManual extends Component {
         await this.waitForDomRender();
 
         if (!window.ClassicEditor) {
-            this.notification.add("CKEditor ei latautunut. Tarkista moduulin assetit.", {
-                type: "danger",
-            });
+            this.notification.add(
+                "CKEditor ei latautunut. Tarkista moduulin assetit.",
+                {
+                    type: "danger",
+                }
+            );
             return;
         }
 
@@ -262,7 +262,9 @@ export class CustomerManual extends Component {
         }
 
         return sections.filter((section) => {
-            const sectionMatch = (section.name || "").toLowerCase().includes(searchText);
+            const sectionMatch = (section.name || "")
+                .toLowerCase()
+                .includes(searchText);
 
             const noteMatch = (section.notes || []).some((note) => {
                 return (
