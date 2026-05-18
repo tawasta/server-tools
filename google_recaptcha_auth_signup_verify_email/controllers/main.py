@@ -1,7 +1,6 @@
 import logging
 
 from odoo import _
-from odoo.exceptions import UserError
 from odoo.http import request
 
 from odoo.addons.auth_signup_verify_email.controllers.main import SignupVerifyEmail
@@ -11,10 +10,10 @@ _logger = logging.getLogger(__name__)
 
 class SignupVerifyEmailRecaptcha(SignupVerifyEmail):
     def passwordless_signup(self):
-        """Enforce recaptcha also when confirming user accounts via an email link,
-        to avoid mass sending useless emails due to bot triggers"""
-
+        """Enforce recaptcha before triggering the signup-confirmation email,
+        to avoid sending emails due to bots."""
         if not request.env["ir.http"]._verify_request_recaptcha_token("signup"):
-            raise UserError(_("Suspicious activity detected by Google reCaptcha."))
-
+            qcontext = self.get_auth_signup_qcontext()
+            qcontext["error"] = _("Suspicious activity detected by Google reCaptcha.")
+            return request.render("auth_signup.signup", qcontext)
         return super().passwordless_signup()
