@@ -7,15 +7,19 @@
 ========================================================
 
 * Link module to be used when both core's google_recaptcha module and OCA signup module are in use
-* Prevents crash in res.users record creation during registration process. Provides no other functionality.
+
+  * Enforces recaptcha also when using OCA auth_sign_up_verify email, to avoid sending out emails
+    when bots attempt to register.
+  * Additionally, prevents crash in res.users record creation during registration process.
 
 Configuration
 =============
-* Just install the module
+* Just install the module. 
 
 Usage
 =====
-* 
+* Register a new user as usual. If v3 recaptcha keys are configured in Odoo settings, a recaptcha check 
+  is triggered.
 
 Known issues / Roadmap
 ======================
