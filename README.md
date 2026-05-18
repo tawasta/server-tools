@@ -36,6 +36,7 @@ addon | version | maintainers | summary
 [base_user_role_manager](base_user_role_manager/) | 17.0.1.1.4 |  | Allow user to manage users and their roles
 [board_my_filters](board_my_filters/) | 17.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
 [fastapi_rest_log](fastapi_rest_log/) | 17.0.1.0.1 |  | Fastapi rest log
+[google_recaptcha_auth_signup_verify_email](google_recaptcha_auth_signup_verify_email/) | 17.0.1.0.0 |  | Link module between core recaptcha module and OCA module
 [import_core](import_core/) | 17.0.1.0.0 |  | Generic CSV import core
 [import_step_contacts](import_step_contacts/) | 17.0.1.0.0 |  | Adds partner import step for import_core
 [ir_ui_view_search](ir_ui_view_search/) | 17.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
