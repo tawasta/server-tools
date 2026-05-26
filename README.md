@@ -45,5 +45,6 @@ addon | version | maintainers | summary
 [report_zip_download_invoices](report_zip_download_invoices/) | 17.0.1.0.0 |  | Download invoice PDF reports as a zip file
 [res_country_archive](res_country_archive/) | 17.0.1.0.0 |  | Ability to archive countries and states
 [res_user_change_company_helper](res_user_change_company_helper/) | 17.0.1.0.0 |  | Company dropdown also changes company_id value for user
+[scheduler_error_mailer_futural_template](scheduler_error_mailer_futural_template/) | 17.0.1.0.0 |  | Adds Futural template to Scheduler error mailer and sets it as default
 
 [//]: # (end addons)
