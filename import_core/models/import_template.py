@@ -7,21 +7,24 @@ class GenericImportTemplate(models.Model):
 
     name = fields.Char(string="Template Name", required=True)
 
-    step_ids = fields.Many2many(
-        comodel_name="generic.import.step",
-        relation="generic_import_template_step_rel",
-        column1="template_id",
-        column2="step_id",
+    step_line_ids = fields.One2many(
+        comodel_name="generic.import.template.step",
+        inverse_name="template_id",
         string="Import steps",
-        help="Select steps to run. Steps are provided by installed step modules.",
     )
 
-    # Allowed models computed from selected steps
+    step_ids = fields.Many2many(
+        comodel_name="generic.import.step",
+        compute="_compute_step_ids",
+        store=False,
+        string="Import steps",
+    )
+
     allowed_model_ids = fields.Many2many(
         comodel_name="ir.model",
         compute="_compute_allowed_model_ids",
         store=False,
-        help="Models allowed for mapping, based on selected steps.",
+        help="Models allowed for mapping, based on selected template steps.",
     )
 
     line_ids = fields.One2many(
@@ -30,29 +33,77 @@ class GenericImportTemplate(models.Model):
         string="Field mappings",
     )
 
-    @api.depends("step_ids", "step_ids.required_models")
+    state_link_ids = fields.One2many(
+        comodel_name="generic.import.template.state.link",
+        inverse_name="template_id",
+        string="State links",
+    )
+
+    @api.depends("step_line_ids.step_id")
+    def _compute_step_ids(self):
+        for tmpl in self:
+            tmpl.step_ids = tmpl.step_line_ids.mapped("step_id")
+
+    @api.depends(
+        "step_line_ids.step_id",
+        "step_line_ids.step_id.required_models",
+    )
     def _compute_allowed_model_ids(self):
         IrModel = self.env["ir.model"].sudo()
+
         for tmpl in self:
             names = set()
-            for step in tmpl.step_ids:
-                for m in (step.required_models or "").split(","):
-                    m = (m or "").strip()
-                    if m:
-                        names.add(m)
 
-            # If no steps selected -> no allowed models
-            if not names:
-                tmpl.allowed_model_ids = IrModel.browse([])
-                continue
+            for step_line in tmpl.step_line_ids:
+                for model_name in (step_line.step_id.required_models or "").split(","):
+                    model_name = model_name.strip()
+                    if model_name:
+                        names.add(model_name)
 
-            # Only installed models exist in ir.model, so this is safe.
-            tmpl.allowed_model_ids = IrModel.search(
-                [
-                    ("model", "in", sorted(names)),
-                    ("transient", "=", False),
-                ]
+            tmpl.allowed_model_ids = (
+                IrModel.search(
+                    [
+                        ("model", "in", sorted(names)),
+                        ("transient", "=", False),
+                    ]
+                )
+                if names
+                else IrModel.browse([])
             )
+
+
+class GenericImportTemplateStep(models.Model):
+    _name = "generic.import.template.step"
+    _description = "Generic import template step"
+    _order = "sequence, id"
+
+    sequence = fields.Integer(default=10)
+
+    template_id = fields.Many2one(
+        comodel_name="generic.import.template",
+        string="Template",
+        required=True,
+        ondelete="cascade",
+    )
+
+    step_id = fields.Many2one(
+        comodel_name="generic.import.step",
+        string="Step",
+        required=True,
+        ondelete="cascade",
+    )
+
+    code = fields.Char(
+        related="step_id.code",
+        string="Code",
+        readonly=True,
+    )
+
+    required_models = fields.Char(
+        related="step_id.required_models",
+        string="Required Models",
+        readonly=True,
+    )
 
 
 class GenericImportTemplateLine(models.Model):
@@ -72,7 +123,6 @@ class GenericImportTemplateLine(models.Model):
     csv_column_name = fields.Char(required=True)
     is_search_field = fields.Boolean(default=False)
 
-    # Domain is set in the view using parent.allowed_model_ids (webclient-safe)
     model_id = fields.Many2one(
         comodel_name="ir.model",
         string="Model",
@@ -90,6 +140,57 @@ class GenericImportTemplateLine(models.Model):
 
     @api.onchange("model_id")
     def _onchange_model_id_reset_field(self):
-        # Prevent keeping a field that belongs to another model
         if self.field_id and self.model_id and self.field_id.model_id != self.model_id:
             self.field_id = False
+
+
+class GenericImportTemplateStateLink(models.Model):
+    _name = "generic.import.template.state.link"
+    _description = "Generic import template state link"
+    _order = "sequence, id"
+
+    sequence = fields.Integer(default=10)
+
+    template_id = fields.Many2one(
+        comodel_name="generic.import.template",
+        string="Template",
+        required=True,
+        ondelete="cascade",
+    )
+
+    apply_on = fields.Selection(
+        selection=[
+            ("create", "Create"),
+            ("write", "Write"),
+        ],
+        required=True,
+        default="write",
+    )
+
+    target_state_key = fields.Char(required=True)
+
+    target_model_id = fields.Many2one(
+        comodel_name="ir.model",
+        string="Target Model",
+        required=True,
+        ondelete="cascade",
+    )
+
+    target_field_id = fields.Many2one(
+        comodel_name="ir.model.fields",
+        string="Target Field",
+        required=True,
+        ondelete="cascade",
+        domain="[('model_id', '=', target_model_id), ('ttype', '=', 'many2one')]",
+    )
+
+    source_state_key = fields.Char(required=True)
+
+    @api.onchange("target_model_id")
+    def _onchange_target_model_id_reset_field(self):
+        if (
+            self.target_field_id
+            and self.target_model_id
+            and self.target_field_id.model_id != self.target_model_id
+        ):
+            self.target_field_id = False

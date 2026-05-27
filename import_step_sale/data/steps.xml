@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="generic_import_step_sale" model="generic.import.step">
+        <field name="name">Sales Orders + Lines</field>
+        <field name="code">sale</field>
+        <field name="sequence">40</field>
+        <field name="required_models">sale.order,sale.order.line</field>
+    </record>
+</odoo>

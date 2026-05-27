@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
+    <record id="view_generic_import_step_tree" model="ir.ui.view">
+        <field name="name">generic.import.step.tree</field>
+        <field name="model">generic.import.step</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" />
+                <field name="name" />
+                <field name="code" />
+                <field name="required_models" />
+            </tree>
+        </field>
+    </record>
+
     <record id="view_generic_import_template_tree" model="ir.ui.view">
         <field name="name">generic.import.template.tree</field>
         <field name="model">generic.import.template</field>
@@ -22,34 +35,73 @@
                         <field name="allowed_model_ids" invisible="1" />
                     </group>
 
-                    <group string="Import steps">
-                        <field
-                            name="step_ids"
-                            widget="many2many_tags"
-                            options="{'no_create': True}"
-                        />
-                        <p class="text-muted">
-                            Steps are provided by installed step modules.
-                            Steps run in order by their sequence.
-                        </p>
-                    </group>
+                    <notebook>
+                        <page string="Import steps">
+                            <p class="text-muted">
+                                Define the step order for this template.
+                                This order is template-specific and does not depend on the global step sequence.
+                            </p>
 
-                    <group string="Field mappings">
-                        <field name="line_ids">
-                            <tree editable="bottom">
-                                <field name="sequence" widget="handle" />
-                                <field name="csv_column_name" />
-                                <field
-                                    name="model_id"
-                                    options="{'no_create': True}"
-                                    domain="[('transient','=',False), ('id','in', parent.allowed_model_ids)]"
-                                />
+                            <field name="step_line_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field
+                                        name="step_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="code" readonly="1" />
+                                    <field name="required_models" readonly="1" />
+                                </tree>
+                            </field>
+                        </page>
 
-                                <field name="field_id" options="{'no_create': True}" />
-                                <field name="is_search_field" />
-                            </tree>
-                        </field>
-                    </group>
+                        <page string="Field mappings">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="csv_column_name" />
+                                    <field
+                                        name="model_id"
+                                        options="{'no_create': True}"
+                                        domain="[('transient','=',False), ('id','in', parent.allowed_model_ids)]"
+                                    />
+                                    <field
+                                        name="field_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="is_search_field" />
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="State links">
+    <p class="text-muted">
+        State links write many2one relations between records stored in import state.
+        Use Create for required fields needed before record creation.
+        Use Write for links that can be written after creation.
+    </p>
+
+    <field name="state_link_ids">
+        <tree editable="bottom">
+            <field name="sequence" widget="handle" />
+
+            <field name="apply_on" widget="selection_badge" />
+
+            <field name="target_state_key" />
+
+            <field
+                                        name="target_model_id"
+                                        options="{'no_create': True}"
+                                        domain="[('transient','=',False)]"
+                                    />
+
+            <field name="target_field_id" options="{'no_create': True}" />
+
+            <field name="source_state_key" />
+        </tree>
+    </field>
+</page>
+                    </notebook>
 
                 </sheet>
             </form>
