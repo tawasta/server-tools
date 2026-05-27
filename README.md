@@ -42,6 +42,7 @@ addon | version | maintainers | summary
 [import_step_events](import_step_events/) | 17.0.1.0.0 |  | Adds event import step for import_core
 [import_step_products](import_step_products/) | 17.0.1.0.0 |  | Adds product import step for import_core
 [import_step_sale](import_step_sale/) | 17.0.1.0.0 |  | Adds sale import step for import_core
+[import_step_subscription](import_step_subscription/) | 17.0.1.0.0 |  | Adds subscription import step for import_core
 [ir_ui_view_search](ir_ui_view_search/) | 17.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [mattermost_hook](mattermost_hook/) | 17.0.1.0.0 |  | Adds possible to use Mattermost hooks
 [module_auto_update_schedule](module_auto_update_schedule/) | 17.0.1.0.0 |  | Run Module Auto Update on a schedule
