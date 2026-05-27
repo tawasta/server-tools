@@ -1,45 +1,97 @@
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
+
 ===================
 Import Step: Events
 ===================
 
 Adds an **Events + Registrations** import step for the ``import_core`` framework.
 
-This module registers a step with code ``event`` and implements
-the corresponding runner ``generic.import.runner.event``.
+This module registers:
 
-The step:
+* Import step: ``event``
+* Runner model: ``generic.import.runner.event``
 
-* Creates or reuses events
-* Creates or reuses event registrations
-* Links registrations to the imported event
-* Optionally links registrations to a partner created or found by a previous contact step
+The step integrates with the generic dispatcher provided by
+``import_core``.
 
+Features
+========
+
+The event import step supports:
+
+* Creating events
+* Reusing existing events via search fields
+* Creating event registrations
+* Reusing existing registrations via search fields
+* Shared import state integration
+* Automatic event-registration linking
+* Integration with previous import steps
+
+The module depends on:
+
+* ``import_core``
+* ``event``
+
+Import step registration
+========================
+
+The module registers the following import step:
+
+.. code-block:: xml
+
+    <record id="generic_import_step_event" model="generic.import.step">
+        <field name="name">Events + Registrations</field>
+        <field name="code">event</field>
+        <field name="sequence">20</field>
+        <field name="required_models">
+            event.event,event.registration
+        </field>
+    </record>
+
+This means:
+
+* The dispatcher executes runner:
+
+  ``generic.import.runner.event``
+
+* The step is only available when models:
+
+  * ``event.event``
+  * ``event.registration``
+
+  are installed.
 
 Configuration
 =============
 
-1. Install:
+1. Install modules:
 
    * ``import_core``
    * ``event``
-   * this module
+   * ``import_step_events``
 
-2. Go to:
+2. Open:
 
-   ``Imports → Templates``
+   ``Imports -> Templates``
 
-3. Add the step:
+3. Create or edit a template
 
-   * **Events + Registrations**
+4. Add import step:
 
-4. Create field mappings for models:
+   * ``Events + Registrations``
+
+5. Configure field mappings for models:
 
    * ``event.event``
    * ``event.registration``
 
-5. Mark one or more fields as **Is search field** if you want to
-   search for existing events or registrations before creating new ones.
+6. Optionally mark fields as:
 
+   * ``Is search field``
+
+Search fields are used to find existing records before creating new ones.
 
 Usage
 =====
@@ -47,28 +99,184 @@ Usage
 Event import
 ------------
 
-* Map CSV columns to ``event.event`` fields.
-* If search fields are defined and a matching event is found,
-  that event is reused.
-* If no match is found, a new event is created.
+Map CSV/XLSX columns to ``event.event`` fields.
+
+Example mappings:
+
+* ``Event Name -> event.event.name``
+* ``Start Date -> event.event.date_begin``
+* ``End Date -> event.event.date_end``
+
+Import behavior:
+
+* Existing events are reused when search fields match
+* New events are created when no match exists
+
+Example CSV
+-----------
+
+.. code-block:: text
+
+    Event Name,Start Date,End Date
+    Demo Event,2026-01-01 09:00:00,2026-01-01 16:00:00
 
 Registration import
 -------------------
 
-* Map CSV columns to ``event.registration`` fields.
-* The registration is automatically linked to the event from the same row using ``event_id``.
-* If a previous import step has stored a partner in state, the registration is automatically linked to it using ``partner_id``.
-* If search fields are defined and a matching registration is found,
-  that registration is reused.
-* If no match is found, a new registration is created.
+Map CSV/XLSX columns to ``event.registration`` fields.
 
+Example mappings:
+
+* ``Registration Name -> event.registration.name``
+* ``Email -> event.registration.email``
+
+Import behavior:
+
+* Existing registrations are reused when search fields match
+* New registrations are created when no match exists
+
+Automatic event linking
+=======================
+
+The runner automatically links registrations to the imported event.
+
+Implementation flow:
+
+.. code-block:: python
+
+    event = self._get_or_create_from_lines(
+        "event.event",
+        ...
+    )
+
+    registration = self._get_or_create_from_lines(
+        "event.registration",
+        ...
+    )
+
+The event record is stored into shared import state:
+
+.. code-block:: python
+
+    state = self._set_state_record(
+        state,
+        "event",
+        event,
+    )
+
+This allows state links to assign:
+
+* ``event.registration.event_id``
+
+automatically.
+
+Partner integration
+===================
+
+The module integrates with previous import steps.
+
+Example:
+
+* ``import_step_contacts`` creates/fetches a partner
+* Partner is stored into shared import state
+* Event registration step reuses the partner
+
+Typical state link configuration:
+
+.. code-block:: text
+
+    source_state_key = partner
+    target_model     = event.registration
+    target_field     = partner_id
+
+This enables automatic registration-partner linking.
+
+Shared import state
+===================
+
+The runner stores records into shared state:
+
+.. code-block:: python
+
+    state["event"]
+    state["event_registration"]
+
+Automatic model-based state keys are also generated by
+``generic.import.runner.base``.
+
+Example:
+
+.. code-block:: python
+
+    state["event_event"]
+    state["event_registration"]
+
+Search field behavior
+=====================
+
+Fields marked as ``Is search field`` are used to build lookup domains.
+
+Example:
+
+* ``name`` marked as search field on ``event.event``
+
+The runner performs:
+
+.. code-block:: python
+
+    self.env["event.event"].search([
+        ("name", "=", value)
+    ], limit=1)
+
+If a matching record is found:
+
+* Existing record is reused
+* Duplicate creation is avoided
+
+Technical implementation
+========================
+
+The runner inherits:
+
+.. code-block:: python
+
+    _inherit = "generic.import.runner.base"
+
+Available helper methods include:
+
+* ``_get_or_create()``
+* ``_get_or_create_from_lines()``
+* ``_build_domain()``
+* ``_clean_vals()``
+* ``_set_state_record()``
+
+Import flow
+------------
+
+Simplified processing order:
+
+1. Read mapped event values
+2. Search/create event
+3. Store event into state
+4. Read mapped registration values
+5. Search/create registration
+6. Store registration into state
+7. Apply configured state links
+
+Dependencies
+============
+
+Python dependencies:
+
+* None
+
+Odoo dependencies:
+
+* ``import_core``
+* ``event``
 
 Known issues / Roadmap
 ======================
-
-- No automatic update of existing events or registrations.
-- No advanced normalization or validation beyond basic empty-value cleanup.
-- Registration partner linking depends on a previous step storing ``partner`` in import state.
 
 
 Credits
@@ -85,3 +293,5 @@ Maintainer
 .. image:: http://tawasta.fi/templates/tawastrap/images/logo.png
     :alt: Oy Tawasta OS Technologies Ltd.
     :target: http://tawasta.fi/
+
+This module is maintained by Oy Tawasta OS Technologies Ltd.
