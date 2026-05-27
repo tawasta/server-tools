@@ -65,7 +65,10 @@
                                         options="{'no_create': True}"
                                         domain="[('transient','=',False), ('id','in', parent.allowed_model_ids)]"
                                     />
-                                    <field name="field_id" options="{'no_create': True}" />
+                                    <field
+                                        name="field_id"
+                                        options="{'no_create': True}"
+                                    />
                                     <field name="is_search_field" />
                                 </tree>
                             </field>
@@ -82,23 +85,17 @@
         <tree editable="bottom">
             <field name="sequence" widget="handle" />
 
-            <field
-                name="apply_on"
-                widget="selection_badge"
-            />
+            <field name="apply_on" widget="selection_badge" />
 
             <field name="target_state_key" />
 
             <field
-                name="target_model_id"
-                options="{'no_create': True}"
-                domain="[('transient','=',False)]"
-            />
+                                        name="target_model_id"
+                                        options="{'no_create': True}"
+                                        domain="[('transient','=',False)]"
+                                    />
 
-            <field
-                name="target_field_id"
-                options="{'no_create': True}"
-            />
+            <field name="target_field_id" options="{'no_create': True}" />
 
             <field name="source_state_key" />
         </tree>

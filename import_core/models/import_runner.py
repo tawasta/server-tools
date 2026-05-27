@@ -18,8 +18,7 @@ class GenericImportRunnerBase(models.AbstractModel):
 
     def _clean_vals(self, vals):
         return {
-            k: (v if v not in ("", None) else False)
-            for k, v in (vals or {}).items()
+            k: (v if v not in ("", None) else False) for k, v in (vals or {}).items()
         }
 
     def _build_domain(self, search_vals):

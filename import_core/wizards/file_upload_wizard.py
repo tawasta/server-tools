@@ -149,7 +149,7 @@ class FileUploadWizard(models.TransientModel):
         self.ensure_one()
 
         for link in self.template_id.state_link_ids.sorted(
-            key=lambda l: (l.sequence, l.id)
+            key=lambda lin: (lin.sequence, lin.id)
         ):
             if link.apply_on != "write":
                 continue
@@ -172,9 +172,11 @@ class FileUploadWizard(models.TransientModel):
             if current_value and current_value.id == source_record.id:
                 continue
 
-            target_record.write({
-                field_name: source_record.id,
-            })
+            target_record.write(
+                {
+                    field_name: source_record.id,
+                }
+            )
 
     def create_records_from_file(self):
         self.ensure_one()

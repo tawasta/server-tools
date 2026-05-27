@@ -163,7 +163,6 @@ class GenericImportTemplateStateLink(models.Model):
             ("create", "Create"),
             ("write", "Write"),
         ],
-        string="Apply On",
         required=True,
         default="write",
     )
