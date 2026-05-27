@@ -29,6 +29,7 @@
 
                 <group>
                     <field name="file_data" filename="file_name" />
+                    <field name="file_name" invisible="1" />
                 </group>
 
                 <footer>

@@ -22,12 +22,7 @@ class FileUploadWizard(models.TransientModel):
     file_data = fields.Binary("File")
     file_name = fields.Char("Filename")
 
-    # -------------------------------------------------------------------------
-    # File readers
-    # -------------------------------------------------------------------------
-
     def _read_rows_from_csv(self, file_bytes: bytes) -> list[dict]:
-        # Keep CSV behaviour as-is (works for you already)
         try:
             text = file_bytes.decode("utf-8-sig")
         except UnicodeDecodeError:
@@ -43,9 +38,11 @@ class FileUploadWizard(models.TransientModel):
             )
 
         wb = load_workbook(
-            filename=io.BytesIO(file_bytes), data_only=True, read_only=True
+            filename=io.BytesIO(file_bytes),
+            data_only=True,
+            read_only=True,
         )
-        ws = wb.worksheets[0]  # first sheet
+        ws = wb.worksheets[0]
 
         rows_iter = ws.iter_rows(values_only=True)
         try:
@@ -93,7 +90,6 @@ class FileUploadWizard(models.TransientModel):
         return result
 
     def _is_xlsx(self, file_bytes: bytes) -> bool:
-        # XLSX is a ZIP container -> magic bytes PK\x03\x04
         return file_bytes[:4] == b"PK\x03\x04"
 
     def _read_rows_from_file(self) -> list[dict]:
@@ -104,42 +100,29 @@ class FileUploadWizard(models.TransientModel):
 
         file_bytes = base64.b64decode(self.file_data)
 
-        # Detect XLSX by content first (filename may be empty/missing extension)
         if self._is_xlsx(file_bytes):
             return self._read_rows_from_xlsx(file_bytes)
 
-        # Fallback to extension if available
         name = (self.file_name or "").strip().lower()
-        root, ext = os.path.splitext(name)  # <-- FIX F823: don't assign to "_"
+        root, ext = os.path.splitext(name)
         if ext == ".xlsx":
             return self._read_rows_from_xlsx(file_bytes)
 
         return self._read_rows_from_csv(file_bytes)
 
-    # -------------------------------------------------------------------------
-    # Mapping helpers
-    # -------------------------------------------------------------------------
-
     def _split_lines_by_model(self, row: dict) -> dict:
-        """
-        Return:
-        {
-          'res.partner': {'create': [(field,val)], 'search': [(field,val)]},
-          ...
-        }
-        """
         self.ensure_one()
         result = {}
 
         for col_name, cell_value in row.items():
             tlines = self.template_id.line_ids.filtered(
-                lambda li, col=col_name: li.csv_column_name == col  # <-- FIX B023
+                lambda li, col=col_name: li.csv_column_name == col
             )
+
             for line in tlines:
                 model_name = line.field_id.model
                 field_name = line.field_id.name
 
-                # Skip mapping for models not installed
                 if model_name not in self.env.registry:
                     continue
 
@@ -149,11 +132,49 @@ class FileUploadWizard(models.TransientModel):
                 if line.is_search_field and cell_value not in ("", None, False):
                     result[model_name]["search"].append((field_name, cell_value))
 
+        result["_state_links"] = [
+            {
+                "apply_on": link.apply_on,
+                "target_model": link.target_model_id.model,
+                "target_field": link.target_field_id.name,
+                "target_state_key": link.target_state_key,
+                "source_state_key": link.source_state_key,
+            }
+            for link in self.template_id.state_link_ids
+        ]
+
         return result
 
-    # -------------------------------------------------------------------------
-    # Main
-    # -------------------------------------------------------------------------
+    def _apply_state_links(self, state):
+        self.ensure_one()
+
+        for link in self.template_id.state_link_ids.sorted(
+            key=lambda l: (l.sequence, l.id)
+        ):
+            if link.apply_on != "write":
+                continue
+
+            target_record = state.get(link.target_state_key)
+            source_record = state.get(link.source_state_key)
+
+            if not target_record or not source_record:
+                continue
+
+            if link.target_field_id.ttype != "many2one":
+                continue
+
+            if target_record._name != link.target_model_id.model:
+                continue
+
+            field_name = link.target_field_id.name
+
+            current_value = target_record[field_name]
+            if current_value and current_value.id == source_record.id:
+                continue
+
+            target_record.write({
+                field_name: source_record.id,
+            })
 
     def create_records_from_file(self):
         self.ensure_one()
@@ -165,8 +186,10 @@ class FileUploadWizard(models.TransientModel):
         if not rows:
             raise exceptions.UserError(_("The uploaded file contains no data rows."))
 
-        steps = self.template_id.step_ids.sorted(key=lambda s: (s.sequence, s.id))
-        if not steps:
+        step_lines = self.template_id.step_line_ids.sorted(
+            key=lambda line: (line.sequence, line.id)
+        )
+        if not step_lines:
             raise exceptions.UserError(
                 _("Templatelta puuttuu Import steps -määrittely.")
             )
@@ -180,18 +203,29 @@ class FileUploadWizard(models.TransientModel):
             state.pop("_skip_rest", None)
             lines_by_model = self._split_lines_by_model(row)
 
-            for step in steps:
+            for step_line in step_lines:
+                step = step_line.step_id
+
                 if not step.models_installed():
                     continue
 
                 state = (
                     self.env["generic.import.runner"].run_step(
-                        step.code, row_index, row, lines_by_model, state
+                        step.code,
+                        row_index,
+                        row,
+                        lines_by_model,
+                        state,
                     )
                     or state
                 )
 
+                self._apply_state_links(state)
+
                 if state.get("_skip_rest"):
                     break
 
-        return {"type": "ir.actions.client", "tag": "reload"}
+        return {
+            "type": "ir.actions.client",
+            "tag": "reload",
+        }
