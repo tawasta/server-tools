@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* auth_oauth_gsuite
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260619\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-23 05:31+0000\n"
+"PO-Revision-Date: 2026-06-23 08:32+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: auth_oauth_gsuite
+#. odoo-python
+#: code:addons/auth_oauth_gsuite/models/res_users.py:0
+msgid "'%s' tried to login from outside of the domain"
+msgstr "'%s' yritti kirjautua sisään verkkotunnuksen ulkopuolelta"
+
+#. module: auth_oauth_gsuite
+#: model:ir.model.fields,field_description:auth_oauth_gsuite.field_auth_oauth_provider__display_name
+#: model:ir.model.fields,field_description:auth_oauth_gsuite.field_res_users__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: auth_oauth_gsuite
+#: model:ir.model.fields,help:auth_oauth_gsuite.field_auth_oauth_provider__hd
+msgid "E.g. 'example.com'"
+msgstr "Esim. 'example.com'"
+
+#. module: auth_oauth_gsuite
+#: model:ir.model.fields,field_description:auth_oauth_gsuite.field_auth_oauth_provider__id
+#: model:ir.model.fields,field_description:auth_oauth_gsuite.field_res_users__id
+msgid "ID"
+msgstr "Tunnus"
+
+#. module: auth_oauth_gsuite
+#: model:ir.model.fields,field_description:auth_oauth_gsuite.field_auth_oauth_provider__hd
+msgid "Limit login to domain"
+msgstr "Rajoita kirjautuminen tiettyyn toimialueeseen"
+
+#. module: auth_oauth_gsuite
+#: model:ir.model,name:auth_oauth_gsuite.model_auth_oauth_provider
+msgid "OAuth2 provider"
+msgstr "OAuth2-palveluntarjoaja"
+
+#. module: auth_oauth_gsuite
+#: model:ir.model,name:auth_oauth_gsuite.model_res_users
+msgid "User"
+msgstr "Käyttäjä"
