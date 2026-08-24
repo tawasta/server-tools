@@ -52,7 +52,7 @@ class ApiRequestMixin(models.Model):
             ValidationError: If the request fails or the method is invalid.
         """
         method = method.upper()
-        valid_methods = ["GET", "POST", "PUT", "DELETE"]
+        valid_methods = ["GET", "POST", "PUT", "DELETE", "PATCH"]
 
         if method not in valid_methods:
             raise ValidationError(_("Unsupported HTTP method: %s") % method)

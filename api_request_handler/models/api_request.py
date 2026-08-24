@@ -17,6 +17,7 @@ class ApiRequest(models.Model):
             ("POST", "POST"),
             ("PUT", "PUT"),
             ("DELETE", "DELETE"),
+            ("PATCH", "PATCH"),
         ]
     )
     endpoint = fields.Char()
