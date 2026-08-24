@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_auth_saml_attribute_entity,auth_saml_attribute_entity,model_auth_saml_attribute_entity,base.group_system,1,1,1,1
+auth_saml_tawasta.access_auth_saml_token,access_auth_saml_token,auth_saml_tawasta.model_auth_saml_token,base.group_user,1,0,0,0
