@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="generic_import_step_subscription" model="generic.import.step">
+        <field name="name">Subscriptions + Lines</field>
+        <field name="code">subscription</field>
+        <field name="sequence">50</field>
+        <field name="required_models">sale.subscription,sale.subscription.line</field>
+    </record>
+</odoo>

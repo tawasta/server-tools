@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Futural Oy
-#    Copyright 2018 Futural Oy (https://futural.fi)
+#    Author: Futural Oy.
+#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,22 +19,20 @@
 ##############################################################################
 
 {
-    "name": "Read Access Group for Inventory",
-    "summary": "Adds a new group that can read inventory-related model data",
-    "version": "17.0.1.1.1",
-    "category": "Extra Rights",
+    "name": "Import Step: Subscriptions",
+    "summary": "Adds subscription import step for import_core",
+    "version": "17.0.1.0.0",
+    "category": "Specific Industry Applications",
     "website": "https://github.com/tawasta/server-tools",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["sale_stock", "stock", "stock_account"],
-    "data": [
-        "data/res_groups.xml",
-        "data/ir_ui_menu.xml",
-        "security/ir.model.access.csv",
-        "views/sale_order_view.xml",
+    "depends": [
+        "import_core",
+        "subscription_oca",
     ],
-    "demo": [],
+    "data": [
+        "data/steps.xml",
+    ],
 }
