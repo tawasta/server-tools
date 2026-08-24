@@ -32,7 +32,7 @@ addon | version | maintainers | summary
 [base_read_access_purchase](base_read_access_purchase/) | 17.0.1.0.0 |  | Adds a new group that can read purchase-related model data
 [base_read_access_purchase_request](base_read_access_purchase_request/) | 17.0.1.0.0 |  | Adds a new group that can read PR-related model data
 [base_read_access_sale](base_read_access_sale/) | 17.0.1.0.0 |  | Adds a new group that can read sales model data
-[base_read_access_stock](base_read_access_stock/) | 17.0.1.1.0 |  | Adds a new group that can read inventory-related model data
+[base_read_access_stock](base_read_access_stock/) | 17.0.1.1.1 |  | Adds a new group that can read inventory-related model data
 [base_user_role_manager](base_user_role_manager/) | 17.0.1.1.4 |  | Allow user to manage users and their roles
 [board_my_filters](board_my_filters/) | 17.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
 [fastapi_rest_log](fastapi_rest_log/) | 17.0.1.0.1 |  | Fastapi rest log
