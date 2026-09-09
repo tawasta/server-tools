@@ -24,6 +24,21 @@
                     </div>
                 </div>
 
+                <div class="cm-overview">
+                    <div class="cm-overview-stat">
+                        <strong t-esc="state.data.total_sections" />
+                        <span>Topics</span>
+                    </div>
+                    <div class="cm-overview-stat">
+                        <strong t-esc="state.data.total_modules" />
+                        <span>Modules installed</span>
+                    </div>
+                    <div class="cm-overview-stat">
+                        <strong t-esc="state.data.total_notes" />
+                        <span>Instructions written</span>
+                    </div>
+                </div>
+
                 <!-- Search covers section names, instruction text and module names. -->
                 <div class="cm-search">
                     <i class="fa fa-search" aria-hidden="true" />
@@ -89,13 +104,61 @@
                     <div>
                         <div class="cm-eyebrow">Topic</div>
                         <h2 t-esc="selectedSection.name" />
-                        <t t-if="selectedSection.manual_url">
-                            <a t-att-href="selectedSection.manual_url"
-                            target="_blank"
-                            class="btn btn-link">
-                                Open original manual
-                            </a>
-                        </t>
+
+                        <div class="cm-link-row">
+                            <t t-if="selectedSection.manual_url and !state.editingLink">
+                                <a
+                                        t-att-href="selectedSection.manual_url"
+                                        target="_blank"
+                                        class="btn btn-link"
+                                    >
+                                    Open original manual
+                                </a>
+                                <button
+                                        type="button"
+                                        class="cm-link-edit"
+                                        t-on-click="startEditLink"
+                                        t-if="state.canSeeButton"
+                                        aria-label="Edit manual link"
+                                    >
+                                    <i class="fa fa-pencil" aria-hidden="true" />
+                                </button>
+                            </t>
+
+                            <button
+                                    type="button"
+                                    class="btn btn-link cm-link-set"
+                                    t-on-click="startEditLink"
+                                    t-elif="state.canSeeButton and !state.editingLink"
+                                >
+                                Set original manual link
+                            </button>
+
+                            <div class="cm-link-editor" t-if="state.editingLink">
+                                <input
+                                        type="url"
+                                        t-model="state.linkDraft"
+                                        placeholder="https://..."
+                                    />
+                                <button
+                                        type="button"
+                                        class="cm-primary"
+                                        t-on-click="saveLink"
+                                        t-att-disabled="state.savingLink"
+                                    >
+                                    Save
+                                </button>
+                                <button
+                                        type="button"
+                                        class="cm-secondary"
+                                        t-on-click="cancelEditLink"
+                                        t-att-disabled="state.savingLink"
+                                    >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+
                         <p>
                             This page contains the instructions related to this topic.
                         </p>

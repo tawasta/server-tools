@@ -21,7 +21,7 @@
 {
     "name": "Customer Manual",
     "summary": "Customer Manual",
-    "version": "17.0.1.0.0",
+    "version": "17.0.2.0.0",
     "category": "Tools",
     "website": "https://github.com/tawasta/server-tools",
     "author": "Futural",

@@ -32,6 +32,9 @@ export class CustomerManual extends Component {
             editingNotes: false,
             showTechnicalDetails: false,
             openModuleKeys: {},
+            editingLink: false,
+            linkDraft: "",
+            savingLink: false,
         });
 
         // Arrow functions keep `this` bound when handlers are called from the template.
@@ -42,6 +45,7 @@ export class CustomerManual extends Component {
             this.state.editingNotes = false;
             this.state.showTechnicalDetails = false;
             this.state.openModuleKeys = {};
+            this.state.editingLink = false;
         };
 
         this.onSearchInput = (ev) => {
@@ -119,6 +123,36 @@ export class CustomerManual extends Component {
             }
         };
 
+        this.startEditLink = () => {
+            this.state.linkDraft = this.selectedSection?.manual_url || "";
+            this.state.editingLink = true;
+        };
+
+        this.cancelEditLink = () => {
+            this.state.editingLink = false;
+        };
+
+        this.saveLink = async () => {
+            if (!this.selectedSection || this.state.savingLink) {
+                return;
+            }
+
+            this.state.savingLink = true;
+
+            try {
+                await this.orm.call("customer.manual.service", "save_section_link", [
+                    this.selectedSection.key,
+                    this.selectedSection.name,
+                    this.state.linkDraft.trim(),
+                ]);
+
+                this.state.editingLink = false;
+                await this.load(false);
+            } finally {
+                this.state.savingLink = false;
+            }
+        };
+
         this.toggleTechnicalDetails = () => {
             this.state.showTechnicalDetails = !this.state.showTechnicalDetails;
         };
@@ -189,10 +223,14 @@ export class CustomerManual extends Component {
                         "bulletedList",
                         "numberedList",
                         "blockQuote",
+                        "uploadImage",
                         "|",
                         "undo",
                         "redo",
                     ],
+                    ckfinder: {
+                        uploadUrl: "/customer_manual/upload_image",
+                    },
                 });
             } catch (error) {
                 console.error("CKEditor initialization failed:", error);
@@ -253,8 +291,13 @@ export class CustomerManual extends Component {
         return markup(value || "");
     }
 
-    get filteredSections() {
+    get visibleSections() {
         const sections = this.state.data?.sections || [];
+        return sections.filter((section) => section.visible);
+    }
+
+    get filteredSections() {
+        const sections = this.visibleSections;
         const searchText = (this.state.searchText || "").trim().toLowerCase();
 
         if (!searchText) {
