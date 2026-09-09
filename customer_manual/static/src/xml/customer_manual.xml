@@ -89,6 +89,13 @@
                     <div>
                         <div class="cm-eyebrow">Topic</div>
                         <h2 t-esc="selectedSection.name" />
+                        <t t-if="selectedSection.manual_url">
+                            <a t-att-href="selectedSection.manual_url"
+                            target="_blank"
+                            class="btn btn-link">
+                                Open original manual
+                            </a>
+                        </t>
                         <p>
                             This page contains the instructions related to this topic.
                         </p>

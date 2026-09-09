@@ -1,4 +1,8 @@
 from odoo import api, fields, models
+import logging
+from bs4 import BeautifulSoup
+
+_logger = logging.getLogger(__name__)
 
 
 class CustomerManualNote(models.Model):
@@ -44,6 +48,11 @@ class CustomerManualNote(models.Model):
         help="Hidden instructions can be restored later if needed.",
     )
 
+    manual_url = fields.Char(
+        string="Original manual URL",
+        help="Link to the original Futural documentation."
+    )
+
 
 class CustomerManualService(models.AbstractModel):
     """Small RPC layer for the manual OWL view."""
@@ -74,6 +83,7 @@ class CustomerManualService(models.AbstractModel):
                     "title": note.title or "",
                     "body_html": note.body_html or "",
                     "sequence": note.sequence,
+                    "manual_url": note.manual_url,
                 }
             )
 
@@ -92,6 +102,8 @@ class CustomerManualService(models.AbstractModel):
             section_name = category.name if category else "Other"
             section_key = f"category_{section_id}"
 
+            module_manual_url = module.website or ""
+
             # One section can contain many installed modules.
             section = sections.setdefault(
                 section_key,
@@ -99,6 +111,7 @@ class CustomerManualService(models.AbstractModel):
                     "key": section_key,
                     "id": section_id,
                     "name": section_name,
+                    "manual_url": module_manual_url,
                     "notes": notes_by_section.get(section_key, []),
                     "modules": [],
                     "module_count": 0,
@@ -106,13 +119,28 @@ class CustomerManualService(models.AbstractModel):
                 },
             )
 
+            if not section.get("manual_url") and module_manual_url:
+                section["manual_url"] = module_manual_url
+
+            technical_description = BeautifulSoup(
+                module.description_html or "",
+                "html.parser",
+            )
+
+            contributors_div = technical_description.find("div", id="contributors")
+
+            if contributors_div:
+                contributors_div.decompose()
+
+            updated_technical_description = str(technical_description)
+
             # Technical module details are only shown in the maintainer section.
             section["modules"].append(
                 {
                     "key": module.name,
                     "name": module.shortdesc or module.name,
                     "technical_name": module.name,
-                    "description_html": module.description_html or "",
+                    "description_html": updated_technical_description or "",
                 }
             )
             section["module_count"] += 1
@@ -151,6 +179,7 @@ class CustomerManualService(models.AbstractModel):
                 "section_name": section_name or section_key,
                 "title": note.get("title") or "",
                 "body_html": note.get("body_html") or "",
+                "manual_url": note.get("manual_url") or "",
                 "sequence": (index + 1) * 10,
                 "active": True,
             }
