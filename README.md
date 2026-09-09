@@ -35,6 +35,7 @@ addon | version | maintainers | summary
 [base_read_access_stock](base_read_access_stock/) | 17.0.1.1.1 |  | Adds a new group that can read inventory-related model data
 [base_user_role_manager](base_user_role_manager/) | 17.0.1.1.4 |  | Allow user to manage users and their roles
 [board_my_filters](board_my_filters/) | 17.0.1.0.0 |  | Users can edit their own and shared filters from Dashboards
+[customer_manual](customer_manual/) | 17.0.2.0.0 |  | Customer Manual
 [fastapi_rest_log](fastapi_rest_log/) | 17.0.1.0.1 |  | Fastapi rest log
 [google_recaptcha_auth_signup_verify_email](google_recaptcha_auth_signup_verify_email/) | 17.0.1.0.0 |  | Link module between core recaptcha module and OCA module
 [import_core](import_core/) | 17.0.1.0.0 |  | Generic CSV import core

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_customer_manual_note_user,customer.manual.note user,model_customer_manual_note,base.group_user,1,0,0,0
+access_customer_manual_note_editor,customer.manual.note editor,model_customer_manual_note,group_customer_manual_edit,1,1,1,1
+access_customer_manual_section_user,customer.manual.section user,model_customer_manual_section,base.group_user,1,0,0,0
+access_customer_manual_section_editor,customer.manual.section editor,model_customer_manual_section,group_customer_manual_edit,1,1,1,1
