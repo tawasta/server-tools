@@ -54,16 +54,7 @@ Usage
 
 Known issues / Roadmap
 ======================
-* Default instruction content is not seeded automatically when a new
-  module is installed; instructions are always written by hand. A
-  curated template library and an automated sync could add this later.
-* CKEditor is loaded from an external CDN (``cdn.ckeditor.com``) in the
-  backend assets. Vendoring it locally would remove that runtime
-  dependency on a third-party CDN.
-* Images uploaded into an instruction are stored as ``ir.attachment``
-  records as soon as they are inserted, even if the instruction is
-  discarded afterwards without saving. Nothing currently cleans up
-  attachments left behind this way.
+\-
 
 Credits
 =======
