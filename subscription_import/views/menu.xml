@@ -1,0 +1,16 @@
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_file_upload_wizard">
+        <field name="name">File Upload Wizard</field>
+        <field name="res_model">file.upload.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_file_upload_wizard"
+        name="File Upload Wizard"
+        parent="subscription_oca.subscription_menu"
+        action="action_file_upload_wizard"
+    />
+</odoo>

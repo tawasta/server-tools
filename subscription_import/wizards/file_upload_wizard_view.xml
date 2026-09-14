@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_download_csv_template" model="ir.actions.act_url">
+        <field name="name">Download CSV template</field>
+        <field
+            name="url"
+        >/subscription_import/static/description/import_template.csv</field>
+        <field name="target">new</field>
+    </record>
+    <record id="view_file_upload_wizard_form" model="ir.ui.view">
+        <field name="name">file.upload.wizard.form</field>
+        <field name="model">file.upload.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="template_id" />
+                </group>
+                <group string="Download templates">
+                    <div class="oe_button_box" name="template_links">
+                        <button
+                            type="action"
+                            name="%(action_download_csv_template)d"
+                            class="oe_stat_button"
+                            icon="fa-download"
+                        >
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">CSV template</span>
+                            </div>
+                        </button>
+                    </div>
+                    <p class="text-muted">
+                        Opens in a new tab. Save, fill rows, and upload the file above.
+                    </p>
+                </group>
+                <group>
+                    <field name="file_data" filename="file_name" />
+                </group>
+                <footer>
+                    <button
+                        string="Upload"
+                        type="object"
+                        name="create_records_from_file"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
