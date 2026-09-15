@@ -4,11 +4,7 @@ from odoo import fields, models
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    role_ids = fields.One2many(
-        comodel_name="res.users.role",
-        string="User Roles",
-        compute="_compute_role_ids",
-        compute_sudo=True,
+    user_role_ids = fields.One2many(
         groups="base.group_erp_manager,base_user_role_manager.group_role_manager",
     )
 
