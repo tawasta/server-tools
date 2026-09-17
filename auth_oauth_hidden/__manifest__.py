@@ -21,7 +21,7 @@
 {
     "name": "Oauth Hidden",
     "summary": "Adds a parameter for OAuth providers to allow hiding them",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "Tools",
     "website": "https://github.com/tawasta/server-tools",
     "author": "Futural",
