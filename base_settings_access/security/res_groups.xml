@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Generic group: add it manually to the menu items that users without
+         administrator rights should reach. -->
+    <record id="res_groups_privilege_settings_access" model="res.groups.privilege">
+        <field name="name">Settings Access</field>
+        <field name="category_id" ref="base.module_category_administration" />
+    </record>
+
+    <record id="group_settings_access" model="res.groups">
+        <field name="name">Access</field>
+        <field name="privilege_id" ref="res_groups_privilege_settings_access" />
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+</odoo>
