@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Add menu items under this menu manually: set it as the parent menu
+         and the group "Settings Access / Access" as the menu item's group. -->
+    <menuitem
+        id="menu_settings_access_root"
+        name="Limited Settings"
+        web_icon="base,static/description/settings.png"
+        groups="group_settings_access"
+        sequence="540"
+    />
+</odoo>
