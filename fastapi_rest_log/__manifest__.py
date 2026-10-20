@@ -21,7 +21,7 @@
 {
     "name": "Fastapi rest log",
     "summary": "Fastapi rest log",
-    "version": "17.0.1.0.1",
+    "version": "17.0.1.1.0",
     "category": "Roles",
     "website": "https://github.com/tawasta/server-tools",
     "author": "Futural",
@@ -31,10 +31,13 @@
     "external_dependencies": {"python": [], "bin": []},
     "depends": [
         "base",
+        "fastapi",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/fastapi_rest_log_views.xml",
+        "data/ir_cron_data.xml",
+        "data/system_parameters.xml",
     ],
     "demo": [],
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data noupdate="1">
+    <record id="fastapi_rest_log_full_cleanup_days" model="ir.config_parameter">
+        <field name="key">fastapi_rest_log_full_cleanup_days</field>
+        <field name="value">180</field>
+    </record>
+    <record id="fastapi_rest_log_response_cleanup_days" model="ir.config_parameter">
+        <field name="key">fastapi_rest_log_response_cleanup_days</field>
+        <field name="value">90</field>
+    </record>
+</data>
