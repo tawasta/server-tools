@@ -13,7 +13,7 @@ end users in an environment where admin logins use OAuth login.
 
 Configuration
 =============
-Set OAuth provider as hidden and provide a hidden key
+Set OAuth provider as hidden and provide a hidden key.
 
 Usage
 =====

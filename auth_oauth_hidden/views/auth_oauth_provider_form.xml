@@ -8,11 +8,7 @@
 
             <field name="enabled" position="after">
                 <field name="hidden" />
-                <field
-                    name="hidden_key"
-                    required="[('hidden', '=', True)]"
-                    invisible="[('hidden', '=', False)]"
-                />
+                <field name="hidden_key" required="hidden" invisible="not hidden" />
             </field>
 
         </field>
