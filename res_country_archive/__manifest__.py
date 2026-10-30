@@ -21,7 +21,7 @@
 {
     "name": "Countries and States: Archive Functionality",
     "summary": "Ability to archive countries and states",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "category": "Hidden",
     "website": "https://github.com/tawasta/server-tools",
     "author": "Futural",

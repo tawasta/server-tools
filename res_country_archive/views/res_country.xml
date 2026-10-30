@@ -26,14 +26,14 @@
       </xpath>
     </field>
   </record>
-  <record id="view_res_country_filter" model="ir.ui.view">
-    <field name="name">res.country.filter</field>
+  <record id="view_country_search_archive" model="ir.ui.view">
+    <field name="name">res.country.search.archive</field>
     <field name="model">res.country</field>
+    <field name="inherit_id" ref="base.view_country_search" />
     <field name="arch" type="xml">
-      <search string="Search Country">
-        <field name="name" />
+      <field name="phone_code" position="after">
         <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
-      </search>
+      </field>
     </field>
   </record>
 </odoo>

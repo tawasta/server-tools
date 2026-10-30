@@ -24,8 +24,8 @@ msgstr "Aktiivinen"
 #. module: res_country_archive
 #: model_terms:ir.ui.view,arch_db:res_country_archive.view_country_form_archive
 #: model_terms:ir.ui.view,arch_db:res_country_archive.view_country_state_form_archive
-#: model_terms:ir.ui.view,arch_db:res_country_archive.view_res_country_filter
-#: model_terms:ir.ui.view,arch_db:res_country_archive.view_res_country_state_filter
+#: model_terms:ir.ui.view,arch_db:res_country_archive.view_country_search_archive
+#: model_terms:ir.ui.view,arch_db:res_country_archive.view_country_state_search_archive
 msgid "Archived"
 msgstr "Arkistoitu"
 
@@ -38,16 +38,6 @@ msgstr "Maa"
 #: model:ir.model,name:res_country_archive.model_res_country_state
 msgid "Country state"
 msgstr "Valtio"
-
-#. module: res_country_archive
-#: model_terms:ir.ui.view,arch_db:res_country_archive.view_res_country_filter
-msgid "Search Country"
-msgstr "Etsi maata"
-
-#. module: res_country_archive
-#: model_terms:ir.ui.view,arch_db:res_country_archive.view_res_country_state_filter
-msgid "Search State"
-msgstr "Etsi osavaltiota/maakuntaa"
 
 #. module: res_country_archive
 #: model:ir.model.fields,help:res_country_archive.field_res_country__active
