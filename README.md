@@ -22,7 +22,7 @@ addon | version | maintainers | summary
 [base_user_role_manager](base_user_role_manager/) | 19.0.1.0.0 |  | Allow user to manage users and their roles
 [ir_ui_view_search](ir_ui_view_search/) | 19.0.1.0.0 |  | Ability to search ir_ui_view by external id and module
 [module_auto_update_schedule](module_auto_update_schedule/) | 19.0.1.0.0 |  | Run Module Auto Update on a schedule
-[res_country_archive](res_country_archive/) | 19.0.1.0.0 |  | Ability to archive countries and states
+[res_country_archive](res_country_archive/) | 19.0.1.0.1 |  | Ability to archive countries and states
 [scheduler_error_mailer_futural_template](scheduler_error_mailer_futural_template/) | 19.0.1.0.0 |  | Adds Futural template to Scheduler error mailer and sets it as default
 
 [//]: # (end addons)

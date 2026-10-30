@@ -15,6 +15,7 @@ Usage
 =====
 * Go to Contacts -> Configuration -> Countries or Fed. States and
   archive the records from there
+* Use the "Archived" filter in the search view to find archived records
 
 
 Known issues / Roadmap
@@ -29,6 +30,7 @@ Contributors
 
 * Miika Nissi <miika.nissi@futural.fi>
 * Timo Talvitie <timo.talvitie@futural.fi>
+* Valtteri Lattu <valtteri.lattu@futural.fi>
 
 Maintainer
 ----------
